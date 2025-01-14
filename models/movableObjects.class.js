@@ -9,7 +9,9 @@ constructor(x,y){
     this.y = y;
 }
 
-
+moveRight(){
+    
+}
 
 
 }
