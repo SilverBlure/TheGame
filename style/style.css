@@ -1,0 +1,21 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+}
+
+h1{
+    font-family: 'myfont';
+
+}
+
+canvas{
+    background-color: black;
+}
+
+@font-face {
+    font-family: 'myfont';
+    src: url("./../../RawData/Font/DigitalDisco.ttf");
+}
