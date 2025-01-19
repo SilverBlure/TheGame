@@ -1,7 +1,7 @@
 class World {
     ctx;
     character = new Character();
-    enemie = [
+    enemies = [
         new Enemie(),
         new Enemie(),
         new Enemie(),
@@ -15,5 +15,7 @@ class World {
 
     draw() {
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
+        this.enemies.forEach(enemie =>{this.ctx.drawImage(enemie.img, enemie.x, enemie.y, enemie.width, enemie.height)
+        });
     }
 }
