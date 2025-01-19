@@ -7,15 +7,23 @@ class World {
         new Enemie(),
     ]
 
-    constructor(canvas){
+    constructor(canvas) {
         this.ctx = canvas.getContext("2d");
         this.draw();
     }
 
 
     draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.enemies.forEach(enemie =>{this.ctx.drawImage(enemie.img, enemie.x, enemie.y, enemie.width, enemie.height)
+        this.enemies.forEach(enemie => {
+            this.ctx.drawImage(enemie.img, enemie.x, enemie.y, enemie.width, enemie.height)
+        });
+
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw();
         });
     }
 }
