@@ -1,7 +1,7 @@
 class Character extends MovableObject{
 
    constructor(){
-    super().loadImage('./../../RawData/GameSprites/Main_Characters/charBoy/walk/Char_Boy8.png')
+    super().loadImage('./../assets/1.Sharkie/1.IDLE/1.png');
 
    }
 
