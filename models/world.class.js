@@ -5,8 +5,11 @@ class World {
         new Enemie(),
         new Enemie(),
         new Enemie(),
-    ]
-    cloud = new Cloud();
+    ];
+
+    background = [
+        new Background('./../assets/3.Background/Dark/1.png', 0, 0)
+    ];
 
     constructor(canvas) {
         this.ctx = canvas.getContext("2d");
@@ -17,18 +20,26 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        this.ctx.drawImage(this.cloud.img, this.cloud.x, this.cloud.y, this.cloud.width, this.cloud.height);
+        this.addObjectToMap(this.background);
 
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        this.enemies.forEach(enemie => {
-            this.ctx.drawImage(enemie.img, enemie.x, enemie.y, enemie.width, enemie.height)
-        });
-
+        this.addToMap(this.character);
+       
+        this.addObjectToMap(this.enemies);
 
 
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
+    };
+
+    addObjectToMap(objects){
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
     }
+
+    addToMap(mo){
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    };
 }
