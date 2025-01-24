@@ -7,8 +7,14 @@ class World {
         new Enemie(),
     ];
 
+    lights = [
+        new Light('assets/3.Background/Layers/1. Light/1.png',0 ,0),
+    ]
+
     background = [
-        new Background('./../assets/3.Background/Dark/1.png', 0, 0)
+        new Background('assets/3.Background/Layers/4.Fondo 2/D2.png', 0, 0),
+        new Background('assets/3.Background/Layers/3.Fondo 1/L2.png', 0, 0),
+        //new Background('')
     ];
 
     constructor(canvas) {
@@ -21,6 +27,7 @@ class World {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
         this.addObjectToMap(this.background);
+        this.addObjectToMap(this.lights);; 
 
         this.addToMap(this.character);
        
@@ -28,7 +35,7 @@ class World {
 
 
         let self = this;
-        requestAnimationFrame(function () {
+        requestAnimationFrame(() => {
             self.draw();
         });
     };
