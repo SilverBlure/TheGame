@@ -1,6 +1,6 @@
 class World {
     ctx;
-    character = new Character();
+    character = new Character(250, 200);
     enemies = [
         new Enemie(),
         new Enemie(),
@@ -12,9 +12,11 @@ class World {
     ]
 
     background = [
+        //new Background('assets/3.Background/Layers/1. Light/2.png', 0, 0),    must fix the light width and hight
+        new Background('assets/3.Background/Layers/5. Water/D2.png', 0, 0),
         new Background('assets/3.Background/Layers/4.Fondo 2/D2.png', 0, 0),
-        new Background('assets/3.Background/Layers/3.Fondo 1/L2.png', 0, 0),
-        //new Background('')
+        new Background('assets/3.Background/Layers/3.Fondo 1/D2.png', 0, 0),
+        new Background('assets/3.Background/Layers/2. Floor/D2.png', 0, 0),
     ];
 
     constructor(canvas) {
