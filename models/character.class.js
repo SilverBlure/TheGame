@@ -22,7 +22,6 @@ class Character extends MovableObject {
         'assets/1.Sharkie/1.IDLE/17.png',
         'assets/1.Sharkie/1.IDLE/18.png',
     ];
-    currentImage = 0;
 
     constructor() {
         super().loadImage('./../assets/1.Sharkie/1.IDLE/1.png',);
