@@ -23,6 +23,8 @@ class Character extends MovableObject {
         'assets/1.Sharkie/1.IDLE/18.png',
     ];
 
+    
+
     constructor() {
         super().loadImage('./../assets/1.Sharkie/1.IDLE/1.png',);
         this.loadImages(this.IMAGES_STAY);
@@ -30,16 +32,23 @@ class Character extends MovableObject {
     }
 
     animate() {
+
+
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_STAY.length;
-            let path = this.IMAGES_STAY[i];
-            this.img = this.imageCach[path];
-            this.currentImage++;
-        }, 150);
-    }
 
-    jump() {
+            if (this.world.keyboard.UP) {
 
-    }
+                let i = this.currentImage % this.IMAGES_STAY.length;
+                let path = this.IMAGES_STAY[i];
+                this.img = this.imageCach[path];
+                this.currentImage++;
+            }
+            }, 150);
+    
+        }
+
+jump() {
+
+}
 
 }

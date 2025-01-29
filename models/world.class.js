@@ -18,14 +18,19 @@ class World {
         new Background('assets/3.Background/Layers/3.Fondo 1/D2.png', 0, 0),
         new Background('assets/3.Background/Layers/2. Floor/D2.png', 0, 0),
     ];
-
-    constructor(canvas) {
+    world;
+    
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.draw();
-        
+        this.keyboard = keyboard;
+        this.setWorld();
     }
 
-
+    setWorld(){
+        this.character.world= this;
+    }
+    
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
         this.addObjectToMap(this.background);
