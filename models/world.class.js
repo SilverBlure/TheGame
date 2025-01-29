@@ -28,15 +28,10 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-
         this.addObjectToMap(this.background);
         this.addObjectToMap(this.lights);; 
-
         this.addToMap(this.character);
-       
         this.addObjectToMap(this.enemies);
-
-
         let self = this;
         requestAnimationFrame(() => {
             self.draw();
