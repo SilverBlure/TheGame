@@ -13,9 +13,11 @@ function init(){
 window.addEventListener('keydown',(e) =>{
     if(e.keyCode ==37){
         keyboard.LEFT = true;
+        console.log(world.character.otherDirection);
     }
     if(e.keyCode == 39){
         keyboard.RIGHT = true;
+        console.log(world.character.otherDirection);
     }
     if(e.keyCode == 38){
         keyboard.UP = true;

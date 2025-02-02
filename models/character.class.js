@@ -2,8 +2,9 @@ class Character extends MovableObject {
     width = 250;
     height = 200;
     y = 150;
+    speed = 10;
     IMAGES_STAY = [
-        'assets/1.Sharkie/1.IDLE/1.png',
+        'assets/1.Sharkie/1.IDLE/1.png', //changin the pic files into swim
         'assets/1.Sharkie/1.IDLE/2.png',
         'assets/1.Sharkie/1.IDLE/3.png',
         'assets/1.Sharkie/1.IDLE/4.png',
@@ -33,17 +34,35 @@ class Character extends MovableObject {
 
     animate() {
 
+        setInterval(() => {
+            if(this.world.keyboard.RIGHT){
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+            if(this.world.keyboard.LEFT){
+                this.x -= this.speed;
+                this.otherDirection = true;
+
+            }
+            if(this.world.keyboard.UP){
+                this.y -= this.speed;
+            }
+            if(this.world.keyboard.DOWN){
+                this.y += this.speed;
+            }
+        }, 1000/60);
 
         setInterval(() => {
 
-            if (this.world.keyboard.UP) {
-
+            if (this.world.keyboard.RIGHT) {
+            
+                //walk animation
                 let i = this.currentImage % this.IMAGES_STAY.length;
                 let path = this.IMAGES_STAY[i];
                 this.img = this.imageCach[path];
                 this.currentImage++;
             }
-            }, 150);
+            }, 50);
     
         }
 
