@@ -1,14 +1,12 @@
-@font-face {
-    font-family: dafault;
-    src: url(./../RawData/Font/DigitalDisco.ttf);
-}
-
-h1{
-    font-style: default;
-}
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0;
 }
+
+canvas{
+    background-color: black;
+}
+

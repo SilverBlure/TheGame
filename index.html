@@ -2,12 +2,20 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>elPolloLoco</title>
-    <script src="./script/game.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="./models/movableObjects.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/light.class.js"></script>
+    <script src="./models/enemie.class.js"></script>
+    <script src="./models/background.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./js/game.js"></script>
+    <title>TheGame</title>
 </head>
-<body>
-    
+<body onload="init()">
+    <h1>Sharky</h1>
+    <canvas id="canvas" width="720px" height="480px"></canvas>
 </body>
 </html>
