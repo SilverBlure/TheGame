@@ -6,7 +6,7 @@ class World {
     background = level1.backgroundObjects;
     world;
     camera_x = 0;
-    
+    keyboard;
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.draw();
