@@ -1,12 +1,15 @@
 class World {
     ctx;
-    character = new Character(250, 200);
+    level = level1;
+    character = new Character();
     enemies = level1.enemies;
     lights = level1.lights;
-    background = level1.backgroundObjects;
+    backgroundObjects = level1.backgroundObjects;
     world;
     camera_x = 0;
     keyboard;
+    
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.draw();
@@ -22,7 +25,7 @@ class World {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectToMap(this.background);
+        this.addObjectToMap(this.backgroundObjects);
         //this.addObjectToMap(this.lights); 
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
