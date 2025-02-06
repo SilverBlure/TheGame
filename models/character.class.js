@@ -57,11 +57,8 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT) {
             
-                //walk animation
-                let i = this.currentImage % this.IMAGES_STAY.length;
-                let path = this.IMAGES_STAY[i];
-                this.img = this.imageCach[path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_STAY)
+                
             }
             }, 50);
     

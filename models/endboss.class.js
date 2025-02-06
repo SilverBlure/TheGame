@@ -23,7 +23,7 @@ endboss_stay = [
 
     constructor(){
         super().loadImage(this.endboss_stay[0]);
-        this.x = 250 
+        this.x = 2550; 
          this.loadImages(this.endboss_stay);
          this.animate();
     }
@@ -31,10 +31,7 @@ endboss_stay = [
     animate() {
 
         setInterval(() => {
-            let i = this.currentImage % this.endboss_stay.length;
-            let path = this.endboss_stay[i];
-            this.img = this.imageCach[path];
-            this.currentImage++;
+            this.playAnimation(this.endboss_stay);
         }, 200);
     }
 

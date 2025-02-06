@@ -29,10 +29,7 @@ class Enemie extends MovableObject {
         this.moveLeft();
 
         setInterval(() => {
-            let i = this.currentImage % this.PUFFERFISH_STAY.length;
-            let path = this.PUFFERFISH_STAY[i];
-            this.img = this.imageCach[path];
-            this.currentImage++;
+            this.playAnimation(this.PUFFERFISH_STAY)
         }, 200);
     }
 
