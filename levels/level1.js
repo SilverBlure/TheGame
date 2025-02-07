@@ -5,7 +5,7 @@ const level1 = new Level([
     new Endboss(),
 ],
 [
-    new Light('assets/3.Background/Layers/1. Light/1.png',0 ,0),
+    new Light('assets/3.Background/Layers/1. Light/1.png', 500 ,0),
 ],
 [
     new Background('assets/3.Background/Layers/5. Water/D2.png', -720,0),

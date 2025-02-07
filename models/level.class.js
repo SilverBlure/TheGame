@@ -3,7 +3,6 @@ class Level {
     lights;
     backgroundObjects;
     level_end_x = 2150;
-    level_start_y = 0;
     level_end_y = 250;
 
     constructor(enemies, lights, backgroundObjects){
