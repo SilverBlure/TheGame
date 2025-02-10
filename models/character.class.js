@@ -12,7 +12,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/3.Swim/5.png',
         'assets/1.Sharkie/3.Swim/6.png',
     ];
-    
+
     IMAGES_DEAD = [
         'assets/1.Sharkie/6.dead/1.Poisoned/1.png',
         'assets/1.Sharkie/6.dead/1.Poisoned/2.png',
@@ -69,8 +69,5 @@ class Character extends MovableObject {
     
         }
 
-jump() { // remove
-
-}
 
 }
