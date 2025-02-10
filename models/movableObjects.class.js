@@ -37,4 +37,6 @@ class MovableObject{
                 this.currentImage++;
     }
 
+   
+
 }

@@ -51,10 +51,24 @@ class World {
             this.ctx.scale(-1, 1);
             mo.x = mo.x * -1;
         }
+        if(this instanceof Character || this instanceof Enemie){
+            drawBorder(mo);
+        }
+       
+
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if(mo.otherDirection){
             this.ctx.restore();
             mo.x = mo.x * -1;
         }
-    };
+    }
+
+    drawBorder(mo){
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '4';
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
+        this.ctx.stroke();
+    }
 }
+
