@@ -3,6 +3,7 @@ class Character extends MovableObject {
     height = 200;
     y = 150;
     speed = 10;
+    
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
         'assets/1.Sharkie/3.Swim/2.png',
@@ -11,6 +12,23 @@ class Character extends MovableObject {
         'assets/1.Sharkie/3.Swim/5.png',
         'assets/1.Sharkie/3.Swim/6.png',
     ];
+    
+    IMAGES_DEAD = [
+        'assets/1.Sharkie/6.dead/1.Poisoned/1.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/2.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/3.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/4.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/5.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/6.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/7.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/8.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/9.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/10.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/11.png',
+        'assets/1.Sharkie/6.dead/1.Poisoned/12.png',
+    ];
+
+    
 
     
 

@@ -8,6 +8,7 @@ class MovableObject{
     imageCach = {};
     currentImage = 0;
     speed = 1.5;
+    energy = 100;
     otherDirection = false;
 
     loadImage(path){
@@ -18,6 +19,15 @@ class MovableObject{
     draw(ctx){
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
+
+    //isColliding(chicken);
+isColliding(mo){
+    return this.x + this.width > mo.x &&
+    this.y + this.height > mo.y &&
+    this.x < mo.x &&
+    this.y < mo.y + mo.height
+}
 
     drawFrame(ctx){
 
