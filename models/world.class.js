@@ -26,13 +26,19 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)){
-                    this.isHurt();
-                    this.isDead();
+                    this.character.hit();
+                    console.log('The energy level of Character is,', this.character.energy);
+                    //this.isHurt();
+                    //this.isDead();
                 }
             })
         }, 1000)
     }
 
+
+    
+
+    /*
     isHurt(){
          this.character.energy -= 20;
         console.log(this.character.energy);
@@ -45,7 +51,7 @@ class World {
             this.character.loadImages(this.character.IMAGES_DEAD);
         }
     }
-
+    */
     
 
 
