@@ -1,9 +1,10 @@
-const level1 = new Level([
-    new Enemie(),
-    new Enemie(),
-    new Enemie(),
-    new Endboss(),
-],
+const level1 = new Level(
+    [
+        new Enemie(),
+        new Enemie(),
+        new Enemie(),
+        new Endboss(),
+    ],
 [
     new Light('assets/3.Background/Layers/1. Light/1.png', 500 ,0),
     new Light('assets/3.Background/Layers/1. Light/1.png', 1200 ,0),
