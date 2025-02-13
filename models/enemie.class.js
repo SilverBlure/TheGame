@@ -2,6 +2,7 @@ class Enemie extends MovableObject {
     width = 100;
     heigth = 100;
     x;
+    dmg = 5;
 
     
     PUFFERFISH_STAY = [

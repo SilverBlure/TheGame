@@ -15,11 +15,45 @@ class World {
         this.draw();
         this.keyboard = keyboard;
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld() {
         this.character.world = this;
     }
+
+    checkCollisions(){
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if(this.character.isColliding(enemy)){
+                    this.character.hit();
+                    console.log('The energy level of Character is,', this.character.energy);
+                    //this.isHurt();
+                    //this.isDead();
+                }
+            })
+        }, 1000)
+    }
+
+
+    
+
+    /*
+    isHurt(){
+         this.character.energy -= 20;
+        console.log(this.character.energy);
+    }
+
+    isDead(){
+        if(this.character.energy < 0){
+            console.log('Character is dead!')
+            this.character.imageCach = [];
+            this.character.loadImages(this.character.IMAGES_DEAD);
+        }
+    }
+    */
+    
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);

@@ -1,4 +1,4 @@
-class MovableObject{
+class MovableObject extends DrawableObject{
 
     x = 120;
     y = 220;
@@ -8,31 +8,42 @@ class MovableObject{
     imageCach = {};
     currentImage = 0;
     speed = 1.5;
+    energy = 100;
     otherDirection = false;
+    lastHit = 0;
 
-    loadImage(path){
+    loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx){
 
-        if(this instanceof Character || this instanceof Enemie || this instanceof Endboss){ //asks if it is a Instance of Character, Enemie or Endboss
-        ctx.beginPath();
-        ctx.lineWidth = '4';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
-        ctx.stroke();
-        }
-      
+    //isColliding(chicken);
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
     }
 
-    loadImages(arr){
-        arr.forEach((path)=> {
+    drawFrame(ctx) {
+
+        if (this instanceof Character || this instanceof Enemie || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
+            ctx.beginPath();
+            ctx.lineWidth = '4';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
+            ctx.stroke();
+        }
+
+    }
+
+    loadImages(arr) {
+        arr.forEach((path) => {
             let img = new Image();
             img.src = path;
             this.imageCach[path] = img;
@@ -43,18 +54,35 @@ class MovableObject{
     moveLeft() {
         setInterval(() => {
             this.x -= this.speed;
-        }, 1000/60);
+        }, 1000 / 60);
     }
 
-    playAnimation(imageArr){
+    playAnimation(imageArr) {
         let i = this.currentImage % imageArr.length;
-                let path = imageArr[i];
-                this.img = this.imageCach[path];
-                this.currentImage++;
+        let path = imageArr[i];
+        this.img = this.imageCach[path];
+        this.currentImage++;
     }
 
-    
 
+    hit(){
+        this.energy -= 5;
 
+        if(this.energy < 0){
+            this.energy =0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() -this.lastHit; // Difference in ms
+        timepassed = timepassed/1000; //Difference in s
+        return timepassed < 1.5;
+    }
+
+    isDead(){
+        return this.energy == 0;
+    }
 
 }
