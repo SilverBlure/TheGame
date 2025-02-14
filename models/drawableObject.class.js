@@ -1,4 +1,6 @@
 class DrawableObject{
 
-    
+    constructor(){
+        
+    }
 }
