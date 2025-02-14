@@ -3,15 +3,7 @@ class Character extends MovableObject {
     height = 200;
     y = 150;
     speed = 10;
-<<<<<<< HEAD
-
-IMAGES_IDLE = [
     
-]
-
-=======
-    
->>>>>>> a6618db20174d1526ae268a1964edad955f42c70
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
         'assets/1.Sharkie/3.Swim/2.png',
