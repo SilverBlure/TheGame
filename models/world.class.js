@@ -35,26 +35,6 @@ class World {
         }, 1000)
     }
 
-
-    
-
-    /*
-    isHurt(){
-         this.character.energy -= 20;
-        console.log(this.character.energy);
-    }
-
-    isDead(){
-        if(this.character.energy < 0){
-            console.log('Character is dead!')
-            this.character.imageCach = [];
-            this.character.loadImages(this.character.IMAGES_DEAD);
-        }
-    }
-    */
-    
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
 

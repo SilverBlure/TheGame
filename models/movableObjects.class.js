@@ -1,10 +1,6 @@
 class MovableObject extends DrawableObject{
 
-    x = 120;
-    y = 220;
-    img;
-    height = 100;
-    width = 100;
+   
     imageCach = {};
     currentImage = 0;
     speed = 1.5;
@@ -12,14 +8,7 @@ class MovableObject extends DrawableObject{
     otherDirection = false;
     lastHit = 0;
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+   
 
 
     //isColliding(chicken);
@@ -30,9 +19,8 @@ class MovableObject extends DrawableObject{
             this.y < mo.y + mo.height;
     }
 
-    drawFrame(ctx) {
-
-        if (this instanceof Character || this instanceof Enemie || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
+    drawFrame(ctx) {~
+        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';
@@ -42,13 +30,7 @@ class MovableObject extends DrawableObject{
 
     }
 
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCach[path] = img;
-        });
-    }
+   
 
 
     moveLeft() {

@@ -1,5 +1,9 @@
 class StatusBar extends DrawableObject {
 
+    percent = 100;
+
+
+
     healthBar = [
         'assets/4. Marcadores/green/Life/100_ copia 3.png',
         'assets/4. Marcadores/green/Life/80_  copia 4.png',
@@ -9,15 +13,23 @@ class StatusBar extends DrawableObject {
         'assets/4. Marcadores/green/Life/0_  copia 2.png',
     ]
 
-    coinBar = [
-        'assets/4. Marcadores/green/Coin/0_  copia 4.png',
-        'assets/4. Marcadores/green/Coin/20_  copia 2.png',
-        'assets/4. Marcadores/green/Coin/40_  copia 4.png',
-        'assets/4. Marcadores/green/Coin/60_  copia 4.png',
-        'assets/4. Marcadores/green/Coin/80_  copia 4.png',
-        'assets/4. Marcadores/green/Coin/100_ copia 4.png',
-    ]
     constructor() {
 
+    }
+
+    setPercentage(){
+        if(percent = 100){
+            return 0;
+        }else if(percent = 80){
+            return 1;
+        }else if(percent = 60){
+            return 2;
+        }else if(percent = 40){
+            return 3;
+        }else if(percent = 20){
+            return 4;
+        } else {
+            return 5;
+        }
     }
 }

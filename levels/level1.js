@@ -1,8 +1,8 @@
 const level1 = new Level(
     [
-        new Enemie(),
-        new Enemie(),
-        new Enemie(),
+        new Pufferfish(),
+        new Pufferfish(),
+        new Pufferfish(),
         new Endboss(),
     ],
 [

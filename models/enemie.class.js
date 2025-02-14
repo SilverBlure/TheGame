@@ -1,4 +1,4 @@
-class Enemie extends MovableObject {
+class Pufferfish extends MovableObject {
     width = 100;
     heigth = 100;
     x;
