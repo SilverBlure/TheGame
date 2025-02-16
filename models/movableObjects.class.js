@@ -1,8 +1,8 @@
 class MovableObject extends DrawableObject{
 
    
-    imageCach = {};
-    currentImage = 0;
+    
+    
     speed = 1.5;
     energy = 100;
     otherDirection = false;
@@ -19,20 +19,6 @@ class MovableObject extends DrawableObject{
             this.y < mo.y + mo.height;
     }
 
-    drawFrame(ctx) {~
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
-            ctx.beginPath();
-            ctx.lineWidth = '4';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
-            ctx.stroke();
-        }
-
-    }
-
-   
-
-
     moveLeft() {
         setInterval(() => {
             this.x -= this.speed;
@@ -42,7 +28,7 @@ class MovableObject extends DrawableObject{
     playAnimation(imageArr) {
         let i = this.currentImage % imageArr.length;
         let path = imageArr[i];
-        this.img = this.imageCach[path];
+        this.img = this.imageCache[path];
         this.currentImage++;
     }
 
