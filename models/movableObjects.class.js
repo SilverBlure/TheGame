@@ -1,15 +1,9 @@
 class MovableObject extends DrawableObject{
 
-   
-    
-    
     speed = 1.5;
     energy = 100;
     otherDirection = false;
     lastHit = 0;
-
-   
-
 
     //isColliding(chicken);
     isColliding(mo) {
@@ -35,16 +29,15 @@ class MovableObject extends DrawableObject{
 
     hit(){
         this.energy -= 5;
-
         if(this.energy < 0){
-            this.energy =0;
+            this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
 
     isHurt(){
-        let timepassed = new Date().getTime() -this.lastHit; // Difference in ms
+        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed/1000; //Difference in s
         return timepassed < 1.5;
     }

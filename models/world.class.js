@@ -38,6 +38,7 @@ class World {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
         this.ctx.translate(this.camera_x, 0);
+       
         this.addObjectToMap(this.backgroundObjects);
 
         //--------Space for FixObjects---------//
@@ -45,7 +46,7 @@ class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectToMap(this.lights, 50, 50);
+         this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
 

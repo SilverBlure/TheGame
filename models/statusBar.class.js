@@ -1,7 +1,7 @@
 class StatusBar extends DrawableObject {
 
     healthBar = [
-        'assets/4. Marcadores/green/Life/0_png',
+        'assets/4. Marcadores/green/Life/0_.png',
         'assets/4. Marcadores/green/Life/20_.png',
         'assets/4. Marcadores/green/Life/40_.png',
         'assets/4. Marcadores/green/Life/60_.png',
