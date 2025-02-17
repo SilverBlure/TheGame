@@ -4,6 +4,27 @@ class MovableObject extends DrawableObject{
     energy = 100;
     otherDirection = false;
     lastHit = 0;
+    speedY = 0;
+    acceleration = 2.5;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        })
+    }
+
+    isAboveGround(){
+        if (this instanceof ThrowableObject){  // Trowable object should always fall
+            return true;
+        } else{
+            return this.y < 180;
+        }
+    }
+
+
 
     //isColliding(chicken);
     isColliding(mo) {
