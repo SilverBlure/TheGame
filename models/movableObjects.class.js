@@ -1,11 +1,36 @@
 class MovableObject extends DrawableObject{
+<<<<<<< HEAD
    
     imageCach = {};
     currentImage = 0;
+=======
+
+>>>>>>> 765546ed835399f179f81a1db547d9ca8d31b330
     speed = 1.5;
     energy = 100;
     otherDirection = false;
     lastHit = 0;
+    speedY = 0;
+    acceleration = 2.5;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        })
+    }
+
+    isAboveGround(){
+        if (this instanceof ThrowableObject){  // Trowable object should always fall
+            return true;
+        } else{
+            return this.y < 180;
+        }
+    }
+
+
 
     //isColliding(chicken);
     isColliding(mo) {
@@ -14,20 +39,6 @@ class MovableObject extends DrawableObject{
             this.x < mo.x &&
             this.y < mo.y + mo.height;
     }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
-            ctx.beginPath();
-            ctx.lineWidth = '4';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
-            ctx.stroke();
-        }
-
-    }
-
-   
-
 
     moveLeft() {
         setInterval(() => {
@@ -38,23 +49,22 @@ class MovableObject extends DrawableObject{
     playAnimation(imageArr) {
         let i = this.currentImage % imageArr.length;
         let path = imageArr[i];
-        this.img = this.imageCach[path];
+        this.img = this.imageCache[path];
         this.currentImage++;
     }
 
 
     hit(){
         this.energy -= 5;
-
         if(this.energy < 0){
-            this.energy =0;
+            this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
 
     isHurt(){
-        let timepassed = new Date().getTime() -this.lastHit; // Difference in ms
+        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed/1000; //Difference in s
         return timepassed < 1.5;
     }

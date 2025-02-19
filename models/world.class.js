@@ -9,6 +9,8 @@ class World {
     camera_x = 0;
     keyboard;
     statusBar = new StatusBar();
+    throwableObjects = [new ThrowableObject(),];
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -16,31 +18,45 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
+    run(){
+        setInterval(() =>{
+            this.checkCollisions()
+        }, 200)
+    }
+
     checkCollisions(){
-        setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)){
                     this.character.hit();
-                    console.log('The energy level of Character is,', this.character.energy);
+                    this.statusBar.setPercentage(this.character.energy);
                 }
             })
-        }, 1000)
-    }
+        }
+    
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
+       
         this.addObjectToMap(this.backgroundObjects);
-        this.addObjectToMap(this.lights, 50, 50);
+
+        //--------Space for FixObjects---------//
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
+         this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
+        this.addObjectToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
