@@ -1,5 +1,4 @@
 class MovableObject extends DrawableObject{
-
    
     imageCach = {};
     currentImage = 0;
@@ -7,9 +6,6 @@ class MovableObject extends DrawableObject{
     energy = 100;
     otherDirection = false;
     lastHit = 0;
-
-   
-
 
     //isColliding(chicken);
     isColliding(mo) {
@@ -19,7 +15,7 @@ class MovableObject extends DrawableObject{
             this.y < mo.y + mo.height;
     }
 
-    drawFrame(ctx) {~
+    drawFrame(ctx) {
         if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
