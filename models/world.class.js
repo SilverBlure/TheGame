@@ -11,7 +11,11 @@ class World {
     statusBar = new StatusBar();
     throwableObjects = [new ThrowableObject(),];
 
-
+/**Constructor meithode
+ * 
+ * @param {ctx} canvas 
+ * @param {bool} keyboard 
+ */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.draw();
@@ -20,7 +24,9 @@ class World {
         this.checkCollisions();
         this.run();
     }
-
+/**
+ * set The World in the Character Object
+ */
     setWorld() {
         this.character.world = this;
     }
