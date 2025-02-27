@@ -1,11 +1,5 @@
 class MovableObject extends DrawableObject{
-<<<<<<< HEAD
-   
-    imageCach = {};
-    currentImage = 0;
-=======
-
->>>>>>> 765546ed835399f179f81a1db547d9ca8d31b330
+    
     speed = 1.5;
     energy = 100;
     otherDirection = false;

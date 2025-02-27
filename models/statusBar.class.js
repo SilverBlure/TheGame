@@ -1,10 +1,5 @@
 class StatusBar extends DrawableObject {
 
-<<<<<<< HEAD
-    percent = 100;
-
-=======
->>>>>>> 765546ed835399f179f81a1db547d9ca8d31b330
     healthBar = [
         'assets/4. Marcadores/green/Life/0_.png',
         'assets/4. Marcadores/green/Life/20_.png',

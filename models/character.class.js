@@ -13,8 +13,6 @@ class Character extends MovableObject {
         'assets/1.Sharkie/3.Swim/6.png',
     ];
 
-   
-
     IMAGES_HURT_POISON = [
         'assets/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'assets/1.Sharkie/5.Hurt/1.Poisoned/2.png',

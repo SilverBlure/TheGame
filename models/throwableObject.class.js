@@ -9,7 +9,7 @@ class ThrowableObject extends MovableObject{
         this.y = y;
         this.height = 60;
         this.width = 50;
-        this.throw(100, 150);
+        this.throw(200, 350);
     }
 
 
@@ -20,6 +20,6 @@ class ThrowableObject extends MovableObject{
         this.applyGravity();
         setInterval(() => {
             this.x += 10;
-        }, 50);
+        }, 500);
     }
 }
