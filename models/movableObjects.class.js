@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject{
-    
+
     speed = 1.5;
     energy = 100;
     otherDirection = false;
@@ -13,7 +13,7 @@ class MovableObject extends DrawableObject{
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        })
+        },1000/25)
     }
 
     isAboveGround(){
