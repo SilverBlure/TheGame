@@ -9,6 +9,8 @@ class World {
     camera_x = 0;
     keyboard;
     statusBar = new StatusBar();
+    poisonBar = new PoisonBar();
+    coinBar = new CoinBar();
     throwableObjects = [new ThrowableObject(),];
 
 /**Constructor meithode
@@ -57,6 +59,8 @@ class World {
         //--------Space for FixObjects---------//
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.poisonBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
 
          this.addObjectToMap(this.lights, 50, 50);
