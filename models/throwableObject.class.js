@@ -1,7 +1,9 @@
 class ThrowableObject extends MovableObject{
 
     speedY;
-    speedX;
+    
+    
+
 
     constructor(x, y){
         super().loadImage('assets/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
@@ -9,7 +11,7 @@ class ThrowableObject extends MovableObject{
         this.y = y;
         this.height = 60;
         this.width = 50;
-        this.throw(200, 350);
+        this.throw(this.x + 180,this.y + 70);
     }
 
 

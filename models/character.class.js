@@ -84,6 +84,10 @@ class Character extends MovableObject {
             if(this.world.keyboard.DOWN && this.y < this.world.level.level_end_y){
                 this.y += this.speed;
             }
+            if(this.world.keyboard.A){
+                this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y));
+                console.log(this.world.character.x , this.world.character.y);
+            }
             this.world.camera_x = -this.x;
         }, 1000/60);
 
