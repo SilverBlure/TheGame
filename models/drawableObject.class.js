@@ -23,7 +23,11 @@ class DrawableObject{
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';
+            if (this instanceof Character){
+                ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame arround the image, for better colider
+            }else {
             ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
+        }
             ctx.stroke();
         }
 
