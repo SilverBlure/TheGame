@@ -25,7 +25,7 @@ class StatusBar extends DrawableObject {
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.healthBar[this.resolveImageIndex()];
-        console.log(path);
+        //console.log(path);
         this.img = this.imageCache[path];
     }
 

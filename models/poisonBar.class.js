@@ -25,7 +25,7 @@ class PoisonBar extends DrawableObject {
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.poisonBar[this.resolveImageIndex()];
-        console.log(path);
+        //console.log(path);
         this.img = this.imageCache[path];
     }
 
