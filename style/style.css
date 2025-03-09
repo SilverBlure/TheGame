@@ -1,12 +1,24 @@
+@font-face {
+    font-family: 'luckiest guy';
+    src: url("./../assets/5.Font/LuckiestGuy-Regular.ttf") format('truetype');
+    
+}
+
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 0;
+    background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
 }
 
 canvas{
     background-color: black;
 }
 
+h1{
+    font-family: 'luckiest guy';
+    color: white;
+    font-size: 64px;
+}

@@ -12,6 +12,7 @@ class World {
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
     throwableObjects = [new ThrowableObject(),];
+    audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
 /**Constructor meithode
  * 
@@ -25,6 +26,12 @@ class World {
         this.setWorld();
         this.checkCollisions();
         this.run();
+        this.playSound();
+    }
+
+    playSound(){
+        this.audioBg.play();
+        this.audioBg.loop = true;
     }
 /**
  * set The World in the Character Object

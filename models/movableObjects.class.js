@@ -24,8 +24,6 @@ class MovableObject extends DrawableObject{
         }
     }
 
-
-
     //isColliding(chicken);
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -46,7 +44,6 @@ class MovableObject extends DrawableObject{
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-
 
     hit(){
         this.energy -= 5;

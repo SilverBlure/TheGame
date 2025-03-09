@@ -56,13 +56,24 @@ class Character extends MovableObject {
 
     ]
 
-    
+    IMAGES_ATTACK_BUBBLE_ANIMATION = [
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
+        'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
+    ]
 
+    
     constructor() {
         super().loadImage('assets/1.Sharkie/3.Swim/1.png',);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_HURT_POISON);
+        this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.animate();
     }
 
@@ -85,8 +96,9 @@ class Character extends MovableObject {
                 this.y += this.speed;
             }
             if(this.world.keyboard.A){
+                this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                 this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y));
-                console.log(this.world.character.x , this.world.character.y);
+                
             }
             this.world.camera_x = -this.x;
         }, 1000/60);
