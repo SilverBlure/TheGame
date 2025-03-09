@@ -26,3 +26,13 @@ h1{
 img{
     scale: 0.5;
 }
+
+span{
+    color: white;
+    font-family: 'luckiest guy';
+
+}
+
+table{
+    text-align: center ;
+}

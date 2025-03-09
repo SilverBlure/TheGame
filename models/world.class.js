@@ -29,8 +29,9 @@ class World {
         this.playSound();
     }
 
-    playSound(){
+    playSound(){    //bg sound
         this.audioBg.play();
+        this.audioBg.volume = 0.1;
         this.audioBg.loop = true;
     }
 /**
