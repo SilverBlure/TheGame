@@ -7,12 +7,12 @@ let keyboard = new Keyboard();
 
 function init(){
     canvas = document.getElementById('canvas');
-   // world = new World(canvas, keyboard);
-}
-
-function startGame(){
     world = new World(canvas, keyboard);
 }
+
+//function startGame(){
+//    world = new World(canvas, keyboard);
+//}
 
 window.addEventListener('keydown',(e) =>{
     if(e.keyCode == 37){

@@ -18,7 +18,6 @@ class Character extends MovableObject {
         'assets/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         'assets/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         'assets/1.Sharkie/5.Hurt/1.Poisoned/4.png',
-
     ];
 
     IMAGES_HURT_SHOCK = [

@@ -5,6 +5,8 @@ class World {
     enemies = level1.enemies;
     lights = level1.lights;
     backgroundObjects = level1.backgroundObjects;
+    poisonBottles = level1.poisonBottles;
+    coins = level1.coins
     world;
     camera_x = 0;
     keyboard;
@@ -12,7 +14,7 @@ class World {
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
     throwableObjects = [new ThrowableObject(),];
-    audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
+    //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
 /**Constructor meithode
  * 
@@ -26,14 +28,14 @@ class World {
         this.setWorld();
         this.checkCollisions();
         this.run();
-        this.playSound();
+        //this.playSound();
     }
 
-    playSound(){    //bg sound
+   /* playSound(){    //bg sound
         this.audioBg.play();
         this.audioBg.volume = 0.1;
         this.audioBg.loop = true;
-    }
+    }*/
 /**
  * set The World in the Character Object
  */
@@ -54,12 +56,18 @@ class World {
                     this.statusBar.setPercentage(this.character.energy);
                 }
             })
+            /*
+            this.level.collectables.forEach((collectable) =>
+                if(this.character.isColliding(collectable)){
+            this.character.addcolectable coin or poison
+            this.coin or this.poison disable})
+            */
         }
     
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        this.addToMap(this.statusBar);
+     
         this.ctx.translate(this.camera_x, 0);
        
         this.addObjectToMap(this.backgroundObjects);
@@ -70,10 +78,12 @@ class World {
         this.addToMap(this.poisonBar);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
-
+        this.addObjectToMap(this.poisonBottles);
+        this.addObjectToMap(this.coins);
          this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
+        
         this.addObjectToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
