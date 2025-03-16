@@ -5,8 +5,7 @@ class World {
     enemies = level1.enemies;
     lights = level1.lights;
     backgroundObjects = level1.backgroundObjects;
-    poisonBottles = level1.poisonBottles;
-    coins = level1.coins
+    collectable = level1.collectable;
     world;
     camera_x = 0;
     keyboard;
@@ -51,17 +50,22 @@ class World {
 
     checkCollisions(){
             this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){
+                if(this.character.isColliding(enemy)){  // colliding with Enemy
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                 }
             })
-            /*
-            this.level.collectables.forEach((collectable) =>
+
+            this.level.collectable.forEach((collectable) =>{
                 if(this.character.isColliding(collectable)){
-            this.character.addcolectable coin or poison
-            this.coin or this.poison disable})
-            */
+                  if(collectable instanceof PoisonBottle){
+                    console.log('das ist giftig !');
+                  }else if( collectable instanceof Coin){
+                    console.log('get Money!')
+                  }
+
+        }})
+            
         }
     
 
@@ -78,8 +82,8 @@ class World {
         this.addToMap(this.poisonBar);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectToMap(this.poisonBottles);
-        this.addObjectToMap(this.coins);
+
+        this.addObjectToMap(this.collectable);
          this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);

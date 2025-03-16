@@ -5,11 +5,10 @@ class Level {
     level_end_x = 2150;
     level_end_y = 250;
 
-    constructor(enemies, lights, backgroundObjects, poisonBottles, coins){
+    constructor(enemies, lights, backgroundObjects, collectable){
         this.enemies = enemies;
         this.lights = lights;
         this.backgroundObjects = backgroundObjects;
-        this.poisonBottles = poisonBottles;
-        this.coins = coins;
+        this.collectable = collectable
     }
 }
