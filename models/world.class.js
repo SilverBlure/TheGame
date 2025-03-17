@@ -59,9 +59,10 @@ class World {
             this.level.collectable.forEach((collectable) =>{
                 if(this.character.isColliding(collectable)){
                   if(collectable instanceof PoisonBottle){
-                    console.log('das ist giftig !');
+                    console.log(`Das Object ${collectable} `,'pos_x ',`${collectable.x}`, 'pos_y', `${collectable.y}`,'!');
+                    
                   }else if( collectable instanceof Coin){
-                    console.log('get Money!')
+                    console.log(`das ist giftig ${collectable, collectable.x, collectable.y}!`)
                   }
 
         }})
