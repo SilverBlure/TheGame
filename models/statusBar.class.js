@@ -13,7 +13,6 @@ class StatusBar extends DrawableObject {
 
     constructor() {
         super();
-        
         this.loadImages(this.healthBar);
         this.x = 30;
         this.y = 0;

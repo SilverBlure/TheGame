@@ -15,11 +15,11 @@ class World {
     throwableObjects = [new ThrowableObject(),];
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
-/**Constructor meithode
- * 
- * @param {ctx} canvas 
- * @param {bool} keyboard 
- */
+    /**Constructor meithode
+     * 
+     * @param {ctx} canvas 
+     * @param {bool} keyboard 
+     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.draw();
@@ -30,51 +30,56 @@ class World {
         //this.playSound();
     }
 
-   /* playSound(){    //bg sound
-        this.audioBg.play();
-        this.audioBg.volume = 0.1;
-        this.audioBg.loop = true;
-    }*/
-/**
- * set The World in the Character Object
- */
+    /* playSound(){    //bg sound
+         this.audioBg.play();
+         this.audioBg.volume = 0.1;
+         this.audioBg.loop = true;
+     }*/
+    /**
+     * set The World in the Character Object
+     */
     setWorld() {
         this.character.world = this;
     }
 
-    run(){
-        setInterval(() =>{
+    run() {
+        setInterval(() => {          //change to requestAnimationFrame()
             this.checkCollisions()
-        }, 200)
+        }, 500)
     }
 
-    checkCollisions(){
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){  // colliding with Enemy
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {  // colliding with Enemy
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        })
+
+        this.level.collectable = this.level.collectable.filter(collectable => {
+            if (this.character.isColliding(collectable)) {
+                console.log('Kollision erkannt mit:', collectable);
+                if (collectable instanceof PoisonBottle) {
+                    this.poisonBar.addPoison(20);
+
+                } else if (collectable instanceof Coin) {
+                    this.coinBar.addCoin(20);
                 }
-            })
+                console.log("Objekt entfernt aus Array: ", collectable);
+                return false;
+            }
+            return true;
 
-            this.level.collectable.forEach((collectable) =>{
-                if(this.character.isColliding(collectable)){
-                  if(collectable instanceof PoisonBottle){
-                    console.log(`Das Object ${collectable} `,'pos_x ',`${collectable.x}`, 'pos_y', `${collectable.y}`,'!');
-                    
-                  }else if( collectable instanceof Coin){
-                    console.log(`das ist giftig ${collectable, collectable.x, collectable.y}!`)
-                  }
+        })
 
-        }})
-            
-        }
-    
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-     
+
         this.ctx.translate(this.camera_x, 0);
-       
+
         this.addObjectToMap(this.backgroundObjects);
 
         //--------Space for FixObjects---------//
@@ -85,10 +90,11 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectToMap(this.collectable);
-         this.addObjectToMap(this.lights, 50, 50);
+
+        this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
-        
+
         this.addObjectToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -100,34 +106,36 @@ class World {
 
     addObjectToMap(objects) {
         objects.forEach(o => {
-            this.addToMap(o);
+            if(o !== null) {
+                this.addToMap(o);
+            }
         });
     }
 
     addToMap(mo) {                  // invert images
 
         if (mo.otherDirection) {
-          this.flipImage(mo);
+            this.flipImage(mo);
         }
 
         mo.draw(this.ctx);
-        
-         mo.drawFrame(this.ctx);
-        
+
+        mo.drawFrame(this.ctx);
+
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
     }
 
 
-    flipImage(mo){
+    flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
     }
 
-    flipImageBack(mo){
+    flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;
     }

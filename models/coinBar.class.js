@@ -1,5 +1,5 @@
 class CoinBar extends DrawableObject {
-
+    percentage;
     coinBar = [
         'assets/4. Marcadores/green/Coin/0_.png',
         'assets/4. Marcadores/green/Coin/20_.png',
@@ -9,17 +9,18 @@ class CoinBar extends DrawableObject {
         'assets/4. Marcadores/green/Coin/100_.png',
     ];
 
-    percentage = 0;
+    
 
     constructor() {
         super();
-        
         this.loadImages(this.coinBar);
         this.x = 30;
         this.y = 60;
         this.width = 150;
         this.height = 40;
         this.setPercentage();
+        this.percentage = 1;
+        console.log(this.percentage)
     }
 
     setPercentage(percentage){
@@ -27,6 +28,11 @@ class CoinBar extends DrawableObject {
         let path = this.coinBar[this.resolveImageIndex()];
         //console.log(path);
         this.img = this.imageCache[path];
+    }
+
+    addCoin(value){
+        this.percentage = Math.min(100, this.percentage + value);
+        this.setPercentage(this.percentage);
     }
 
 

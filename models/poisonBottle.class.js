@@ -10,4 +10,8 @@ class PoisonBottle extends CollectableObject{
         this.y = y;
 
     }
+
+    discard(){
+        
+    }
 }
