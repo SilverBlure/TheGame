@@ -70,15 +70,15 @@ class World {
         this.collectable = this.collectable.filter( collectable =>{
             if (this.character.isColliding(this.character, collectable)) {
                 console.log('Kollision erkannt mit:', collectable);
-                if (collectable instanceof PoisonBottle) {
-                    this.poisonBar.addPoison(20);
+                    if (collectable instanceof PoisonBottle) {
+                        this.poisonBar.addPoison(20);
 
-                } else if (collectable instanceof Coin) {
-                    this.coinBar.addCoin(20);
-                }
+                    } else if (collectable instanceof Coin) {
+                        this.coinBar.addCoin(20);
+                    }
                 console.log("Objekt entfernt aus Array: ", collectable);
                 return false;
-            }
+                }
             return true;
 
         });
@@ -141,13 +141,21 @@ class World {
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
+        console.log("Image:", mo.x, mo.y, mo.width, mo.height);
+        console.log("Image.collider:", mo.collider.x, mo.collider.y, mo.collider.width, mo.collider.height);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
+        if(mo instanceof Character){
+        mo.collider.x = mo.collider.x * -1;
+        console.log('true');
+    }
     }
 
     flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;
+        if(mo instanceof Character){
+            mo.collider.x = mo.collider.x * -1;
     }
-
+    }
 }
