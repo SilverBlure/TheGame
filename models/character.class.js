@@ -3,7 +3,15 @@ class Character extends MovableObject {
     height = 200;
     y = 150;
     speed = 10;
-    
+
+    collider ={
+        "x" :   this.x + 50,
+        "y" :    this.y + 100,
+        "width" :    this.width - 100,
+        "height"    :   this.height -150
+    };
+    // ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame nearer to character
+
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
         'assets/1.Sharkie/3.Swim/2.png',

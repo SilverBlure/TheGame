@@ -34,16 +34,5 @@ const level1 = new Level(
     new Background('assets/3.Background/Layers/3.Fondo 1/D2.png', 720*3,0),
     new Background('assets/3.Background/Layers/2. Floor/D2.png', 720*3,0),
 ],
-[
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',100, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',400, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',700, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',1200, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',2100, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png',100,320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png',550,320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png',300,320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png',2200,320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png',850,320),
-]
+
 );

@@ -5,7 +5,18 @@ class World {
     enemies = level1.enemies;
     lights = level1.lights;
     backgroundObjects = level1.backgroundObjects;
-    collectable = level1.collectable;
+    collectable = [
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',100, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',400, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',700, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',1200, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',2100, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png',100,320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png',550,320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png',300,320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png',2200,320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png',850,320),
+    ];
     world;
     camera_x = 0;
     keyboard;
@@ -50,14 +61,14 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {  // colliding with Enemy
+            if (this.character.isColliding(this.character,enemy)) {  // colliding with Enemy
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
         })
 
-        this.level.collectable = this.level.collectable.filter(collectable => {
-            if (this.character.isColliding(collectable)) {
+        this.collectable = this.collectable.filter( collectable =>{
+            if (this.character.isColliding(this.character, collectable)) {
                 console.log('Kollision erkannt mit:', collectable);
                 if (collectable instanceof PoisonBottle) {
                     this.poisonBar.addPoison(20);
@@ -70,7 +81,7 @@ class World {
             }
             return true;
 
-        })
+        });
 
     }
 
@@ -91,7 +102,6 @@ class World {
 
         this.addObjectToMap(this.collectable);
 
-        this.addObjectToMap(this.lights, 50, 50);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
 
