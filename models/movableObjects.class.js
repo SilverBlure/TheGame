@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
 
     speed = 1.5;
     energy = 100;
@@ -9,32 +9,33 @@ class MovableObject extends DrawableObject{
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0){
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        },1000/25)
+        }, 1000 / 25)
     }
 
-    isAboveGround(){
-        if (this instanceof ThrowableObject){  // Trowable object should always fall
+    isAboveGround() {
+        if (this instanceof ThrowableObject) {  // Trowable object should always fall
             return true;
-        } else{
+        } else {
             return this.y < 180;
         }
     }
 
     //isColliding(chicken);
     isColliding(character, mo) {
-        return character.collider.x + character.collider.width > mo.x &&
-            character.collider.y + character.collider.height > mo.y &&
-            character.collider.x < mo.x &&
-            character.collider.y < mo.y + mo.height;
+        let collider = character.getCollider();
+        return collider.x + collider.width > mo.x &&
+            collider.y + collider.height > mo.y &&
+            collider.x < mo.x &&
+            collider.y < mo.y + mo.height;
     }
 
     moveLeft() {
         setInterval(() => {
-            this.x -= this.speed; 
+            this.x -= this.speed;
         }, 1000 / 60);
     }
 
@@ -45,25 +46,25 @@ class MovableObject extends DrawableObject{
         this.currentImage++;
     }
 
-    hit(){
+    hit() {
         this.energy -= 5;
-        if(this.energy < 0){
+        if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
 
-    isHurt(){
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timepassed = timepassed/1000; //Difference in s
+        timepassed = timepassed / 1000; //Difference in s
         return timepassed < 1.5;
     }
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
 
-    
+
 
 }

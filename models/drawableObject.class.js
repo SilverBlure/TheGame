@@ -18,15 +18,21 @@ class DrawableObject{
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+
+    
+
     drawFrame(ctx) {
+        
         if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';
             if (this instanceof Character){
-                ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame nearer to character
+                let collider = this.getCollider();
+                ctx.rect(collider.x, collider.y, collider.width, collider.height); // set the frame nearer to character
                 ctx.strokeStyle= "red";
                 ctx.lineWidth = "4";
+                ctx.stroke();
             }else {
             ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
         }

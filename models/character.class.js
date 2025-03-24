@@ -4,9 +4,6 @@ class Character extends MovableObject {
     y = 150;
     speed = 10;
 
-    
-    // ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame nearer to character
-
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
         'assets/1.Sharkie/3.Swim/2.png',
@@ -81,7 +78,7 @@ class Character extends MovableObject {
 
     getCollider() {
         return {
-            x: this.otherDirection ? this.x - (this.width - 100) + 50 : this.x + 50,
+            x: this.otherDirection ? this.x - 0 + 50 : this.x + 50,
             y: this.y + 100,
             width: this.width - 100,
             height: this.height - 150
@@ -93,33 +90,28 @@ class Character extends MovableObject {
         setInterval(() => {
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
                 this.x += this.speed;
-                this.collider.x += this.speed;
                 this.otherDirection = false;
             }
             if(this.world.keyboard.LEFT && this.x > 0){
                 this.x -= this.speed;
-                this.collider.x -= this.speed;
                 this.otherDirection = true;
 
             }
             if(this.world.keyboard.UP && this.y > -70){          
-
                 this.y -= this.speed;
-                this.collider.y -= this.speed;
-
             }
             if(this.world.keyboard.DOWN && this.y < this.world.level.level_end_y){
                 this.y += this.speed;
-                this.collider.y += this.speed;
             
             }
             if(this.world.keyboard.A){
                 this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
-                this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y));
+                this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
                 
             }
 
             this.world.camera_x = -this.x;
+
         }, 1000/60);
 
         setInterval(() => {

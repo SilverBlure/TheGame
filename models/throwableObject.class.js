@@ -3,12 +3,13 @@ class ThrowableObject extends MovableObject{
     speedY;
     
     attackAnimation 
+    direction
 
-
-    constructor(x, y){
+    constructor(x, y, direction){
         super().loadImage('assets/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
         this.x = x;
         this.y = y;
+        this.direction = direction;
         this.height = 60;
         this.width = 50;
         this.throw(this.x + 180,this.y + 70);
@@ -16,6 +17,7 @@ class ThrowableObject extends MovableObject{
 
 
     throw(x, y){
+    this.checkDirection();
         this.x = x;
         this.y = y;
         this.speedY = 30;
@@ -23,5 +25,11 @@ class ThrowableObject extends MovableObject{
         setInterval(() => {
             this.x += 10;
         }, 50);
+    }
+
+    checkDirection(){
+        if(this.direction){
+            console.log(direction);
+        }
     }
 }

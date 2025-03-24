@@ -54,9 +54,10 @@ class World {
     }
 
     run() {
-        setInterval(() => {          //change to requestAnimationFrame()
-            this.checkCollisions()
-        }, 500)
+        setInterval(()=>{
+            this.checkCollisions();
+                       
+        }, 1000/60);
     }
 
     checkCollisions() {
@@ -127,11 +128,8 @@ class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
-
         mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
