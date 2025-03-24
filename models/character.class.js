@@ -4,12 +4,7 @@ class Character extends MovableObject {
     y = 150;
     speed = 10;
 
-    collider ={
-        "x" :   this.x + 50,
-        "y" :    this.y + 100,
-        "width" :    this.width - 100,
-        "height"    :   this.height -150
-    };
+    
     // ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame nearer to character
 
     IMAGES_SWIM = [
@@ -84,6 +79,15 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    getCollider() {
+        return {
+            x: this.otherDirection ? this.x - (this.width - 100) + 50 : this.x + 50,
+            y: this.y + 100,
+            width: this.width - 100,
+            height: this.height - 150
+        };
+    }
+
     animate() {
         
         setInterval(() => {
@@ -114,6 +118,7 @@ class Character extends MovableObject {
                 this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y));
                 
             }
+
             this.world.camera_x = -this.x;
         }, 1000/60);
 
@@ -131,5 +136,7 @@ class Character extends MovableObject {
     
         }
 
+
+       
 
 }

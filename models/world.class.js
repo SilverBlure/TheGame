@@ -141,21 +141,15 @@ class World {
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
-        console.log("Image:", mo.x, mo.y, mo.width, mo.height);
-        console.log("Image.collider:", mo.collider.x, mo.collider.y, mo.collider.width, mo.collider.height);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
-        if(mo instanceof Character){
-        mo.collider.x = mo.collider.x * -1;
-        console.log('true');
+        
     }
-    }
+    
 
     flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;
-        if(mo instanceof Character){
-            mo.collider.x = mo.collider.x * -1;
     }
-    }
+
 }

@@ -27,7 +27,6 @@ class DrawableObject{
                 ctx.rect(this.x +50, this.y + 100, this.width -100, this.height - 150); // set the frame nearer to character
                 ctx.strokeStyle= "red";
                 ctx.lineWidth = "4";
-                ctx.rect(this.collider.x, this.collider.y, this.collider.width, this.collider.height);
             }else {
             ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
         }
