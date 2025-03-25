@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     speedY = 0;
     acceleration = 2.5;
+    moveIntervall = null;
 
     applyGravity() {
         setInterval(() => {
@@ -33,11 +34,17 @@ class MovableObject extends DrawableObject {
             collider.y < mo.y + mo.height;
     }
 
-    moveLeft() {
-        setInterval(() => {
+    moveLeft() { 
+     this.moveIntervall = setInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
     }
+
+    stopMove(){
+        clearInterval(this.moveIntervall);
+        this.moveIntervall = null;
+    }
+
 
     playAnimation(imageArr) {
         let i = this.currentImage % imageArr.length;

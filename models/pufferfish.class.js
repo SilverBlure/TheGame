@@ -1,6 +1,6 @@
 class Pufferfish extends MovableObject {
     width = 100;
-    heigth = 100;
+    height = 100;
     x;
     dmg = 5;
     energy = 20;
@@ -29,7 +29,7 @@ class Pufferfish extends MovableObject {
         this.x = 250 + Math.random() * 1600;
         this.loadImages(this.PUFFERFISH_STAY);
         this.loadImages(this.PUFFERFISH_DEAD);
-        this.energy = 20;
+        //this.energy = 20;
         this.animate();
         this.speed = 0.15 + Math.random() * 0.25;
         
@@ -37,23 +37,21 @@ class Pufferfish extends MovableObject {
 
 
     animate() {
-     let self = this;
+        this.moveLeft();
+        
         setInterval(() => {
-            console.log(self.energy);
-            /*if(self.isAlive()){
-
-                self.moveLeft();
-                self.playAnimation(self.PUFFERFISH_STAY);
+            if(this.checkAlive()){
+                this.playAnimation(this.PUFFERFISH_STAY);
 
                 }else{
-                    self.playAnimation(self.PUFFERFISH_DEAD);
+                    this.playAnimation(this.PUFFERFISH_DEAD);
+                    this.stopMove();
                 }
-            */
-        }, 1000/60);
+            
+        }, 800);
     }
 
-    isAlive()   {
-        console.log(this.energy);
+    checkAlive()   {
             return this.energy > 0; 
     }
 }   

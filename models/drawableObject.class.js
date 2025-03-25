@@ -18,9 +18,6 @@ class DrawableObject{
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-
-    
-
     drawFrame(ctx) {
         
         if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss) { //asks if it is a Instance of Character, Enemie or Endboss

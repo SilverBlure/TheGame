@@ -20,13 +20,11 @@ class CoinBar extends DrawableObject {
         this.height = 40;
         this.setPercentage();
         this.percentage = 1;
-        console.log(this.percentage)
     }
 
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.coinBar[this.resolveImageIndex()];
-        //console.log(path);
         this.img = this.imageCache[path];
     }
 
