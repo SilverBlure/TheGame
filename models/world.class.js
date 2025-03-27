@@ -6,16 +6,16 @@ class World {
     lights = level1.lights;
     backgroundObjects = level1.backgroundObjects;
     collectable = [
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',100, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',400, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',700, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png',1200, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png',2100, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png',100,320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png',550,320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png',300,320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png',2200,320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png',850,320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 100, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 400, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 700, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 1200, 320),
+        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 2100, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png', 100, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png', 550, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png', 300, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png', 2200, 320),
+        new Coin('assets/4. Marcadores/1. Coins/1.png', 850, 320),
     ];
     world;
     camera_x = 0;
@@ -23,10 +23,12 @@ class World {
     statusBar = new StatusBar();
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
-    throwableObjects = [new ThrowableObject(),];
+    throwableObjects = [];
+
+
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
-    /**Constructor meithode
+    /**Constructor methode
      * 
      * @param {ctx} canvas 
      * @param {bool} keyboard 
@@ -54,37 +56,51 @@ class World {
     }
 
     run() {
-        setInterval(()=>{
+        setInterval(() => {
             this.checkCollisions();
-                       
-        }, 1000/60);
+
+        }, 1000 / 60);
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(this.character,enemy)) {  // colliding with Enemy
-                this.character.hit();
+            if (this.character.isColliding(this.character, enemy)) {  // colliding with Enemy
+                this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
         })
 
-        this.collectable = this.collectable.filter( collectable =>{
+        this.collectable = this.collectable.filter(collectable => {
             if (this.character.isColliding(this.character, collectable)) {
                 console.log('Kollision erkannt mit:', collectable);
-                    if (collectable instanceof PoisonBottle) {
-                        this.poisonBar.addPoison(20);
+                if (collectable instanceof PoisonBottle) {
+                    this.poisonBar.addPoison(20);
 
-                    } else if (collectable instanceof Coin) {
-                        this.coinBar.addCoin(20);
-                    }
+                } else if (collectable instanceof Coin) {
+                    this.coinBar.addCoin(20);
+                }
                 console.log("Objekt entfernt aus Array: ", collectable);
                 return false;
-                }
+            }
             return true;
 
         });
 
+        this.throwableObjects.forEach((throwableObject) => {
+            this.enemies.forEach((enemy) => {
+                if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
+                    console.log('hit hit hit')
+                    enemy.hit(1);
+                    this.statusBar.setPercentage(enemy.energy);
+                    if (enemy.energy <= 0) {                                            //ich muss noch die treffer punkte anpassen das nur einmal alle 300ms ein treffer gezaehlt wird
+                        this.enemies = this.enemies.filter(e => e !== enemy);
+                    }
+                }
+            });
+        });
     }
+
+
 
 
     draw() {
@@ -117,7 +133,7 @@ class World {
 
     addObjectToMap(objects) {
         objects.forEach(o => {
-            if(o !== null) {
+            if (o !== null) {
                 this.addToMap(o);
             }
         });
@@ -141,9 +157,9 @@ class World {
         this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
-        
+
     }
-    
+
 
     flipImageBack(mo) {
         this.ctx.restore();

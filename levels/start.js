@@ -28,10 +28,10 @@ const start = new GameUI([
         'assets/6.Botones/Full Screen/Mesa de trabajo 8.png',
         'assets/6.Botones/Full Screen/Mesa de trabajo 9.png',
     ],
-
+[
     ARROW_KEYS_IMG = 'assets/6.Botones/Key/arrow keys.png',
 
     D_KEY_IMG = 'assets/6.Botones/Key/D key.png',
 
     SPACEBAR_KEY_IMG = 'assets/6.Botones/Key/Space Bar key.png'
-]
+];

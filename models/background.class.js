@@ -10,7 +10,4 @@ constructor(imagePath, x, y){
 }
 
 
-
-
-
 }

@@ -8,10 +8,6 @@ class PoisonBottle extends CollectableObject{
         super().loadImage(path)
         this.x = x;
         this.y = y;
-
     }
 
-    discard(){
-        
-    }
 }

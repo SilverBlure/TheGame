@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     moveIntervall = null;
 
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -27,6 +28,7 @@ class MovableObject extends DrawableObject {
 
     //isColliding(chicken);
     isColliding(character, mo) {
+
         let collider = character.getCollider();
         return collider.x + collider.width > mo.x &&
             collider.y + collider.height > mo.y &&
@@ -34,13 +36,21 @@ class MovableObject extends DrawableObject {
             collider.y < mo.y + mo.height;
     }
 
-    moveLeft() { 
-     this.moveIntervall = setInterval(() => {
+    isCollidingWithTrowable(rect1, rect2) {
+        return rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y;
+    }
+
+
+    moveLeft() {
+        this.moveIntervall = setInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
     }
 
-    stopMove(){
+    stopMove() {
         clearInterval(this.moveIntervall);
         this.moveIntervall = null;
     }
@@ -53,8 +63,8 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    hit() {
-        this.energy -= 5;
+    hit(value) {
+        this.energy -= value;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

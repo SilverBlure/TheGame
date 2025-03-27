@@ -3,6 +3,7 @@ class Character extends MovableObject {
     height = 200;
     y = 150;
     speed = 10;
+    canAkt = true;
 
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
@@ -25,8 +26,8 @@ class Character extends MovableObject {
         'assets/1.Sharkie/5.Hurt/2.Electric shock/2.png',
         'assets/1.Sharkie/5.Hurt/2.Electric shock/3.png',
     ]
-    
-    IMAGES_DEAD_POISON= [
+
+    IMAGES_DEAD_POISON = [
         'assets/1.Sharkie/6.dead/1.Poisoned/1.png',
         'assets/1.Sharkie/6.dead/1.Poisoned/2.png',
         'assets/1.Sharkie/6.dead/1.Poisoned/3.png',
@@ -41,7 +42,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/6.dead/1.Poisoned/12.png',
     ];
 
-    IMAGES_DEAD_SHOCK =[
+    IMAGES_DEAD_SHOCK = [
         'assets/1.Sharkie/6.dead/2.Electro_shock/1.png',
         'assets/1.Sharkie/6.dead/2.Electro_shock/2.png',
         'assets/1.Sharkie/6.dead/2.Electro_shock/3.png',
@@ -66,7 +67,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
     ]
 
-    
+
     constructor() {
         super().loadImage('assets/1.Sharkie/3.Swim/1.png',);
         this.loadImages(this.IMAGES_SWIM);
@@ -86,49 +87,58 @@ class Character extends MovableObject {
     }
 
     animate() {
-        
+
         setInterval(() => {
-            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+            if(!this.isDead()){
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if(this.world.keyboard.LEFT && this.x > 0){
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
 
             }
-            if(this.world.keyboard.UP && this.y > -70){          
+            if (this.world.keyboard.UP && this.y > -70) {
                 this.y -= this.speed;
             }
-            if(this.world.keyboard.DOWN && this.y < this.world.level.level_end_y){
+            if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
                 this.y += this.speed;
+
+            }
             
+            if (this.world.keyboard.A && this.canAkt && this.world.poisonBar.percentage > 0) {
+                    this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+                    this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
+                    this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
+                    this.canAkt = false;
+                    setTimeout(() => {
+                        this.canAkt = true;
+                    }, 1000);
             }
-            if(this.world.keyboard.A){
-                this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
-                this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
-                
-            }
+        }
+                this.world.camera_x = -this.x;
 
-            this.world.camera_x = -this.x;
+            }, 1000 / 60);
+        
+        
 
-        }, 1000/60);
 
         setInterval(() => {
-            if(this.isDead()){
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
-            }else if(this.isHurt()){
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
-            else if (this.world.keyboard.RIGHT||this.world.keyboard.LEFT||this.world.keyboard.DOWN||this.world.keyboard.UP) {
-                this.playAnimation(this.IMAGES_SWIM);  
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
+                this.playAnimation(this.IMAGES_SWIM);
             }
-            
-            }, 50);
-    
-        }
+
+        }, 50);
+
+    }
 
 
-       
+
 
 }
