@@ -63,6 +63,13 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    playAnimationOnce(ImageArr){
+        let i = this.currentImage 
+
+        // Hier kann ich gleich nach einem  richtigen algorythmusssehen 
+        // die animation soll nur einmal gespielt werden
+    }
+
     hit(value) {
         this.energy -= value;
         if (this.energy < 0) {

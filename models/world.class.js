@@ -91,11 +91,7 @@ class World {
                 if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
                     console.log('hit hit hit')
                     enemy.hit(1);
-                    this.statusBar.setPercentage(enemy.energy);
-                    if (enemy.energy <= 0) {                                            //ich muss noch die treffer punkte anpassen das nur einmal alle 300ms ein treffer gezaehlt wird
-                        this.enemies = this.enemies.filter(e => e !== enemy);
-                    }
-                }
+                     }
             });
         });
     }

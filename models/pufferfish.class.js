@@ -31,7 +31,6 @@ class Pufferfish extends MovableObject {
         this.loadImages(this.PUFFERFISH_DEAD);
         this.animate();
         this.speed = 0.15 + Math.random() * 0.25;
-        
     }
 
 
