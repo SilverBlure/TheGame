@@ -21,6 +21,8 @@ endboss_stay = [
     
 ]
 
+
+
     constructor(){
         super().loadImage(this.endboss_stay[0]);
         this.x = 2550; 

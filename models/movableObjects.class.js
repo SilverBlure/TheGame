@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     moveIntervall = null;
+    isAlive = true;
 
 
     applyGravity() {

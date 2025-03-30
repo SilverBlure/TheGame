@@ -2,7 +2,7 @@ class Pufferfish extends MovableObject {
     width = 100;
     height = 100;
     x;
-    dmg = 5;
+    dmg = 1;
     energy = 20;
     isAlive = true;
     
@@ -42,8 +42,10 @@ class Pufferfish extends MovableObject {
                 this.playAnimation(this.PUFFERFISH_STAY);
 
                 }else{
+                    
                     this.playAnimation(this.PUFFERFISH_DEAD);
                     this.stopMove();
+                    this.isAlive = false;
                 }
             
         }, 800);

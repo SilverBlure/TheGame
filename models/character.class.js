@@ -3,7 +3,7 @@ class Character extends MovableObject {
     height = 200;
     y = 150;
     speed = 10;
-    canAkt = true;
+    canAct = true;
 
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
@@ -107,13 +107,13 @@ class Character extends MovableObject {
 
             }
             
-            if (this.world.keyboard.A && this.canAkt && this.world.poisonBar.percentage > 0) {
+            if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
                     this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
-                    this.canAkt = false;
+                    this.canAct = false;
                     setTimeout(() => {
-                        this.canAkt = true;
+                        this.canAct = true;
                     }, 1000);
             }
         }

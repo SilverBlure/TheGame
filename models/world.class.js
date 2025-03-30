@@ -59,12 +59,12 @@ class World {
         setInterval(() => {
             this.checkCollisions();
 
-        }, 1000 / 60);
+        }, 200);        //1000/60
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(this.character, enemy)) {  // colliding with Enemy
+            if (this.character.isColliding(this.character, enemy) && enemy.isAlive) {  // colliding with Enemy
                 this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -90,7 +90,7 @@ class World {
             this.enemies.forEach((enemy) => {
                 if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
                     console.log('hit hit hit')
-                    enemy.hit(1);
+                    enemy.hit(10);
                      }
             });
         });
