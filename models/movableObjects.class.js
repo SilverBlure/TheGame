@@ -63,13 +63,15 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-
-    playAnimationOnce(ImageArr){
-        let i = this.currentImage 
-
-        // Hier kann ich gleich nach einem  richtigen algorythmusssehen 
-        // die animation soll nur einmal gespielt werden
+        
+    playAnimationOnce(imageArr){
+        let i = this.currentImage % imageArr.length;
+        let path = imageArr[i];
+        this.img = this.imageCach[path];
+        this.currentImage++;
+     
     }
+    
 
     hit(value) {
         this.energy -= value;

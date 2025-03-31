@@ -18,7 +18,6 @@ endboss_stay = [
     'assets/2.Enemy/3 Final Enemy/2.floating/11.png',
     'assets/2.Enemy/3 Final Enemy/2.floating/12.png',
     'assets/2.Enemy/3 Final Enemy/2.floating/13.png',
-    
 ]
 
 
