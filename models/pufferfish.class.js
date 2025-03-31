@@ -44,9 +44,7 @@ class Pufferfish extends MovableObject {
                 }else{
                     
                     this.playAnimationOnce(this.PUFFERFISH_DEAD);
-
                     this.stopMove();
-
                     this.isAlive = false;
                 }
             

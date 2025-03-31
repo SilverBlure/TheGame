@@ -63,12 +63,17 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+    //  Variablen: currentImage, path, PararmeterArray, imageCach
+    //Die Funktion bokommt ein Array,
+    //Das Bild mit der nummer 0 wird aus dem Array genommen 
+    //bis das bild an der stelle ist wie das Array lang ist 
+    // wird die funktion wiederhohlt 
         
     playAnimationOnce(imageArr){
-        let i = this.currentImage % imageArr.length;
-        let path = imageArr[i];
-        this.img = this.imageCach[path];
-        this.currentImage++;
+        let i = this.currentImage % imageArr.length; // 0 = 0/3 // 1/3 Was macht der Modulo Operator
+        let path = imageArr[i];                     // das array an stelle i wird nach path gelegt
+        this.img = this.imageCach[path];            // img imgCach mit pfad wird aug img gelegt 
+        this.currentImage++;                        // currentImage wird um eins erhoeht
      
     }
     
