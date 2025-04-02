@@ -108,7 +108,7 @@ class Character extends MovableObject {
             }
             
             if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
-                    this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+                    this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
                     this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
                     this.canAct = false;

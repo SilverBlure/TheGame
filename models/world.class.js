@@ -58,6 +58,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
+            this.clearDeadEnemys();
 
         }, 200);        //1000/60
     }
@@ -72,14 +73,14 @@ class World {
 
         this.collectable = this.collectable.filter(collectable => {
             if (this.character.isColliding(this.character, collectable)) {
-                console.log('Kollision erkannt mit:', collectable);
+                //console.log('Kollision erkannt mit:', collectable);
                 if (collectable instanceof PoisonBottle) {
                     this.poisonBar.addPoison(20);
 
                 } else if (collectable instanceof Coin) {
                     this.coinBar.addCoin(20);
                 }
-                console.log("Objekt entfernt aus Array: ", collectable);
+                //console.log("Objekt entfernt aus Array: ", collectable);
                 return false;
             }
             return true;
@@ -89,7 +90,6 @@ class World {
         this.throwableObjects.forEach((throwableObject) => {
             this.enemies.forEach((enemy) => {
                 if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
-                    console.log('hit hit hit')
                     enemy.hit(10);
                      }
             });
@@ -160,6 +160,18 @@ class World {
     flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;
+    }
+
+    clearDeadEnemys(){
+
+        this.enemies = this.enemies.filter(enemy =>{
+            if(enemy.isAlive && !enemy.inEndposition){
+                console.log("dead und in endposition!");
+                return true;
+            }
+
+        })
+        
     }
 
 }

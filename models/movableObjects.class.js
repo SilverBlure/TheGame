@@ -59,29 +59,29 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(imageArr) {
-        if(this.isAlive){
+
         let i = this.currentImage % imageArr.length;
         let path = imageArr[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        }else{
-            
-        }
+
     }
-   
-    playAnimationOnce(imageArr){
-        if(!this.animationeDone){
-        let i = this.currentImage % imageArr.length; // 0 = 0/3 // 1/3 Was macht der Modulo Operator
-        console.log(i);
-        let path = imageArr[i];                     // das array an stelle i wird nach path gelegt
-        this.img = this.imageCach[path];            // img imgCach mit pfad wird aug img gelegt 
-        this.currentImage++;  
+
+    playAnimationOnce(imageArr) {
+        if (this.currentImage >=3){
+            this.currentImage = 0;
         }
-        if(this.currentImage == imageArr.length){
+        if (!this.animationeDone) {
+        let i = this.currentImage % imageArr.length;
+        let path = imageArr[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+        }
+        if (this.currentImage == imageArr.length) {
             this.animationeDone = true;
-        }                      
-    }
-    
+     }
+     }
+
 
     hit(value) {
         this.energy -= value;
@@ -101,6 +101,8 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
+    
+    
 
 
 
