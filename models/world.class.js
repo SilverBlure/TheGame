@@ -20,6 +20,7 @@ class World {
     world;
     camera_x = 0;
     keyboard;
+    mouse;
     statusBar = new StatusBar();
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
@@ -28,15 +29,12 @@ class World {
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
-    /**Constructor methode
-     * 
-     * @param {ctx} canvas 
-     * @param {bool} keyboard 
-     */
-    constructor(canvas, keyboard) {
+   
+    constructor(canvas, keyboard, mouse) {
         this.ctx = canvas.getContext("2d");
         this.draw();
         this.keyboard = keyboard;
+        this.mouse = mouse;
         this.setWorld();
         this.checkCollisions();
         this.run();
@@ -48,9 +46,8 @@ class World {
          this.audioBg.volume = 0.1;
          this.audioBg.loop = true;
      }*/
-    /**
-     * set The World in the Character Object
-     */
+    
+
     setWorld() {
         this.character.world = this;
     }
@@ -166,7 +163,6 @@ class World {
 
         this.enemies = this.enemies.filter(enemy =>{
             if(enemy.isAlive && !enemy.inEndposition){
-                console.log("dead und in endposition!");
                 return true;
             }
 
