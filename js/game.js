@@ -12,13 +12,16 @@ function init() {
     canvas = document.getElementById('canvas');
     //world = new World(canvas, keyboard, mouse);
     menue = new Menue(canvas, mouse);
+
     canvas.addEventListener("mousemove", (event) => {
         const rect = canvas.getBoundingClientRect();
         const mouseX = event.clientX - rect.left;
         const mouseY = event.clientY - rect.top;
-    
-        console.log("Mausposition im Canvas:", mouseX, mouseY);
-    });}
+
+    if(mouse.click){
+        console.log("Mausposition im Canvas:", mouseX, mouseY);}
+    });
+}
 
 
 window.addEventListener('keydown', (e) => {

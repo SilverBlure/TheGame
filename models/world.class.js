@@ -101,7 +101,7 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.backgroundObjects);
 
         //--------Space for FixObjects---------//
         this.ctx.translate(-this.camera_x, 0);
@@ -110,12 +110,12 @@ class World {
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectToMap(this.collectable);
+        this.addObjectsToMap(this.collectable);
 
         this.addToMap(this.character);
-        this.addObjectToMap(this.enemies);
+        this.addObjectsToMap(this.enemies);
 
-        this.addObjectToMap(this.throwableObjects);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
@@ -124,7 +124,7 @@ class World {
         });
     };
 
-    addObjectToMap(objects) {
+    addObjectsToMap(objects) {
         objects.forEach(o => {
             if (o !== null) {
                 this.addToMap(o);
