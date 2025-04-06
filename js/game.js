@@ -76,14 +76,12 @@ window.addEventListener('keyup', (e) => {
 window.addEventListener('mousedown', (e) => {
     if (e.button == 0) {
         mouse.click = true;
-        console.log('linke Maustaste geklickt')
     }
 })
 
 window.addEventListener('mouseup', (e) => {
     if (e.button == 0) {
         mouse.click = false;
-        console.log('linke Maustaste losgelassen')
     }
 })
 

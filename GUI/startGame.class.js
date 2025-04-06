@@ -10,10 +10,11 @@ y = 50;
         'assets/6.Botones/Start/4.png',
     ]
 
-    constructor(){
+    constructor(width, height){
         super();
         this.loadImages(this.STARTGAME_IMG);
         this.loadImage(this.STARTGAME_IMG[0]); // <- dieses Bild wird sichtbar verwendet
-
+        width = this.width;
+        height = this.height;
     }
 }

@@ -8,6 +8,7 @@ class Menue {
     keyboard;
     originalWidth;
     originalHeight;
+    fullwindow = false;
 
 
     constructor(canvas, mouse) {
@@ -44,24 +45,36 @@ class Menue {
     checkMousePosition(){
         if (this.collisionWithButton(this.startButton) && this.mouse.click) {
             this.world = new World(this.canvas, this.keyboard, this.mouse);
-            console.log("Startgame");
             
         }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click) {
             this.setReframe();
-            console.log("Fullscreen");
         }
             
         
     }
 
     setReframe() {
+        if(!this.fullwindow){
+            console.log("gros")
+
         this.originalWidth = this.canvas.width;
         this.originalHeight = this.canvas.height; //original size
 
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight; 
 
+        this.startButton = new Startgame(this.canvas.width, this.canvas.height);
+        this.menueBG = new MenueBackground(this.canvas.width, this.canvas.height);
         this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
+        this.fullwindow = true;
+        }
+        else if(this.fullwindow){
+            console.log("klein")
+        this.startButton = new Startgame(this.originalWidth, this.originalHeight);
+        this.menueBG = new MenueBackground(this.originalWidth, this.originalHeight);
+        this.fullScreen = new Fullscreen(this.originalWidth, this.originalHeight);
+        this.fullwindow = false;
+        }
     }
 
     run(){
