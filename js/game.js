@@ -3,7 +3,7 @@ let ctx;
 let world;
 let menue;
 let keyboard = new Keyboard();
-let mouse = new Mouse();
+let mouse = new Mouse(canvas);
 
 
 
@@ -13,14 +13,15 @@ function init() {
     //world = new World(canvas, keyboard, mouse);
     menue = new Menue(canvas, mouse);
 
-    canvas.addEventListener("mousemove", (event) => {
+    this.canvas = canvas;
+    this.canvas.addEventListener("mousemove", (event) => {
         const rect = canvas.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
+        mouse.pos_x = event.clientX - rect.left;
+        mouse.pos_y = event.clientY - rect.top;})
+        
+    
 
-    if(mouse.click){
-        console.log("Mausposition im Canvas:", mouseX, mouseY);}
-    });
+    
 }
 
 

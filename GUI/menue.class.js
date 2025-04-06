@@ -4,6 +4,10 @@ class Menue {
     menueBG = new MenueBackground();
     startButton = new Startgame();
     fullScreen = new Fullscreen();
+    world;
+    keyboard;
+    originalWidth;
+    originalHeight;
 
 
     constructor(canvas, mouse) {
@@ -11,24 +15,58 @@ class Menue {
         this.mouse = mouse;
         this.draw();
         this.run();
+        this.keyboard = keyboard;
+        this.canvas = canvas;
 
 
     }
 
-    collisionWithStartButton() {
-        if (this.mouse.x > this.startButton.x && this.mouse.x < this.startButton.x + this.startButton.width &&
-            this.mouse.y > this.startButton.y && this.mouse.y < this.startButton.y + this.startButton.height) {
+    collisionWithButton(button) {
+        if (this.mouse.pos_x > button.x && this.mouse.pos_x < button.x + button.width &&
+            this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) {
+                
             return true;
         }
+        
         return false;
     }
-    checkMouseClick(){
-        if(this.collisionWithStartButton() && this.mouse.click){
+
+    hoverPointer(){
+        
+            if (this.collisionWithButton(this.startButton) || this.collisionWithButton(this.fullScreen)) {
+
+                document.body.style.cursor = "pointer";
+            } else {
+                document.body.style.cursor = "default";
+            }
+            }
+
+    checkMousePosition(){
+        if (this.collisionWithButton(this.startButton) && this.mouse.click) {
+            this.world = new World(this.canvas, this.keyboard, this.mouse);
+            console.log("Startgame");
             
+        }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click) {
+            this.setReframe();
+            console.log("Fullscreen");
         }
+            
+        
     }
+
+    setReframe() {
+        this.originalWidth = this.canvas.width;
+        this.originalHeight = this.canvas.height; //original size
+
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight; 
+
+        this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
+    }
+
     run(){
-        this.checkMouseClick();
+        this.checkMousePosition();
+        this.hoverPointer();
         requestAnimationFrame(() => {
             this.run();
         });
