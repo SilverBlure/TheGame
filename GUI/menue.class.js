@@ -43,10 +43,10 @@ class Menue {
             }
 
     checkMousePosition(){
-        if (this.collisionWithButton(this.startButton) && this.mouse.click) {
+        if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
             this.world = new World(this.canvas, this.keyboard, this.mouse);
             
-        }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click) {
+        }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click && !this.mouse.block) {
             this.setReframe();
         }
             
@@ -54,11 +54,19 @@ class Menue {
     }
 
     setReframe() {
-        if(!this.fullwindow){
-            console.log("gros")
-
         this.originalWidth = this.canvas.width;
         this.originalHeight = this.canvas.height; //original size
+
+        if(this.fullwindow){
+            console.log("klein")
+            this.startButton = new Startgame(this.originalWidth, this.originalHeight);
+            this.menueBG = new MenueBackground(this.originalWidth, this.originalHeight);
+            this.fullScreen = new Fullscreen(this.originalWidth, this.originalHeight);
+            this.fullwindow = false;
+            }
+
+        if(!this.fullwindow){
+            console.log("gross")
 
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight; 
@@ -67,14 +75,7 @@ class Menue {
         this.menueBG = new MenueBackground(this.canvas.width, this.canvas.height);
         this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
         this.fullwindow = true;
-        }
-        else if(this.fullwindow){
-            console.log("klein")
-        this.startButton = new Startgame(this.originalWidth, this.originalHeight);
-        this.menueBG = new MenueBackground(this.originalWidth, this.originalHeight);
-        this.fullScreen = new Fullscreen(this.originalWidth, this.originalHeight);
-        this.fullwindow = false;
-        }
+        }   
     }
 
     run(){

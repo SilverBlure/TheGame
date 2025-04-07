@@ -76,11 +76,16 @@ window.addEventListener('keyup', (e) => {
 window.addEventListener('mousedown', (e) => {
     if (e.button == 0) {
         mouse.click = true;
+        setTimeout(()=>{
+            
+        },500)
+        
     }
 })
 
 window.addEventListener('mouseup', (e) => {
     if (e.button == 0) {
+        
         mouse.click = false;
     }
 })
