@@ -48,36 +48,42 @@ class Menue {
             
         }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click && !this.mouse.block) {
             this.setReframe();
+            this.toggleFullscreen();
         }
             
         
     }
 
     setReframe() {
-        this.originalWidth = this.canvas.width;
-        this.originalHeight = this.canvas.height; //original size
+         //original size
 
-        if(this.fullwindow){
-            console.log("klein")
-            this.startButton = new Startgame(this.originalWidth, this.originalHeight);
-            this.menueBG = new MenueBackground(this.originalWidth, this.originalHeight);
-            this.fullScreen = new Fullscreen(this.originalWidth, this.originalHeight);
+        if(this.fullwindow){ //true
+            this.canvas.width = this.originalWidth;
+            this.canvas.height = this.originalHeight;
             this.fullwindow = false;
             }
-
-        if(!this.fullwindow){
-            console.log("gross")
-
+        else{
+        this.originalWidth = this.canvas.width;
+        this.originalHeight = this.canvas.height;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight; 
+        this.fullwindow = true;
 
+        }  
         this.startButton = new Startgame(this.canvas.width, this.canvas.height);
         this.menueBG = new MenueBackground(this.canvas.width, this.canvas.height);
-        this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
-        this.fullwindow = true;
-        }   
+        this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height); 
     }
-
+    toggleFullscreen()
+    {
+        if (!document.fullscreenElement) {
+            this.canvas.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
     run(){
         this.checkMousePosition();
         this.hoverPointer();
