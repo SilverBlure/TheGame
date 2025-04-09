@@ -3,7 +3,7 @@ class GameController {
     mouse;
     keyboard;
     world;
-    state = null;
+    state = 'menue';
 
 
 
@@ -12,9 +12,26 @@ class GameController {
     this.mouse = mouse;
     this.state = "menue";
     this.keyboard = keyboard;
-    this.menue = new Menue(canvas, mouse);
-    this.world = null;
+    this.loadMenue();
+    this.loop();
+    
   }
 
-  
+  loadMenue(){
+    this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
+    this.state = 'menue';
+  }
+  loadWorld(){
+    this.world = new World(this.canvas, this.keyboard, this.mouse);
+    this.state = 'game';
+  }
+
+  loop() {
+    if(this.state === 'menue'){
+        this.menue.run();
+    }else if(this.state === 'game'){
+        this.world.run();
+    }
+    requestAnimationFrame(() => this.loop());
+}
 }

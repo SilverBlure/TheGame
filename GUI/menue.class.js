@@ -4,19 +4,18 @@ class Menue {
     menueBG = new MenueBackground();
     startButton = new Startgame();
     fullScreen = new Fullscreen();
-    world;
-    keyboard;
+    loadWorld;
     originalWidth;
     originalHeight;
     fullwindow = false;
 
 
-    constructor(canvas, mouse) {
+    constructor(canvas, mouse, loadWorld) {
         this.ctx = canvas.getContext("2d");
         this.mouse = mouse;
         this.draw();
         this.run();
-        this.keyboard = keyboard;
+        this.loadWorld = loadWorld;
         this.canvas = canvas;
 
 
@@ -44,7 +43,7 @@ class Menue {
 
     checkMousePosition(){
         if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
-            this.world = new World(this.canvas, this.keyboard, this.mouse);
+            this.loadWorld();
             
         }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click && !this.mouse.block) {
             this.setReframe();
