@@ -7,7 +7,8 @@ class Keyboard {
     SPACE = false;  //keycode 32
     A = false; //attack mele 65
     S = false; //attack range 83
-
+    Escape = false; //keycode
+    P = false; //keycode 
 
 
 
