@@ -25,20 +25,28 @@ class World {
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
     throwableObjects = [];
+    state;
+    fadeAlpha = 0;
+    tryAgainImage = new Image()
+    intervalId = [];
 
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
-   
-    constructor(canvas, keyboard, mouse) {
+
+    constructor(canvas, keyboard, mouse, onExit) {
         this.ctx = canvas.getContext("2d");
+        this.canvas = canvas;
         this.draw();
         this.keyboard = keyboard;
         this.mouse = mouse;
         this.setWorld();
         this.checkCollisions();
-        this.run();
+        
         //this.playSound();
+        this.state = "running";
+        this.onExit = onExit;
+        this.tryAgainImage.src = 'assets/6.Botones/Try again/Recurso 15.png';
     }
 
     /* playSound(){    //bg sound
@@ -46,18 +54,27 @@ class World {
          this.audioBg.volume = 0.1;
          this.audioBg.loop = true;
      }*/
-    
+
 
     setWorld() {
         this.character.world = this;
     }
 
-    run() {
-        setInterval(() => {
-            this.checkCollisions();
-            this.clearDeadEnemys();
+    
 
-        }, 200);        //1000/60
+    checkGameOver() {
+        if (this.character.energy <= 0 && this.state !== "dead") {
+            this.state = "dead";
+            this.startGameOverSequence();
+        }
+    }
+
+    startGameOverSequence() {
+        this.fadeAlpha = 0;
+
+        setTimeout(() => {
+            this.onExit();
+        }, 3000);
     }
 
     checkCollisions() {
@@ -88,7 +105,7 @@ class World {
             this.enemies.forEach((enemy) => {
                 if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
                     enemy.hit(10);
-                     }
+                }
             });
         });
     }
@@ -97,7 +114,7 @@ class World {
 
 
     draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
@@ -118,6 +135,17 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
+
+        //FUNCTIONES
+        this.checkCollisions();
+            this.clearDeadEnemys();
+            this.checkGameOver();
+
+
+        if (this.state === "dead") {
+            this.drawGameOverFade();
+        }
+
         let self = this;
         requestAnimationFrame(() => {
             self.draw();
@@ -159,15 +187,40 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    clearDeadEnemys(){
+    clearDeadEnemys() {
 
-        this.enemies = this.enemies.filter(enemy =>{
-            if(enemy.isAlive && !enemy.inEndposition){
+        this.enemies = this.enemies.filter(enemy => {
+            if (enemy.isAlive && !enemy.inEndposition) {
                 return true;
             }
 
         })
+
+    }
+
+    drawGameOverFade() {
+        console.log("fadeAlpha:", this.fadeAlpha);
+    if (this.fadeAlpha < 1) {
+        this.fadeAlpha += 0.01;
+    }
+
+    this.ctx.fillStyle = `rgba(0, 0, 0, ${this.fadeAlpha})`;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    if (this.fadeAlpha >= 0.5) {
+        this.ctx.globalAlpha = this.fadeAlpha;
+        this.ctx.drawImage(
+            this.tryAgainImage,
+            this.canvas.width / 2 - 200,
+            this.canvas.height / 2 - 100,
+            400,
+            200
+        );
+        this.ctx.globalAlpha = 1.0;
         
     }
+}
+
+    
 
 }

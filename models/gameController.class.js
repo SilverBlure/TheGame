@@ -22,7 +22,7 @@ class GameController {
     this.state = 'menue';
   }
   loadWorld(){
-    this.world = new World(this.canvas, this.keyboard, this.mouse);
+    this.world = new World(this.canvas, this.keyboard, this.mouse, ()=> this.loadMenue());
     this.state = 'game';
   }
 
@@ -30,7 +30,7 @@ class GameController {
     if(this.state === 'menue'){
         this.menue.run();
     }else if(this.state === 'game'){
-        this.world.run();
+        this.world.draw();
     }
     requestAnimationFrame(() => this.loop());
 }
