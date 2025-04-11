@@ -17,11 +17,14 @@ class GameController {
     
   }
 
-  loadMenue(){
+  loadMenue(){if(this.world){
+    this.world.cleanUp()}
     this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
     this.state = 'menue';
   }
   loadWorld(){
+    this.menue.cleanUp();
+    this.menue = null;
     this.world = new World(this.canvas, this.keyboard, this.mouse, ()=> this.loadMenue());
     this.state = 'game';
   }

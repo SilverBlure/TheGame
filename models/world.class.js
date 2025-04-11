@@ -29,6 +29,7 @@ class World {
     fadeAlpha = 0;
     tryAgainImage = new Image()
     intervalIdCollection = [];
+    requestAnimationFrameID;
 
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
@@ -154,9 +155,14 @@ class World {
         this.update();
 
         let self = this;
-        requestAnimationFrame(() => {
+         this.requestAnimationFrameID = requestAnimationFrame(() => {
             self.loop();
         });
+    }
+
+    cleanUp() {
+        cancelAnimationFrame(this.requestAnimationFrameID);
+        this.requestAnimationFrameID = null;
     }
 
 

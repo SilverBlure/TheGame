@@ -8,7 +8,7 @@ class Menue {
     originalWidth;
     originalHeight;
     fullwindow = false;
-
+    requestAnimationFrameID;
 
     constructor(canvas, mouse, loadWorld) {
         this.ctx = canvas.getContext("2d");
@@ -90,10 +90,17 @@ class Menue {
         this.hoverPointer();
 
         let self = this;
-        requestAnimationFrame(() => {
+       this.requestAnimationFrameID = requestAnimationFrame(() => {
             self.draw();
         });
     }
+
+    cleanUp() {
+        cancelAnimationFrame(this.requestAnimationFrameID);
+        this.requestAnimationFrameID = null;
+
+    }
+
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
