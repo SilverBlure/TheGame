@@ -28,7 +28,7 @@ class GameController {
 
   loop() {
     if(this.state === 'menue'){
-        this.menue.run();
+        this.menue.draw();
     }else if(this.state === 'game'){
         this.world.draw();
     }

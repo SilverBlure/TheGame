@@ -31,9 +31,9 @@ endboss_stay = [
 
     animate() {
 
-        setInterval(() => {
+        this.intervals.push(setInterval(() => {
             this.playAnimation(this.endboss_stay);
-        }, 200);
+        }, 200));
     }
 
 

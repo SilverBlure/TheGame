@@ -39,7 +39,7 @@ class Pufferfish extends MovableObject {
     animate() {
         this.moveLeft();
 
-        let interval = setInterval(() => {
+        this.intervals.push(setInterval(() => {
             if (this.checkAlive()) {
                 this.playAnimation(this.PUFFERFISH_STAY);
             } else {
@@ -50,7 +50,7 @@ class Pufferfish extends MovableObject {
 
             }
 
-        }, 800);
+        }, 800));
     }
 
     checkAlive() {

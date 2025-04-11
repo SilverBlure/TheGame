@@ -28,7 +28,7 @@ class World {
     state;
     fadeAlpha = 0;
     tryAgainImage = new Image()
-    intervalId = [];
+    intervalIdCollection = [];
 
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
@@ -37,12 +37,12 @@ class World {
     constructor(canvas, keyboard, mouse, onExit) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
-        this.draw();
+        
         this.keyboard = keyboard;
         this.mouse = mouse;
         this.setWorld();
-        this.checkCollisions();
-        
+        this.loop();
+
         //this.playSound();
         this.state = "running";
         this.onExit = onExit;
@@ -60,50 +60,58 @@ class World {
         this.character.world = this;
     }
 
-    
+
 
     checkGameOver() {
         if (this.character.energy <= 0 && this.state !== "dead") {
+
             this.state = "dead";
+            this.character.cleanUp();
+            this.enemies.forEach((enemy) => {
+                enemy.cleanUp();
+            });
+            this.throwableObjects.forEach((throwableObject) => {
+                throwableObject.cleanUp();
+            });
             this.startGameOverSequence();
         }
     }
 
-    startGameOverSequence() {
-        this.fadeAlpha = 0;
+    //startGameOverSequence() {
+    //     this.fadeAlpha = 0;
 
-        setTimeout(() => {
-            this.onExit();
-        }, 3000);
-    }
+    //     setTimeout(() => {
+    //         this.onExit();
+    //     }, 3000);
+    // }
 
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(this.character, enemy) && enemy.isAlive) {  // colliding with Enemy
+    checkCharacterEnemyCollision() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(this.character, enemy) && enemy.isAlive) {
                 this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
-        })
+        });
+    }
 
-        this.collectable = this.collectable.filter(collectable => {
-            if (this.character.isColliding(this.character, collectable)) {
-                //console.log('Kollision erkannt mit:', collectable);
-                if (collectable instanceof PoisonBottle) {
+    checkCharacterCollectablesCollision() {
+        this.collectable = this.collectable.filter(obj => {
+            if (this.character.isColliding(this.character, obj)) {
+                if (obj instanceof PoisonBottle) {
                     this.poisonBar.addPoison(20);
-
-                } else if (collectable instanceof Coin) {
+                } else if (obj instanceof Coin) {
                     this.coinBar.addCoin(20);
                 }
-                //console.log("Objekt entfernt aus Array: ", collectable);
-                return false;
+                return false; // Objekt entfernen
             }
             return true;
-
         });
+    }
 
-        this.throwableObjects.forEach((throwableObject) => {
-            this.enemies.forEach((enemy) => {
-                if (this.character.isCollidingWithTrowable(throwableObject, enemy)) {
+    checkProjectileEnemyCollision() {
+        this.throwableObjects.forEach(projectile => {
+            this.enemies.forEach(enemy => {
+                if (this.character.isCollidingWithTrowable(projectile, enemy)) {
                     enemy.hit(10);
                 }
             });
@@ -115,9 +123,7 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.backgroundObjects);
 
         //--------Space for FixObjects---------//
@@ -126,80 +132,83 @@ class World {
         this.addToMap(this.poisonBar);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.collectable);
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-
         this.addObjectsToMap(this.throwableObjects);
-
         this.ctx.translate(-this.camera_x, 0);
-
-        //FUNCTIONES
-        this.checkCollisions();
-            this.clearDeadEnemys();
-            this.checkGameOver();
+    }
 
 
-        if (this.state === "dead") {
-            this.drawGameOverFade();
-        }
+    update() {
+        this.checkCharacterEnemyCollision();
+        this.checkProjectileEnemyCollision();
+        this.checkCharacterCollectablesCollision();
+        //this.clearDeadEnemys();
+        //this.checkGameOver();
+    }
+
+
+    loop() {
+        this.draw();
+        this.update();
 
         let self = this;
         requestAnimationFrame(() => {
-            self.draw();
-        });
-    };
-
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            if (o !== null) {
-                this.addToMap(o);
-            }
+            self.loop();
         });
     }
 
-    addToMap(mo) {                  // invert images
 
-        if (mo.otherDirection) {
-            this.flipImage(mo);
+
+addObjectsToMap(objects) {
+    objects.forEach(o => {
+        if (o !== null) {
+            this.addToMap(o);
         }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
+    });
+}
+
+addToMap(mo) {                  // invert images
+
+    if (mo.otherDirection) {
+        this.flipImage(mo);
+    }
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
+    if (mo.otherDirection) {
+        this.flipImageBack(mo);
+    }
+}
+
+
+flipImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.x = mo.x * -1;
+
+}
+
+
+flipImageBack(mo) {
+    this.ctx.restore();
+    mo.x = mo.x * -1;
+}
+
+clearDeadEnemys() {
+
+    this.enemies = this.enemies.filter(enemy => {
+        if (enemy.isAlive && !enemy.inEndposition) {
+            return true;
         }
-    }
 
+    })
 
-    flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
+}
 
-    }
-
-
-    flipImageBack(mo) {
-        this.ctx.restore();
-        mo.x = mo.x * -1;
-    }
-
-    clearDeadEnemys() {
-
-        this.enemies = this.enemies.filter(enemy => {
-            if (enemy.isAlive && !enemy.inEndposition) {
-                return true;
-            }
-
-        })
-
-    }
-
-    drawGameOverFade() {
-        console.log("fadeAlpha:", this.fadeAlpha);
+drawGameOverFade() {
+    console.log("fadeAlpha:", this.fadeAlpha);
     if (this.fadeAlpha < 1) {
         this.fadeAlpha += 0.01;
     }
@@ -217,10 +226,10 @@ class World {
             200
         );
         this.ctx.globalAlpha = 1.0;
-        
+
     }
 }
 
-    
+
 
 }

@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
     moveIntervall = null;
     isAlive = true;
     animationeDone = false;
+    intervals = [];
 
 
     applyGravity() {
@@ -47,15 +48,11 @@ class MovableObject extends DrawableObject {
 
 
     moveLeft() {
-        this.moveIntervall = setInterval(() => {
+        this.intervals.push(setInterval(() => {
             this.x -= this.speed;
-        }, 1000 / 60);
+        }, 1000 / 60));
     }
 
-    stopMove() {
-        clearInterval(this.moveIntervall);
-        this.moveIntervall = null;
-    }
 
 
     playAnimation(imageArr) {
@@ -68,19 +65,19 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimationOnce(imageArr) {
-        if (this.currentImage >=3){
+        if (this.currentImage >= 3) {
             this.currentImage = 0;
         }
         if (!this.animationeDone) {
-        let i = this.currentImage % imageArr.length;
-        let path = imageArr[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+            let i = this.currentImage % imageArr.length;
+            let path = imageArr[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
         }
         if (this.currentImage == imageArr.length) {
             this.animationeDone = true;
-     }
-     }
+        }
+    }
 
 
     hit(value) {
@@ -101,8 +98,10 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-    
-    
+    cleanUp() {
+        this.intervals.forEach(clearInterval);
+        this.intervals = [];
+    }
 
 
 

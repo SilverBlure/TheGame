@@ -20,23 +20,19 @@ class ThrowableObject extends MovableObject {
 
 
     throw(x, y) {
-        if (!this.direction) {          //vill kann ich hier nochmal was einspaaren
-            this.x = x;
-            this.y = y;
-            this.speedY = 30;
-            this.applyGravity();
-            setInterval(() => {
-                this.x += 10;
-            }, 50);
-        } else {
-            this.x = x - 180;
-            this.y = y;
-            this.speedY = 30;
-            this.applyGravity();
-            setInterval(() => {
-                this.x -= 10;
-            }, 50);
-        }
+        this.x = this.direction ? x - 180 : x;
+        this.y = y;
+        this.speedY = 30;
+        this.applyGravity();
+    
+        const directionOffset = this.direction ? -10 : 10;
+    
+        const interval = setInterval(() => {
+            this.x += directionOffset;
+        }, 50);
+    
+        
+        this.intervals.push(interval);
     }
     
 }

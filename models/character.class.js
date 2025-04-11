@@ -4,6 +4,7 @@ class Character extends MovableObject {
     y = 150;
     speed = 10;
     canAct = true;
+    
 
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
@@ -88,26 +89,26 @@ class Character extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
-            if(!this.isDead()){
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+        this.intervals.push(setInterval(() => {
+            if (!this.isDead()) {
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.x += this.speed;
+                    this.otherDirection = false;
+                }
+                if (this.world.keyboard.LEFT && this.x > 0) {
+                    this.x -= this.speed;
+                    this.otherDirection = true;
 
-            }
-            if (this.world.keyboard.UP && this.y > -70) {
-                this.y -= this.speed;
-            }
-            if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
-                this.y += this.speed;
+                }
+                if (this.world.keyboard.UP && this.y > -70) {
+                    this.y -= this.speed;
+                }
+                if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
+                    this.y += this.speed;
 
-            }
-            
-            if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
+                }
+
+                if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
                     this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection));
@@ -115,16 +116,16 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.canAct = true;
                     }, 1000);
+                }
             }
-        }
-                this.world.camera_x = -this.x;
+            this.world.camera_x = -this.x;
 
-            }, 1000 / 60);
-        
-        
+        }, 1000 / 60));
 
 
-        setInterval(() => {
+
+
+        this.intervals.push(setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
@@ -134,11 +135,8 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIM);
             }
 
-        }, 50);
-
+        }, 50));
     }
 
-
-
-
+    
 }

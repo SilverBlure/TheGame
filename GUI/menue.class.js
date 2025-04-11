@@ -14,7 +14,6 @@ class Menue {
         this.ctx = canvas.getContext("2d");
         this.mouse = mouse;
         this.draw();
-        this.run();
         this.loadWorld = loadWorld;
         this.canvas = canvas;
 
@@ -23,8 +22,7 @@ class Menue {
 
     collisionWithButton(button) {
         if (this.mouse.pos_x > button.x && this.mouse.pos_x < button.x + button.width &&
-            this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) {
-                
+            this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) { 
             return true;
         }
         
@@ -34,7 +32,6 @@ class Menue {
     hoverPointer(){
         
             if (this.collisionWithButton(this.startButton) || this.collisionWithButton(this.fullScreen)) {
-
                 document.body.style.cursor = "pointer";
             } else {
                 document.body.style.cursor = "default";
@@ -83,18 +80,14 @@ class Menue {
             }
         }
     }
-    run(){
-        this.checkMousePosition();
-        this.hoverPointer();
-        requestAnimationFrame(() => {
-            this.run();
-        });
-    }
+   
 
     draw() {
         this.addToMap(this.menueBG);
         this.addToMap(this.startButton);
         this.addToMap(this.fullScreen);
+        this.checkMousePosition();
+        this.hoverPointer();
 
         let self = this;
         requestAnimationFrame(() => {
