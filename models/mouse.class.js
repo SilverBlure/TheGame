@@ -22,8 +22,7 @@ run(){
         setTimeout(() => {
 
             mouse.block = false;
-            console.log('Maus wieder Frei!')
-        }, 20);
+        }, 200);
     }
 }
 }

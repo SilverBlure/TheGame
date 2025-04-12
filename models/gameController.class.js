@@ -3,7 +3,10 @@ class GameController {
     mouse;
     keyboard;
     world;
+    menue;
     state = 'menue';
+    firstLoad = true;
+    
 
 
 
@@ -17,16 +20,28 @@ class GameController {
     
   }
 
-  loadMenue(){if(this.world){
-    this.world.cleanUp()}
+  loadMenue(){
+    if(this.firstLoad){
     this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
     this.state = 'menue';
+    this.firstLoad = false;
   }
+    else
+    {
+    this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
+    this.state = 'menue';
+    this.cleanUp();
+  }
+    
+    
+  }
+
+
   loadWorld(){
-    this.menue.cleanUp();
-    this.menue = null;
+   
     this.world = new World(this.canvas, this.keyboard, this.mouse, ()=> this.loadMenue());
     this.state = 'game';
+    this.cleanUp();
   }
 
   loop() {
@@ -37,4 +52,15 @@ class GameController {
     }
     requestAnimationFrame(() => this.loop());
 }
+
+
+  cleanUp(){if(this.world || this.menue){
+    if(this.state == "game"){
+      this.menue.cleanUp();
+      //this.menue = null;
+    }else if (this.state == "menue"){
+      this.world.cleanUp();
+      //this.world = null;
+    }}
+  }
 }

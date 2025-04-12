@@ -6,6 +6,7 @@ class Pufferfish extends MovableObject {
     energy = 20;
     isAlive = true;
     inEndposition = false;
+    randomGen = false;
 
     PUFFERFISH_STAY = [
         'assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',

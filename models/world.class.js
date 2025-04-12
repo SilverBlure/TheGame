@@ -38,23 +38,16 @@ class World {
     constructor(canvas, keyboard, mouse, onExit) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
-        
         this.keyboard = keyboard;
         this.mouse = mouse;
         this.setWorld();
         this.loop();
-
-        //this.playSound();
         this.state = "running";
         this.onExit = onExit;
         this.tryAgainImage.src = 'assets/6.Botones/Try again/Recurso 15.png';
     }
 
-    /* playSound(){    //bg sound
-         this.audioBg.play();
-         this.audioBg.volume = 0.1;
-         this.audioBg.loop = true;
-     }*/
+
 
 
     setWorld() {
@@ -78,13 +71,12 @@ class World {
         }
     }
 
-    //startGameOverSequence() {
-    //     this.fadeAlpha = 0;
+    startGameOverSequence() {
 
-    //     setTimeout(() => {
-    //         this.onExit();
-    //     }, 3000);
-    // }
+        setTimeout(() => {
+            this.onExit();
+        }, 3000);
+    }
 
     checkCharacterEnemyCollision() {
         this.level.enemies.forEach(enemy => {
@@ -103,7 +95,7 @@ class World {
                 } else if (obj instanceof Coin) {
                     this.coinBar.addCoin(20);
                 }
-                return false; // Objekt entfernen
+                return false;
             }
             return true;
         });
@@ -118,7 +110,11 @@ class World {
             });
         });
     }
-
+    checkIfEnemyRunOut() {
+        this.enemies = this.enemies.filter(enemy => {
+            return (enemy.x + enemy.width) >= 0;
+        })
+    }
 
 
 
@@ -145,17 +141,29 @@ class World {
         this.checkCharacterEnemyCollision();
         this.checkProjectileEnemyCollision();
         this.checkCharacterCollectablesCollision();
-        //this.clearDeadEnemys();
-        //this.checkGameOver();
+        this.clearDeadEnemys();
+        this.checkGameOver();
+        this.checkIfEnemyRunOut();
+        this.reSpawnEnemie();
     }
 
+    reSpawnEnemie() {
+        if (this.enemies.length < 6) {
+            this.enemies.push(new Pufferfish());
+        }
+    }
 
     loop() {
-        this.draw();
+        let now = 0;
+
+        if (now >= 30) {
+            this.draw();
+        }
         this.update();
+        now++;
 
         let self = this;
-         this.requestAnimationFrameID = requestAnimationFrame(() => {
+        this.requestAnimationFrameID = requestAnimationFrame(() => {
             self.loop();
         });
     }
@@ -167,74 +175,52 @@ class World {
 
 
 
-addObjectsToMap(objects) {
-    objects.forEach(o => {
-        if (o !== null) {
-            this.addToMap(o);
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            if (o !== null) {
+                this.addToMap(o);
+            }
+        });
+    }
+
+    addToMap(mo) {                  // invert images
+
+        if (mo.otherDirection) {
+            this.flipImage(mo);
         }
-    });
-}
-
-addToMap(mo) {                  // invert images
-
-    if (mo.otherDirection) {
-        this.flipImage(mo);
-    }
-    mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
-    if (mo.otherDirection) {
-        this.flipImageBack(mo);
-    }
-}
-
-
-flipImage(mo) {
-    this.ctx.save();
-    this.ctx.translate(mo.width, 0);
-    this.ctx.scale(-1, 1);
-    mo.x = mo.x * -1;
-
-}
-
-
-flipImageBack(mo) {
-    this.ctx.restore();
-    mo.x = mo.x * -1;
-}
-
-clearDeadEnemys() {
-
-    this.enemies = this.enemies.filter(enemy => {
-        if (enemy.isAlive && !enemy.inEndposition) {
-            return true;
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+        if (mo.otherDirection) {
+            this.flipImageBack(mo);
         }
-
-    })
-
-}
-
-drawGameOverFade() {
-    console.log("fadeAlpha:", this.fadeAlpha);
-    if (this.fadeAlpha < 1) {
-        this.fadeAlpha += 0.01;
     }
 
-    this.ctx.fillStyle = `rgba(0, 0, 0, ${this.fadeAlpha})`;
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    if (this.fadeAlpha >= 0.5) {
-        this.ctx.globalAlpha = this.fadeAlpha;
-        this.ctx.drawImage(
-            this.tryAgainImage,
-            this.canvas.width / 2 - 200,
-            this.canvas.height / 2 - 100,
-            400,
-            200
-        );
-        this.ctx.globalAlpha = 1.0;
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
 
     }
-}
+
+
+    flipImageBack(mo) {
+        this.ctx.restore();
+        mo.x = mo.x * -1;
+    }
+
+    clearDeadEnemys() {
+
+        this.enemies = this.enemies.filter(enemy => {
+            if (enemy.isAlive && !enemy.inEndposition) {
+                return true;
+            }
+
+        })
+
+    }
+
 
 
 
