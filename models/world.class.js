@@ -145,12 +145,19 @@ class World {
         this.checkGameOver();
         this.checkIfEnemyRunOut();
         this.reSpawnEnemie();
+        this.stopProjectile();
     }
 
     reSpawnEnemie() {
         if (this.enemies.length < 6) {
             this.enemies.push(new Pufferfish());
         }
+    }
+
+    stopProjectile(){
+        this.throwableObjects= this.throwableObjects.filter(obj =>{
+                return !obj.outOfRange;
+        })
     }
 
     loop() {
@@ -211,7 +218,6 @@ class World {
     }
 
     clearDeadEnemys() {
-
         this.enemies = this.enemies.filter(enemy => {
             if (enemy.isAlive && !enemy.inEndposition) {
                 return true;
