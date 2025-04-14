@@ -68,22 +68,20 @@ class Endboss extends MovableObject {
     }
     
 
-    animateIntro() {
+    animateIntro(callback) {
         let i = 0;
         this.y = 0;
-
+    
         const interval = setInterval(() => {
-            this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]]; i++;
-
+            this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
+            i++;
+    
             if (i >= this.ENDBOSS_INTRODUCE.length) {
                 clearInterval(interval);
-                this.world?.intervalIdCollection.push(interval);
-                
+                callback?.();
             }
         }, 120);
-        this.world?.intervalIdCollection.push(interval);
-        
+    
+        this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
     }
-
-
 }

@@ -38,6 +38,7 @@ class World {
 
 
     constructor(canvas, keyboard, mouse, onExit) {
+        console.log("World wurde erstellt!")
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -235,16 +236,17 @@ class World {
 
     }
 
+   
+
     checkBossIntroTrigger() {
         if (!this.bossIntroPlayed && this.character.x >= 2100) {
             this.bossIntroPlayed = true;
-            this.endboss.animateIntro(()=>{
+            console.log('Test'); // ← erscheint jetzt exakt 1x
+            this.endboss.animateIntro(() => {
                 this.endboss.animate();
             });
-            
         }
     }
-
 
 
 
