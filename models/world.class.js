@@ -30,6 +30,7 @@ class World {
     tryAgainImage = new Image()
     intervalIdCollection = [];
     requestAnimationFrameID;
+    intervals = [ ];
 
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');

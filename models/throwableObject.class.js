@@ -5,6 +5,9 @@ class ThrowableObject extends MovableObject {
     direction;
     outOfRange;
     yStart;
+    amplitude;
+    t;
+    frequency;
 
 
     constructor(x, y, direction) {
@@ -27,36 +30,25 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.speedY = 30;
         this.x + this.speedY;
-        let direction = true;
-        let rangeOfSinus = 20;
-        this.yStart = this.y;
+        this.baseY = this.y;
+        this.amplitude = 20;
+        this.frequency = 0.1;
+        this.t = 0;
 
         const directionOffset = this.direction ? -10 : 10;
 
         const interval = setInterval(() => {
+            this.t++;
             this.x += directionOffset;
-            if (direction){
-                this.y++;
-                console.log("increase!")
-                if(this.yStart >= this.yStart + rangeOfSinus){
-                    this.direction= false;}
-
-            }else if(!direction){
-                this.y--;
-                console.log("decrease!")
-
-                if(this.yStart <= rangeOfSinus/2){
-                    this.direction= true;
-                }
-            }
-
+            this.y = this.baseY + this.amplitude * Math.sin(this.frequency * this.t);
             if(this.oldX + 200 <= this.x){
                 this.outOfRange = true;
+                clearInterval(interval);
             };
         }, 50);
 
 
-        this.intervals.push(interval);
+        world.intervals.push(interval);
     }
 
 }
