@@ -13,8 +13,9 @@ class Menue {
     constructor(canvas, mouse, loadWorld) {
         this.ctx = canvas.getContext("2d");
         this.mouse = mouse;
+        this.onStart = loadWorld;
         this.draw();
-        this.loadWorld = loadWorld;
+        
         this.canvas = canvas;
 
 
@@ -38,17 +39,12 @@ class Menue {
             }
             }
 
-    checkMousePosition(){
-        if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
-            this.loadWorld();
-            
-        }else if (this.collisionWithButton(this.fullScreen) && this.mouse.click && !this.mouse.block) {
-            this.setReframe();
-            this.toggleFullscreen();
-        }
-            
-        
-    }
+            checkMousePosition(){
+                if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
+                    this.mouse.block = true; // 🧠 BLOCK CLICK AFTER FIRST
+                    this.onStart(); // <- ruft `loadWorld()` im GameController
+                }
+            }
 
     setReframe() {
          //original size

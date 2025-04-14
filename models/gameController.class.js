@@ -21,19 +21,17 @@ class GameController {
   }
 
   loadMenue(){
-    if(this.firstLoad){
-    this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
-    this.state = 'menue';
-    this.firstLoad = false;
-  }
-    else
-    {
-    this.menue = new Menue(this.canvas, this.mouse, ()=> this.loadWorld());
-    this.state = 'menue';
-    this.cleanUp();
-  }
-    
-    
+    this.mouse.block = false; // 🟢 Klick wieder erlauben
+  
+    if (this.firstLoad) {
+      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
+      this.state = 'menue';
+      this.firstLoad = false;
+    } else {
+      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
+      this.state = 'menue';
+      this.cleanUp();
+    }
   }
 
 
