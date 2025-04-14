@@ -31,7 +31,8 @@ class World {
     intervalIdCollection = [];
     requestAnimationFrameID;
     intervals = [ ];
-
+    bossIntroPlayed = false;
+    endboss;
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
@@ -53,6 +54,11 @@ class World {
 
     setWorld() {
         this.character.world = this;
+
+        this.level.enemies.forEach(enemy =>{
+            enemy.world = this;
+        });
+        this.endboss = this.level.enemies.find(e => e instanceof Endboss);
     }
 
 
@@ -106,7 +112,7 @@ class World {
         this.throwableObjects.forEach(projectile => {
             this.enemies.forEach(enemy => {
                 if (this.character.isCollidingWithTrowable(projectile, enemy)) {
-                    enemy.hit(10);
+                    enemy.hit(40);
                 }
             });
         });
@@ -147,6 +153,7 @@ class World {
         this.checkIfEnemyRunOut();
         this.reSpawnEnemie();
         this.stopProjectile();
+        this.checkBossIntroTrigger();
     }
 
     reSpawnEnemie() {
@@ -226,6 +233,16 @@ class World {
 
         })
 
+    }
+
+    checkBossIntroTrigger() {
+        if (!this.bossIntroPlayed && this.character.x >= 2100) {
+            this.bossIntroPlayed = true;
+            this.endboss.animateIntro(()=>{
+                this.endboss.animate();
+            });
+            
+        }
     }
 
 

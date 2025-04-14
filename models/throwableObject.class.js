@@ -10,8 +10,9 @@ class ThrowableObject extends MovableObject {
     frequency;
 
 
-    constructor(x, y, direction) {
+    constructor(x, y, direction, world) {
         super().loadImage('assets/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
+        this.world = world;
         this.x = x;
         this.y = y;
         this.outOfRange = false;
@@ -20,6 +21,7 @@ class ThrowableObject extends MovableObject {
         this.width = 50;
         this.throw(this.x + 180, this.y + 70);
         this.oldX = this.x + 180;
+        this.world = world;
 
     }
 
@@ -48,7 +50,7 @@ class ThrowableObject extends MovableObject {
         }, 50);
 
 
-        world.intervals.push(interval);
+        this.world.intervals.push(interval);
     }
 
 }
