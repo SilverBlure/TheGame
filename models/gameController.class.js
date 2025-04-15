@@ -20,8 +20,8 @@ class GameController {
     
   }
 
-  loadMenue(){
-    this.mouse.block = false; // 🟢 Klick wieder erlauben
+  loadMenue(){// 
+    this.mouse.block = false;
   
     if (this.firstLoad) {
       this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
@@ -55,10 +55,8 @@ class GameController {
   cleanUp(){if(this.world || this.menue){
     if(this.state == "game"){
       this.menue.cleanUp();
-      //this.menue = null;
     }else if (this.state == "menue"){
       this.world.cleanUp();
-      //this.world = null;
-    }}
+        }}
   }
 }
