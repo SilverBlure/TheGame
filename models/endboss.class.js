@@ -45,6 +45,12 @@ class Endboss extends MovableObject {
         'assets/2.Enemy/3 Final Enemy/Dead/6.png',
     ]
 
+    ENDBOSS_HURT = ['assets/2.Enemy/3 Final Enemy/Hurt/1.png',
+        'assets/2.Enemy/3 Final Enemy/Hurt/2.png',
+        'assets/2.Enemy/3 Final Enemy/Hurt/3.png',
+        'assets/2.Enemy/3 Final Enemy/Hurt/4.png',
+    ]
+
 
 
     constructor() {
@@ -55,17 +61,36 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_STAY);
         this.loadImages(this.ENDBOSS_INTRODUCE);
         this.loadImages(this.ENDBOSS_DEAD);
-
+        this.loadImages(this.ENDBOSS_HURT);
     }
-
 
     animate() {
+        if (this.idleStarted) return;
+        this.idleStarted = true;
+      
         const interval = setInterval(() => {
+          if (this.isDead()) {
+            console.log('animation dead')
+
+            this.playAnimationOnce(this.ENDBOSS_DEAD);
+            this.stopMove();
+            setTimeout(() => {
+                this.isAlive = false;
+            clearInterval(interval);
+            }, 3000);
+             // stoppe Idle
+            // Optional: trigger Game Over oder Win
+          } else if (this.isHurt()) {
+             console.log('animation hurt')
+            this.playAnimation(this.ENDBOSS_HURT);
+          } else {
             this.playAnimation(this.ENDBOSS_STAY);
-        }, 800);
+          }
+        }, 200);
+      
+        this.world?.intervalIdCollection.push(interval);
+      }
     
-        this.world?.intervalIdCollection.push(interval); // für CleanUp
-    }
     
 
     animateIntro(callback) {

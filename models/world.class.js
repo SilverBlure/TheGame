@@ -241,7 +241,6 @@ class World {
     checkBossIntroTrigger() {
         if (!this.bossIntroPlayed && this.character.x >= 2100) {
             this.bossIntroPlayed = true;
-            console.log('Test'); // ← erscheint jetzt exakt 1x
             this.endboss.animateIntro(() => {
                 this.endboss.animate();
             });
