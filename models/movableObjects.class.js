@@ -67,21 +67,25 @@ class MovableObject extends DrawableObject {
 
     }
 
-    playAnimationOnce(imageArr) {
-        if (this.currentImage >= 3) {
-            this.currentImage = 0;
-        }
-        if (!this.animationeDone) {
-            let i = this.currentImage % imageArr.length;
-            let path = imageArr[i];
-            this.img = this.imageCache[path];
+     playAnimationOnce(imageArr) {
+        if (this.animationeDone || this.currentImage >= imageArr.length) return;
+    
+        let path = imageArr[this.currentImage];
+        let img = this.imageCache[path];
+    
+        if (img) {
+            this.img = img;
             this.currentImage++;
+        } else {
+            console.warn("Bild nicht gefunden:", path);
         }
-        if (this.currentImage == imageArr.length) {
+    
+        if (this.currentImage >= imageArr.length) {
             this.animationeDone = true;
         }
     }
 
+    
 
     hit(value) {
         this.energy -= value;
