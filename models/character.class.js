@@ -90,7 +90,7 @@ class Character extends MovableObject {
 
     animate() {
 
-        this.intervals.push(setInterval(() => {
+        const interval = setInterval(() => {
             if (!this.isDead()) {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.x += this.speed;
@@ -121,12 +121,12 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x;
 
-        }, 1000 / 60));
+        }, 1000 / 60);
 
 
 
 
-        this.intervals.push(setInterval(() => {
+        const interval2 = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
@@ -136,7 +136,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIM);
             }
 
-        }, 50));
+        }, 50);
+
+        this.world?.intervalIdCollection.push(interval, interval2);
     }
 
     

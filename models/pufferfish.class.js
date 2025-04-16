@@ -2,12 +2,13 @@ class Pufferfish extends MovableObject {
     width = 100;
     height = 100;
     x;
+    y;
     dmg = 1;
     energy = 20;
     isAlive = true;
     inEndposition = false;
     randomGen = false;
-    interval;
+    
 
     PUFFERFISH_STAY = [
         'assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -32,21 +33,19 @@ class Pufferfish extends MovableObject {
         this.loadImage('./../assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
         this.world = null;
         this.x = 250 + Math.random() * 1600;
+        this.y = 250 * Math.random();
         this.loadImages(this.PUFFERFISH_STAY);
         this.loadImages(this.PUFFERFISH_DEAD);
         this.animate();
         this.speed = 0.15 + Math.random() * 0.25;
         
-
-
-
     }
 
 
     animate() {
         this.moveLeft();
 
-        this.interval = setInterval(() => {
+        const interval = setInterval(() => {
             if (this.checkAlive()) {
                 this.playAnimation(this.PUFFERFISH_STAY);
             } else {
@@ -56,8 +55,12 @@ class Pufferfish extends MovableObject {
             }
 
         }, 800);
+        try {
+            this.world?.intervalIdCollection.push(interval);    
 
-       // this.world?.intervalIdCollection.push(this.interval);    //ausChecken!!
+        } catch (error) {
+            console.warn('war nicht erfolgreich!')
+        }
     
     }
 

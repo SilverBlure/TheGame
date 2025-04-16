@@ -15,10 +15,7 @@ class Menue {
         this.mouse = mouse;
         this.onStart = loadWorld;
         this.draw();
-        
         this.canvas = canvas;
-
-
     }
 
     collisionWithButton(button) {
@@ -26,7 +23,6 @@ class Menue {
             this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) { 
             return true;
         }
-        
         return false;
     }
 

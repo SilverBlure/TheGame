@@ -9,11 +9,11 @@ class MovableObject extends DrawableObject {
     moveIntervall = null;
     isAlive = true;
     animationeDone = false;
-    intervals = [];
+    
 
 
     applyGravity() {
-        setInterval(() => {
+        const interval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -48,13 +48,13 @@ class MovableObject extends DrawableObject {
 
 
     moveLeft() {
-        this.intervals.push(setInterval(() => {
+         const interval = setInterval(() => {
             this.x -= this.speed;
-        }, 1000 / 60));
+        }, 1000 / 60);
     }
 
     stopMove(){
-        
+
     }
 
 
@@ -101,10 +101,8 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-    cleanUp() {
-        this.intervals.forEach(clearInterval);
-        this.intervals = [];
-    }
+
+   
 
 
 

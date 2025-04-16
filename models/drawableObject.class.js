@@ -7,6 +7,7 @@ class DrawableObject{
     width = 100;
     currentImage = 0;
     imageCache = {};
+    mode = "User";
     
 
     loadImage(path) {
@@ -19,6 +20,7 @@ class DrawableObject{
     }
 
     drawFrame(ctx) {
+        if(this.mode === 'Dev'){
         if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss || this instanceof ThrowableObject) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
@@ -34,6 +36,7 @@ class DrawableObject{
         }
             ctx.stroke();
         }
+    }
     }
 
     loadImages(arr) {

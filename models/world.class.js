@@ -33,6 +33,7 @@ class World {
     intervals = [ ];
     bossIntroPlayed = false;
     endboss;
+    state = null;
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
@@ -43,6 +44,8 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.mouse = mouse;
+        this.win = new Image();
+        this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
         this.setWorld();
         this.loop();
         this.state = "running";
@@ -59,6 +62,7 @@ class World {
         this.level.enemies.forEach(enemy =>{
             enemy.world = this;
         });
+
         this.endboss = this.level.enemies.find(e => e instanceof Endboss);
     }
 
@@ -110,14 +114,20 @@ class World {
     }
 
     checkProjectileEnemyCollision() {
-        this.throwableObjects.forEach(projectile => {
+        this.throwableObjects = this.throwableObjects.filter(projectile => {
+            let hit = false;
+    
             this.enemies.forEach(enemy => {
                 if (this.character.isCollidingWithTrowable(projectile, enemy)) {
                     enemy.hit(40);
+                    hit = true;
                 }
             });
-        });
+    
+            return !hit;
+        })
     }
+
     checkIfEnemyRunOut() {
         this.enemies = this.enemies.filter(enemy => {
             return (enemy.x + enemy.width) >= 0;
@@ -140,8 +150,12 @@ class World {
         this.addObjectsToMap(this.collectable);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+       
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
+        if(this.state === 'won'){this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
+
+        }
     }
 
 
@@ -155,6 +169,21 @@ class World {
         this.reSpawnEnemie();
         this.stopProjectile();
         this.checkBossIntroTrigger();
+        this.checkBossLive();
+    }
+
+    checkBossLive(){
+        if(!this.endboss.isAlive){
+            
+            this.state = 'won';
+            
+            //alle intervale und animationframes beenden
+
+            setTimeout(() => {
+                this.onExit();
+            }, 3000);
+            
+        }
     }
 
     reSpawnEnemie() {
