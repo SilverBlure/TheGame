@@ -8,8 +8,6 @@ class GameController {
     firstLoad = true;
     
 
-
-
   constructor(canvas, mouse, keyboard) {
     this.canvas = canvas;
     this.mouse = mouse;
@@ -20,7 +18,7 @@ class GameController {
     
   }
 
-  loadMenue(){// 
+  loadMenue(){
     this.mouse.block = false;
   
     if (this.firstLoad) {
@@ -33,7 +31,6 @@ class GameController {
       this.cleanUp();
     }
   }
-
 
   loadWorld(){
    

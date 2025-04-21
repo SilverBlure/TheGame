@@ -4,13 +4,18 @@ let world;
 let game;
 let keyboard = new Keyboard();
 let mouse = new Mouse(canvas);
+let inLandscape = window.matchMedia("(orientation: landscape)").matches;
 
-
+console.log(window)
 
 
 function init() {
-    canvas = document.getElementById('canvas');
-    //world = new World(canvas, keyboard, mouse);
+
+
+    if (isMobileDevice()) {
+        if(inLandscape){
+            console.log("Spiel läuft auf Desktop 💻");
+        canvas = document.getElementById('canvas');
     game = new GameController(canvas, mouse, keyboard);
 
     this.canvas = canvas;
@@ -19,10 +24,31 @@ function init() {
         mouse.pos_x = (event.clientX - rect.left)*(canvas.width / rect.width);
         mouse.pos_y = (event.clientY - rect.top)*(canvas.height / rect.height);
     })
-        
-    
+        }else {
+            console.log( 'bitte drehe dein geraet!')
+        }
+        console.log("Spiel läuft auf einem mobilen Gerät 📱");
+        document.getElementById('mobile-ui').style.display = 'block';
+    } else {
+        console.log("Spiel läuft auf Desktop 💻");
+        canvas = document.getElementById('canvas');
+    game = new GameController(canvas, mouse, keyboard);
+
+    this.canvas = canvas;
+    this.canvas.addEventListener("mousemove", (event) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.pos_x = (event.clientX - rect.left)*(canvas.width / rect.width);
+        mouse.pos_y = (event.clientY - rect.top)*(canvas.height / rect.height);
+    })
+    }
 
     
+        
+}
+
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+        || window.matchMedia("(pointer: coarse)").matches;
 }
 
 

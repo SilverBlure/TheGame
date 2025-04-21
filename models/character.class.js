@@ -91,7 +91,7 @@ class Character extends MovableObject {
     animate() {
 
         const interval = setInterval(() => {
-            if (!this.isDead()) {
+            if (!this.isDead() && this.world.state != 'won') {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.x += this.speed;
                     this.otherDirection = false;
@@ -111,7 +111,7 @@ class Character extends MovableObject {
 
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     console.log('Stage1!');
-                    this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+                    this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     console.log('Stage2!');
 
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);

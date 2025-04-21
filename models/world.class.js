@@ -91,7 +91,7 @@ class World {
     }
 
     checkCharacterEnemyCollision() {
-        this.level.enemies.forEach(enemy => {
+        this.enemies.forEach(enemy => {
             if (this.character.isColliding(this.character, enemy) && enemy.isAlive) {
                 this.character.hit(1);
                 this.statusBar.setPercentage(this.character.energy);
@@ -200,13 +200,11 @@ class World {
 
     loop() {
         let now = 0;
-
         if (now >= 30) {
             this.draw();
         }
         this.update();
         now++;
-
         let self = this;
         this.requestAnimationFrameID = requestAnimationFrame(() => {
             self.loop();
@@ -217,8 +215,6 @@ class World {
         cancelAnimationFrame(this.requestAnimationFrameID);
         this.requestAnimationFrameID = null;
     }
-
-
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
@@ -240,7 +236,6 @@ class World {
         }
     }
 
-
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -248,7 +243,6 @@ class World {
         mo.x = mo.x * -1;
 
     }
-
 
     flipImageBack(mo) {
         this.ctx.restore();
@@ -265,8 +259,6 @@ class World {
 
     }
 
-   
-
     checkBossIntroTrigger() {
         if (!this.bossIntroPlayed && this.character.x >= 2100) {
             this.bossIntroPlayed = true;
@@ -275,7 +267,5 @@ class World {
             });
         }
     }
-
-
 
 }

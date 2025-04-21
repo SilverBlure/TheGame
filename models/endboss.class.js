@@ -6,6 +6,9 @@ class Endboss extends MovableObject {
     interval;
     isAlive = true;
     energy = 20;
+    inMove = false;
+    patternIndex;
+
 
 
     ENDBOSS_STAY = [
@@ -24,7 +27,8 @@ class Endboss extends MovableObject {
         'assets/2.Enemy/3 Final Enemy/2.floating/13.png',
     ]
 
-    ENDBOSS_INTRODUCE = ['assets/2.Enemy/3 Final Enemy/1.Introduce/1.png',
+    ENDBOSS_INTRODUCE = [
+        'assets/2.Enemy/3 Final Enemy/1.Introduce/1.png',
         'assets/2.Enemy/3 Final Enemy/1.Introduce/2.png',
         'assets/2.Enemy/3 Final Enemy/1.Introduce/3.png',
         'assets/2.Enemy/3 Final Enemy/1.Introduce/4.png',
@@ -51,8 +55,6 @@ class Endboss extends MovableObject {
         'assets/2.Enemy/3 Final Enemy/Hurt/4.png',
     ]
 
-
-
     constructor() {
         super();
         this.loadImage(this.ENDBOSS_STAY[0]);
@@ -62,13 +64,19 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_INTRODUCE);
         this.loadImages(this.ENDBOSS_DEAD);
         this.loadImages(this.ENDBOSS_HURT);
+        
     }
 
     animate() {
         if (this.idleStarted) return;
         this.idleStarted = true;
+
+        // if (this.idleStarted){
+        //     this.attackPattern();
+        // }
       
         const interval = setInterval(() => {
+            
           if (this.isDead()) {
             console.log('animation dead')
 
@@ -95,7 +103,7 @@ class Endboss extends MovableObject {
 
     animateIntro(callback) {
         let i = 0;
-        this.y = 0;
+        
     
         const interval = setInterval(() => {
             this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
@@ -105,8 +113,21 @@ class Endboss extends MovableObject {
                 clearInterval(interval);
                 callback?.();
             }
+            this.y = 0;
         }, 120);
     
         this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
     }
+
+    attackPattern(){
+        this.patternIndex = Math.random();
+        if(this.patternIndex <= 0.33){
+            this.x = 200;
+        }else if (this.patternIndex >= 0.33 && this.patternIndex <= 0.66){
+            this.x = 70;
+        }else{
+            this.x =-70;
+        }
+
+}
 }

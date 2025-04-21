@@ -16,63 +16,77 @@ class Menue {
         this.onStart = loadWorld;
         this.draw();
         this.canvas = canvas;
+
     }
+
+
 
     collisionWithButton(button) {
         if (this.mouse.pos_x > button.x && this.mouse.pos_x < button.x + button.width &&
-            this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) { 
+            this.mouse.pos_y > button.y && this.mouse.pos_y < button.y + button.height) {
             return true;
         }
         return false;
     }
 
-    hoverPointer(){
-        
-            if (this.collisionWithButton(this.startButton) || this.collisionWithButton(this.fullScreen)) {
-                document.body.style.cursor = "pointer";
-            } else {
-                document.body.style.cursor = "default";
-            }
-            }
+    hoverPointer() {
 
-            checkMousePosition(){
-                if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
-                    this.mouse.block = true; // 🧠 BLOCK CLICK AFTER FIRST
-                    this.onStart(); // <- ruft `loadWorld()` im GameController
-                }
-            }
+        if (this.collisionWithButton(this.startButton) || this.collisionWithButton(this.fullScreen)) {
+            document.body.style.cursor = "pointer";
+        } else {
+            document.body.style.cursor = "default";
+        }
+    }
+
+    checkMousePosition() {
+        if (this.collisionWithButton(this.startButton) && this.mouse.click && !this.mouse.block) {
+            this.mouse.block = true;
+            this.onStart();
+        }
+        if (this.collisionWithButton(this.fullScreen)  && this.mouse.click && !this.mouse.block){
+            this.mouse.block = true;
+            this.toggleFullscreen();
+        }
+    }
 
     setReframe() {
-         //original size
+        //original size
 
-        if(this.fullwindow){ //true
+        if (this.fullwindow) { //true
             this.canvas.width = this.originalWidth;
             this.canvas.height = this.originalHeight;
             this.fullwindow = false;
-            }
-        else{
-        this.originalWidth = this.canvas.width;
-        this.originalHeight = this.canvas.height;
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight; 
-        this.fullwindow = true;
+        }
+        else {
+            this.originalWidth = this.canvas.width;
+            this.originalHeight = this.canvas.height;
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+            this.fullwindow = true;
 
-        }  
+        }
         this.startButton = new Startgame(this.canvas.width, this.canvas.height);
         this.menueBG = new MenueBackground(this.canvas.width, this.canvas.height);
-        this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height); 
+        this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
     }
-    toggleFullscreen()
-    {
+
+
+    toggleFullscreen() {
         if (!document.fullscreenElement) {
-            this.canvas.requestFullscreen();
+            this.originalWidth = this.canvas.width;
+            this.originalHeight = this.canvas.height;
+
+            this.canvas.requestFullscreen().then(() => {
+                this.setCanvasToFullscreen();
+            });
         } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
+            document.exitFullscreen().then(() => {
+                this.resetCanvasSize();
+            });
         }
     }
-   
+
+
 
     draw() {
         this.addToMap(this.menueBG);
@@ -82,7 +96,7 @@ class Menue {
         this.hoverPointer();
 
         let self = this;
-       this.requestAnimationFrameID = requestAnimationFrame(() => {
+        this.requestAnimationFrameID = requestAnimationFrame(() => {
             self.draw();
         });
     }

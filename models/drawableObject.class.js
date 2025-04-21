@@ -7,7 +7,7 @@ class DrawableObject{
     width = 100;
     currentImage = 0;
     imageCache = {};
-    mode = "User";
+    mode = "Dev";
     
 
     loadImage(path) {
