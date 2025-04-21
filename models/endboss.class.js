@@ -64,70 +64,102 @@ class Endboss extends MovableObject {
         this.loadImages(this.ENDBOSS_INTRODUCE);
         this.loadImages(this.ENDBOSS_DEAD);
         this.loadImages(this.ENDBOSS_HURT);
-        
+
     }
 
     animate() {
         if (this.idleStarted) return;
         this.idleStarted = true;
 
-        // if (this.idleStarted){
-        //     this.attackPattern();
-        // }
-      
-        const interval = setInterval(() => {
-            
-          if (this.isDead()) {
-            console.log('animation dead')
 
-            this.playAnimationOnce(this.ENDBOSS_DEAD);
-            this.stopMove();
-            setTimeout(() => {
-                this.isAlive = false;
-            clearInterval(interval);
-            }, 3000);
-             // stoppe Idle
-            // Optional: trigger Game Over oder Win
-          } else if (this.isHurt()) {
-             console.log('animation hurt')
-            this.playAnimation(this.ENDBOSS_HURT);
-          } else {
-            this.playAnimation(this.ENDBOSS_STAY);
-          }
+        const interval = setInterval(() => {
+
+            if (!this.inMove) {
+                this.attackPattern();
+            }
+
+            if (this.isDead()) {
+                console.log('animation dead')
+
+                this.playAnimationOnce(this.ENDBOSS_DEAD);
+                this.stopMove();
+                setTimeout(() => {
+                    this.isAlive = false;
+                    clearInterval(interval);
+                }, 3000);
+                // stoppe Idle
+                // Optional: trigger Game Over oder Win
+            } else if (this.isHurt()) {
+                console.log('animation hurt')
+                this.playAnimation(this.ENDBOSS_HURT);
+            } else {
+                this.playAnimation(this.ENDBOSS_STAY);
+            }
         }, 200);
-      
+
         this.world?.intervalIdCollection.push(interval);
-      }
-    
-    
+    }
+
+
 
     animateIntro(callback) {
         let i = 0;
-        
-    
+
+
         const interval = setInterval(() => {
             this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
             i++;
-    
+
             if (i >= this.ENDBOSS_INTRODUCE.length) {
                 clearInterval(interval);
                 callback?.();
             }
             this.y = 0;
+
         }, 120);
-    
+
         this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
     }
 
-    attackPattern(){
+    attackPattern() {
+        if (!this.inMove){
         this.patternIndex = Math.random();
-        if(this.patternIndex <= 0.33){
-            this.x = 200;
-        }else if (this.patternIndex >= 0.33 && this.patternIndex <= 0.66){
-            this.x = 70;
-        }else{
-            this.x =-70;
-        }
+    }
 
-}
-}
+        this.inMove = true;
+
+        if (this.patternIndex <= 0.33) {
+            console.log('top');
+            this.gotToPos(200);
+        } else if (this.patternIndex >= 0.33 && this.patternIndex <= 0.66) {
+            console.log('middle');
+            this.gotToPos(70);
+        } else {
+            console.log('bottom');
+            this.gotToPos(-70);
+        }
+    }
+
+    gotToPos(value) {
+        
+        const interval = setInterval(() => {
+            if (value <= this.y) {
+                this.y -= 10;
+            }else if (value >= this.y) {
+                this.y += 10;
+            }
+                this.positionCheck(value);
+            
+        }, 200);
+       
+    }
+
+    positionCheck(value){
+        if(this.y === value){
+            console.log(this.inMove)
+            setTimeout(() => {
+                this.inMove = false         //nach erstem mal durchlaufen geht die funktion duchch und gibt immer true an
+            }, 2000);
+            }
+        }
+}   
