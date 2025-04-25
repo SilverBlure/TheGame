@@ -4,7 +4,7 @@ let world;
 let game;
 let keyboard = new Keyboard();
 let mouse = new Mouse(canvas);
-let inLandscape = window.matchMedia("(orientation: landscape)").matches;
+
 
 function init() {
  

@@ -8,7 +8,7 @@ class GameController {
   firstLoad = true;
   device;
 
-  //list of states: menue, game, mobile device
+  //list of states: menue, game, mobile
 
   constructor(canvas, mouse, keyboard) {
     this.canvas = canvas;
@@ -17,12 +17,14 @@ class GameController {
     this.keyboard = keyboard;
     this.loadMenue();
     this.loop();
-    console.log(this.getDevice());
+    this.getDevice();
+    console.log(this.getDevicePosition()); // checkt in einem interval ob das geraet wagrecht ist oder nicht wenn nicht kommt eine aufforerung 
+                                            // wenn ja kann gespielt werden
+    
   }
 
   loadMenue() {
     this.mouse.block = false;
-
     if (this.firstLoad) {
       this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
       this.state = "menue";
@@ -36,7 +38,7 @@ class GameController {
 
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
-      this.loadMenue()
+      this.loadMenue(), 
     );
     this.state = "game";
     this.cleanUp();
@@ -56,7 +58,10 @@ class GameController {
         /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
         window.matchMedia("(pointer: coarse)").matches
       );
-    
+  }
+
+  getDevicePosition(){
+    return window.matchMedia("(orientation: landscape)").matches;
   }
 
   cleanUp() {
