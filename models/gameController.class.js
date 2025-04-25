@@ -1,12 +1,14 @@
 class GameController {
-    canvas;
-    mouse;
-    keyboard;
-    world;
-    menue;
-    state = 'menue';
-    firstLoad = true;
-    
+  canvas;
+  mouse;
+  keyboard;
+  world;
+  menue;
+  state = "menue";
+  firstLoad = true;
+  device;
+
+  //list of states: menue, game, mobile device
 
   constructor(canvas, mouse, keyboard) {
     this.canvas = canvas;
@@ -15,45 +17,55 @@ class GameController {
     this.keyboard = keyboard;
     this.loadMenue();
     this.loop();
-    
+    console.log(this.getDevice());
   }
 
-  loadMenue(){
+  loadMenue() {
     this.mouse.block = false;
-  
+
     if (this.firstLoad) {
       this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
-      this.state = 'menue';
+      this.state = "menue";
       this.firstLoad = false;
     } else {
       this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
-      this.state = 'menue';
+      this.state = "menue";
       this.cleanUp();
     }
   }
 
-  loadWorld(){
-   
-    this.world = new World(this.canvas, this.keyboard, this.mouse, ()=> this.loadMenue());
-    this.state = 'game';
+  loadWorld() {
+    this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
+      this.loadMenue()
+    );
+    this.state = "game";
     this.cleanUp();
   }
 
   loop() {
-    if(this.state === 'menue'){
-        this.menue.draw();
-    }else if(this.state === 'game'){
-        this.world.draw();
+    if (this.state === "menue") {
+      this.menue.draw();
+    } else if (this.state === "game") {
+      this.world.draw();
     }
     requestAnimationFrame(() => this.loop());
-}
+  }
 
+  getDevice(){
+      return (
+        /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        window.matchMedia("(pointer: coarse)").matches
+      );
+    
+  }
 
-  cleanUp(){if(this.world || this.menue){
-    if(this.state == "game"){
-      this.menue.cleanUp();
-    }else if (this.state == "menue"){
-      this.world.cleanUp();
-        }}
+  cleanUp() {
+    if (this.world || this.menue) {
+      if (this.state == "game") {
+        this.menue.cleanUp();
+      } else if (this.state == "menue") {
+        this.world.cleanUp();
+      }
+    }
   }
 }

@@ -262,8 +262,10 @@ class World {
     checkBossIntroTrigger() {
         if (!this.bossIntroPlayed && this.character.x >= 2100) {
             this.bossIntroPlayed = true;
+            
             this.endboss.animateIntro(() => {
                 this.endboss.animate();
+                
             });
         }
     }
