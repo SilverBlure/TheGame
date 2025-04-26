@@ -8,21 +8,35 @@ class GameController {
   firstLoad = true;
   device;
 
-  //list of states: menue, game, mobile
-
-  constructor(canvas, mouse, keyboard) {
+  constructor(canvas, ctx, mouse, keyboard) {
     this.canvas = canvas;
+    this.ctx = ctx;
     this.mouse = mouse;
     this.state = "menue";
     this.keyboard = keyboard;
-    this.loadMenue();
+    this.getDeviceData();
     this.loop();
-    this.getDevice();
-    console.log(this.getDevicePosition()); // checkt in einem interval ob das geraet wagrecht ist oder nicht wenn nicht kommt eine aufforerung 
-                                            // wenn ja kann gespielt werden
-    
+    this.getDevice(); //  must be true
+    this.getDevicePosition(); //must be false
+    // checkt in einem interval ob das geraet wagrecht ist oder nicht wenn nicht kommt eine aufforerung
+    // wenn ja kann gespielt werden
   }
 
+  getDeviceData() {
+    let screenW = this.getDeviceScreenW();
+    let screenH = this.getDeviceScreenH();
+    if (this.getDevice) {
+      this.canvas.width = screenW;
+      this.canvas.height = screenH;
+      if (!this.getDevicePosition()) {
+        this.loadMenue();
+      } else {
+        this.block();
+      }
+    }
+    this.loadMenue();
+  }
+  
   loadMenue() {
     this.mouse.block = false;
     if (this.firstLoad) {
@@ -36,9 +50,25 @@ class GameController {
     }
   }
 
+  getDeviceScreenW() {
+    let ratio = window.devicePixelRatio || 1;
+    let w = screen.width * ratio;
+    return w;
+  }
+  getDeviceScreenH() {
+    let ratio = window.devicePixelRatio || 1;
+    let h = screen.height * ratio;
+    return h;
+  }
+  block(){  //muss noch justiert werden
+    let img = new Image();
+    img.src = 'assets/3.Background/Barrier/1.png'
+     this.ctx.drawImage(img, 200, 200, 200, 200);
+  }
+
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
-      this.loadMenue(), 
+      this.loadMenue()
     );
     this.state = "game";
     this.cleanUp();
@@ -53,14 +83,14 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
-  getDevice(){
-      return (
-        /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-        window.matchMedia("(pointer: coarse)").matches
-      );
+  getDevice() {
+    return (
+      /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
   }
 
-  getDevicePosition(){
+  getDevicePosition() {
     return window.matchMedia("(orientation: landscape)").matches;
   }
 

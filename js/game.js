@@ -9,7 +9,8 @@ let mouse = new Mouse(canvas);
 function init() {
  
       canvas = document.getElementById("canvas");
-      game = new GameController(canvas, mouse, keyboard);
+      ctx = canvas.getContext("2d"),
+      game = new GameController(canvas, ctx, mouse, keyboard);
 
       this.canvas = canvas;
       this.canvas.addEventListener("mousemove", (event) => {
@@ -95,4 +96,13 @@ window.addEventListener("mouseup", (e) => {
   if (e.button == 0) {
     mouse.click = false;
   }
+});
+
+
+window.addEventListener("touchstart", (e) => {
+  mouse.click = true;
+});
+
+window.addEventListener("touchend", (e) => {
+  mouse.click = false;
 });
