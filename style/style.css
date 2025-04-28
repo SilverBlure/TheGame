@@ -10,7 +10,11 @@ body{
     align-items: center;
     flex-direction: column;
     margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
     background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
+    background-repeat: none;
 }
 
 canvas{
@@ -18,6 +22,8 @@ canvas{
     display: block;
     margin : 0;
     padding: 0;
+    height: 100vh;
+    width: 100vw;
 }
 
 h1{
@@ -38,4 +44,7 @@ span{
 
 table{
     text-align: center ;
+}
+.d-none{
+    display: none;
 }

@@ -21,6 +21,7 @@ class World {
     camera_x = 0;
     keyboard;
     mouse;
+    mobileController = new MobileController();
     statusBar = new StatusBar();
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
@@ -34,11 +35,13 @@ class World {
     bossIntroPlayed = false;
     endboss;
     state = null;
+    now = 0;
+    device;
 
     //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
 
 
-    constructor(canvas, keyboard, mouse, onExit) {
+    constructor(canvas, keyboard, mouse, onExit, device) {
         console.log("World wurde erstellt!")
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
@@ -51,6 +54,7 @@ class World {
         this.state = "running";
         this.onExit = onExit;
         this.tryAgainImage.src = 'assets/6.Botones/Try again/Recurso 15.png';
+        this.device = device;
     }
 
 
@@ -58,7 +62,6 @@ class World {
 
     setWorld() {
         this.character.world = this;
-
         this.level.enemies.forEach(enemy =>{
             enemy.world = this;
         });
@@ -153,6 +156,9 @@ class World {
        
         this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
+        if(this.device === 'mobile'){
+            this.addToMap(this.mobileController);
+        }
         if(this.state === 'won'){this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
 
         }
@@ -198,17 +204,12 @@ class World {
         })
     }
 
-    loop() {
-        let now = 0;
-        if (now >= 30) {
+    loop(){
+        if (this.now >= 30) {
             this.draw();
         }
         this.update();
-        now++;
-        let self = this;
-        this.requestAnimationFrameID = requestAnimationFrame(() => {
-            self.loop();
-        });
+        this.now++;
     }
 
     cleanUp() {
@@ -225,7 +226,6 @@ class World {
     }
 
     addToMap(mo) {                  // invert images
-
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
@@ -254,20 +254,15 @@ class World {
             if (enemy.isAlive && !enemy.inEndposition) {
                 return true;
             }
-
         })
-
     }
 
     checkBossIntroTrigger() {
         if (!this.bossIntroPlayed && this.character.x >= 2100) {
-            this.bossIntroPlayed = true;
-            
+            this.bossIntroPlayed = true;   
             this.endboss.animateIntro(() => {
-                this.endboss.animate();
-                
+                this.endboss.animate();  
             });
         }
     }
-
 }

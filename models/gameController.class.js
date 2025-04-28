@@ -6,80 +6,102 @@ class GameController {
   menue;
   state = "menue";
   firstLoad = true;
-  device;
+  device = null;
 
   constructor(canvas, ctx, mouse, keyboard) {
     this.canvas = canvas;
     this.ctx = ctx;
     this.mouse = mouse;
-    this.state = "menue";
+    
     this.keyboard = keyboard;
-    this.getDeviceData();
     this.loop();
-    this.getDevice(); //  must be true
-    this.getDevicePosition(); //must be false
-    // checkt in einem interval ob das geraet wagrecht ist oder nicht wenn nicht kommt eine aufforerung
-    // wenn ja kann gespielt werden
+    this.getDevice();
+    this.checkOrientationAndStart();
+
+    window.addEventListener('resize',()=>{
+      this.checkOrientationAndStart();
+    });
+
+    window.addEventListener('orientationchange',()=>{
+      this.checkOrientationAndStart();
+    });
+    if(this.getDevice()){
+      document.getElementById('headline').classList.add('d-none');    }
   }
 
   getDeviceData() {
     let screenW = this.getDeviceScreenW();
     let screenH = this.getDeviceScreenH();
-    if (this.getDevice) {
+    if (this.getDevice()) {
+      this.device = 'mobile'
       this.canvas.width = screenW;
       this.canvas.height = screenH;
-      if (!this.getDevicePosition()) {
-        this.loadMenue();
-      } else {
-        this.block();
-      }
-    }
-    this.loadMenue();
-  }
-  
-  loadMenue() {
-    this.mouse.block = false;
-    if (this.firstLoad) {
-      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
-      this.state = "menue";
-      this.firstLoad = false;
-    } else {
-      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
-      this.state = "menue";
-      this.cleanUp();
     }
   }
 
+  loadMenue() {
+    this.mouse.block = false;
+    if (this.firstLoad) {
+      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(),);
+      this.state = "menue";
+      this.firstLoad = false;
+    } else {
+      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(),);
+      this.state = "menue";
+      
+    }
+  }
+
+
+
+  checkOrientationAndStart() {
+    if (this.isLandscape()) {
+        if (this.state === "blocked" || (!this.world && !this.menue)) {
+            this.getDeviceData();
+            this.loadMenue();
+        }
+    } else {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+        this.state = "blocked";
+        this.showRotateScreen(); 
+    }
+}
+
+
+  showRotateScreen() {
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "30px Arial";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText("Bitte ins Querformat drehen!", this.canvas.width / 2, this.canvas.height / 2);
+}
+
   getDeviceScreenW() {
-    let ratio = window.devicePixelRatio || 1;
-    let w = screen.width * ratio;
-    return w;
-  }
+    
+    return window.innerWidth;
+      }
   getDeviceScreenH() {
-    let ratio = window.devicePixelRatio || 1;
-    let h = screen.height * ratio;
-    return h;
+    return window.innerHeight;
   }
-  block(){  //muss noch justiert werden
-    let img = new Image();
-    img.src = 'assets/3.Background/Barrier/1.png'
-     this.ctx.drawImage(img, 200, 200, 200, 200);
-  }
+
 
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
       this.loadMenue()
-    );
+    , this.device);
     this.state = "game";
-    this.cleanUp();
+    
   }
 
   loop() {
-    if (this.state === "menue") {
+    if (this.state === "menue" && this.menue) {
       this.menue.draw();
-    } else if (this.state === "game") {
-      this.world.draw();
-    }
+    } else if (this.state === "game" && this.world) {
+      this.world.loop();
+    }else if (this.state === "blocked") {
+      this.showRotateScreen();
+  }
     requestAnimationFrame(() => this.loop());
   }
 
@@ -90,17 +112,9 @@ class GameController {
     );
   }
 
-  getDevicePosition() {
+  isLandscape() {
     return window.matchMedia("(orientation: landscape)").matches;
-  }
+   }
 
-  cleanUp() {
-    if (this.world || this.menue) {
-      if (this.state == "game") {
-        this.menue.cleanUp();
-      } else if (this.state == "menue") {
-        this.world.cleanUp();
-      }
-    }
-  }
+                  //cleanup funktion implementieren die animationrequests loescht
 }
