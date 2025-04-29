@@ -26,6 +26,7 @@ class World {
     poisonBar = new PoisonBar();
     coinBar = new CoinBar();
     throwableObjects = [];
+    meleeAtk = [];
     state;
     fadeAlpha = 0;
     tryAgainImage = new Image()
@@ -42,7 +43,6 @@ class World {
 
 
     constructor(canvas, keyboard, mouse, onExit, device) {
-        console.log("World wurde erstellt!")
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -176,6 +176,18 @@ class World {
         this.stopProjectile();
         this.checkBossIntroTrigger();
         this.checkBossLive();
+        this.jellyFloat();
+    }
+
+    jellyFloat(){
+        this.enemies.forEach(enemie => {
+            if(enemie instanceof Jellyfish)
+                {
+                enemie.animate();
+            }
+            
+        });
+        
     }
 
     checkBossLive(){

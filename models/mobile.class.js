@@ -43,6 +43,4 @@ A_BUTTON;
                y > button.y && y < button.y + button.height;
       }
 
-    
-
 }
