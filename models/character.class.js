@@ -69,9 +69,20 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
     ]
 
+    FIN_MELEE_HIT =[
+        'assets/1.Sharkie/4.Attack/Fin slap/1.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/2.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/3.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/4.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/5.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/6.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/7.png',
+        'assets/1.Sharkie/4.Attack/Fin slap/8.png',
+    ]
 
     constructor() {
-        super().loadImage('assets/1.Sharkie/3.Swim/1.png',);
+        super();
+        this.loadImage('assets/1.Sharkie/3.Swim/1.png',);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_HURT_POISON);
@@ -108,7 +119,15 @@ class Character extends MovableObject {
                     this.y += this.speed;
 
                 }
-
+                if(this.world.keyboard.S && this.canAct){
+                    this.world.meleeAtk.push(new FinAttack(this));
+                    this.playAnimation(this.FIN_MELEE_HIT)
+                    this.canAct = false;
+                    setTimeout(() => {
+                        this.world.meleeAtk.pop();
+                        this.canAct = true;
+                    }, 1500);
+                }
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
 

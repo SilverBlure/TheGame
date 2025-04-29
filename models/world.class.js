@@ -69,8 +69,6 @@ class World {
         this.endboss = this.level.enemies.find(e => e instanceof Endboss);
     }
 
-
-
     checkGameOver() {
         if (this.character.energy <= 0 && this.state !== "dead") {
 
@@ -126,10 +124,19 @@ class World {
                     hit = true;
                 }
             });
-    
             return !hit;
         })
     }
+
+collisionFinSlap(){
+    this.enemies = this.enemies.filter(enemie =>{
+        if(this.character.isColliding(this.meleeAtk, enemie))
+            enemie.hit(80);
+            console.log('boom!');
+
+    })
+}
+   
 
     checkIfEnemyRunOut() {
         this.enemies = this.enemies.filter(enemy => {
@@ -177,6 +184,7 @@ class World {
         this.checkBossIntroTrigger();
         this.checkBossLive();
         this.jellyFloat();
+        this.collisionFinSlap();
     }
 
     jellyFloat(){

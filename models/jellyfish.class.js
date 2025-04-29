@@ -38,7 +38,6 @@ animate(){
 }
 
 regulator(){
-    console.log(this.now);
     this.now++;
     if( this.now >= 30){
         this.playAnimation(this.IDLE_JELLYFISH);
