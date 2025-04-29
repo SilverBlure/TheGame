@@ -36,4 +36,13 @@ A_BUTTON;
         this.D_PAD.draw(ctx);
         
     }
+
+
+    isTouching(button, x, y) {
+        return x > button.x && x < button.x + button.width &&
+               y > button.y && y < button.y + button.height;
+      }
+
+    
+
 }

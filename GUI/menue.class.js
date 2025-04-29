@@ -100,10 +100,21 @@ class Menue {
     this.addToMap(this.fullScreen);
     this.checkMousePosition();
     this.hoverPointer();
-
-    
     }
   
+
+    handleTouch(x, y) {
+      this.mouse.pos_x = x;
+      this.mouse.pos_y = y;
+      if (this.collisionWithButton(this.startButton)) {
+        this.onStart(); // Spiel starten
+        console.log('menue.touchHandler')
+      }
+      if (this.collisionWithButton(this.fullScreen)) {
+        this.toggleFullscreen(); // Fullscreen einschalten
+      }
+    }
+    
 
   cleanUp() {
     cancelAnimationFrame(this.requestAnimationFrameID);
