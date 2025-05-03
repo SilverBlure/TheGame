@@ -12,25 +12,37 @@ char_height;
 
 
 
-    constructor(character){
-        super();
-        this.loadImages(this.FIN_MELEE_HIT);
-        this.pos_x = character.x;
-        this.pos_y = character.y;
-        this.char_width = character.width;
-        this.char_height = character.height;
-        this.x = character.x + character.width;
-        this.y = character.y;
-        this.width = 40;
-        this.height = character.height;
-        
+constructor(x, y, char_width, char_height) {
+    super();
+    this.pos_x = x;
+    this.pos_y = y;
+    this.char_width = char_width;
+    this.char_height = char_height;
+    
+    this.x = x + char_width; // Position direkt rechts vom Charakter
+    this.y = y;              // Gleiche y-Position wie der Charakter
+    this.width = 100;         // Länge der Hitbox nach rechts
+    this.height = char_height; // gleiche Höhe wie der Charakter
+}
+
+
+    getCollider() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height
+        };
     }
 
-    getCollider(){
-        return (this.x +this.width &&
-            this.y + this.height)
+    drawDebugBox(ctx) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';  // Rot, halbtransparent
+        ctx.lineWidth = 2;
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        ctx.restore();
     }
-
+    
 
 
 

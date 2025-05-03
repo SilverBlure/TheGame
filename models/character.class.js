@@ -87,6 +87,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_HURT_POISON);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+        this.loadImages(this.FIN_MELEE_HIT);
         this.animate();
     }
 
@@ -120,12 +121,16 @@ class Character extends MovableObject {
 
                 }
                 if(this.world.keyboard.S && this.canAct){
-                    this.world.meleeAtk.push(new FinAttack(this));
-                    this.playAnimation(this.FIN_MELEE_HIT)
+                    this.world.meleeAtk.push(new FinAttack(this.world.character.x,
+                        this.world.character.y,
+                        this.world.character.width,
+                        this.world.character.height));
+                    this.playAnimation(this.FIN_MELEE_HIT);
                     this.canAct = false;
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
                         this.canAct = true;
+                        console.log('ready')
                     }, 1500);
                 }
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
@@ -136,7 +141,7 @@ class Character extends MovableObject {
                     this.canAct = false;
                     setTimeout(() => {
                         this.canAct = true;
-                    }, 1000);
+                    }, 500);
                 }
             }
             this.world.camera_x = -this.x;
