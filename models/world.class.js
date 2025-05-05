@@ -39,9 +39,6 @@ class World {
     now = 0;
     device;
 
-    //audioBg = new Audio('assets/sounds/514800__mrthenoronha__water-game-theme-loop-2.wav');
-
-
     constructor(canvas, keyboard, mouse, onExit, device) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
@@ -128,14 +125,7 @@ class World {
         })
     }
 
-collisionFinSlap(){
-    this.enemies = this.enemies.filter(enemie =>{
-        if(this.character.isColliding(this.meleeAtk, enemie))
-            enemie.hit(80);
-            console.log('boom!');
-
-    })
-}
+  
    
 
     checkIfEnemyRunOut() {
@@ -175,6 +165,7 @@ collisionFinSlap(){
     update() {
         this.checkCharacterEnemyCollision();
         this.checkProjectileEnemyCollision();
+        //this.checkFinSlapEnemieCollision();
         this.checkCharacterCollectablesCollision();
         this.clearDeadEnemys();
         this.checkGameOver();
@@ -184,7 +175,7 @@ collisionFinSlap(){
         this.checkBossIntroTrigger();
         this.checkBossLive();
         this.jellyFloat();
-        this.collisionFinSlap();
+       // this.collisionFinSlap();
     }
 
     jellyFloat(){
