@@ -115,6 +115,9 @@ class World {
       this.enemies.forEach((enemy) => {
         if (this.character.isCollidingWithTrowable(projectile, enemy)) {
           enemy.hit(40);
+          if(enemy instanceof Pufferfish){
+            enemy.playAnimationOnce(enemy.PUFFERFISH_DEAD);
+          }
           hit = true;
         }
       });
@@ -178,6 +181,7 @@ class World {
     this.checkBossLive();
     this.jellyFloat();
     this.checkcollisionFinSlap();
+    
   }
 
   jellyFloat() {
@@ -213,10 +217,11 @@ class World {
   }
 
   loop() {
-    if (this.now >= 30) {
-      this.draw();
+    if (this.now >= 5) {
+      this.update();
+      this.now = 0;
     }
-    this.update();
+    this.draw();
     this.now++;
   }
 
@@ -233,8 +238,8 @@ class World {
     });
   }
 
+
   addToMap(mo) {
-    // invert images
     if (mo.otherDirection) {
       this.flipImage(mo);
     }

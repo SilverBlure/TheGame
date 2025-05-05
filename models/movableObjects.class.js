@@ -54,7 +54,6 @@ class MovableObject extends DrawableObject {
     }
 
     stopMove(){
-
     }
 
 
@@ -67,25 +66,18 @@ class MovableObject extends DrawableObject {
 
     }
 
-     playAnimationOnce(imageArr) {
-        if (this.animationeDone || this.currentImage >= imageArr.length) return;
+    playAnimationOnce(imageArr) {
+        if (this.animationeDone) return;
     
         let path = imageArr[this.currentImage];
-        let img = this.imageCache[path];
-    
-        if (img) {
-            this.img = img;
-            this.currentImage++;
-        } else {
-            console.warn("Bild nicht gefunden:", path);
-        }
+        this.img = this.imageCache[path];
+        this.currentImage++;
     
         if (this.currentImage >= imageArr.length) {
             this.animationeDone = true;
+            this.currentImage = 0;  // optional zurücksetzen
         }
     }
-
-    
 
     hit(value) {
         this.energy -= value;

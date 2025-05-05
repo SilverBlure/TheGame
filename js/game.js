@@ -72,6 +72,9 @@ function handleTouchDown(x, y) {
       if (controller.isTouching(controller.PAUSE_BUTTON, x, y)) {
         kb.P = true;
       }
+      if(controller.isTouching(controller.MELEE_BUTTON, x, y)){
+        kb.S = true;
+      }
       if (controller.isTouching(controller.D_PAD, x, y)) {
         if (x < controller.D_PAD.x + controller.D_PAD.width / 3) {
           kb.LEFT = true;

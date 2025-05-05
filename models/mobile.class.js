@@ -3,6 +3,7 @@ class MobileController extends DrawableObject{
 PAUSE_BUTTON;
 D_PAD;
 A_BUTTON;
+MELEE_BUTTON;
 
 
     constructor(){
@@ -27,6 +28,13 @@ A_BUTTON;
         this.A_BUTTON.y = 240;
         this.A_BUTTON.width = 120;
         this.A_BUTTON.height = 120;
+
+        this.MELEE_BUTTON = new DrawableObject();
+        this.MELEE_BUTTON.loadImage('GUI/melee.png');
+        this.MELEE_BUTTON.x = 380;
+        this.MELEE_BUTTON.y = 240;
+        this.MELEE_BUTTON.width = 120;
+        this.MELEE_BUTTON.height = 120;
     }
 
 
@@ -34,6 +42,7 @@ A_BUTTON;
         this.PAUSE_BUTTON.draw(ctx);
         this.A_BUTTON.draw(ctx);
         this.D_PAD.draw(ctx);
+        this.MELEE_BUTTON.draw(ctx);
         
     }
 
