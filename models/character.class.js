@@ -5,7 +5,9 @@ class Character extends MovableObject {
     speed = 10;
     canAct = true;
     energy = 100000;
-    
+    idleCounter = 0;
+    idleTrigger = false
+
 
     IMAGES_SWIM = [
         'assets/1.Sharkie/3.Swim/1.png',
@@ -15,6 +17,21 @@ class Character extends MovableObject {
         'assets/1.Sharkie/3.Swim/5.png',
         'assets/1.Sharkie/3.Swim/6.png',
     ];
+
+    IMAGES_IDLE_SLEEP = ['assets/1.Sharkie/2.Long_IDLE/i1.png',
+        'assets/1.Sharkie/2.Long_IDLE/I2.png',
+        'assets/1.Sharkie/2.Long_IDLE/I3.png',
+        'assets/1.Sharkie/2.Long_IDLE/I4.png',
+        'assets/1.Sharkie/2.Long_IDLE/I5.png',
+        'assets/1.Sharkie/2.Long_IDLE/I6.png',
+        'assets/1.Sharkie/2.Long_IDLE/I7.png',
+        'assets/1.Sharkie/2.Long_IDLE/I8.png',
+        'assets/1.Sharkie/2.Long_IDLE/I9.png',
+        'assets/1.Sharkie/2.Long_IDLE/I10.png',
+        'assets/1.Sharkie/2.Long_IDLE/I11.png',
+        'assets/1.Sharkie/2.Long_IDLE/I12.png',
+        'assets/1.Sharkie/2.Long_IDLE/I13.png',
+        'assets/1.Sharkie/2.Long_IDLE/I14.png'];
 
     IMAGES_HURT_POISON = [
         'assets/1.Sharkie/5.Hurt/1.Poisoned/1.png',
@@ -69,7 +86,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png',
     ]
 
-    FIN_MELEE_HIT =[
+    FIN_MELEE_HIT = [
         'assets/1.Sharkie/4.Attack/Fin slap/1.png',
         'assets/1.Sharkie/4.Attack/Fin slap/2.png',
         'assets/1.Sharkie/4.Attack/Fin slap/3.png',
@@ -87,6 +104,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_HURT_POISON);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+        this.loadImages(this.IMAGES_IDLE_SLEEP);
         this.animate();
     }
 
@@ -100,7 +118,7 @@ class Character extends MovableObject {
     }
 
     animate() {
-
+        let now =0;
         const interval = setInterval(() => {
             if (!this.isDead() && this.world.state != 'won') {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -119,7 +137,7 @@ class Character extends MovableObject {
                     this.y += this.speed;
 
                 }
-                if(this.world.keyboard.S && this.canAct){
+                if (this.world.keyboard.S && this.canAct) {
                     this.world.meleeAtk.push(new FinAttack(this));
                     this.playAnimation(this.FIN_MELEE_HIT)
                     this.canAct = false;
@@ -139,8 +157,13 @@ class Character extends MovableObject {
                     }, 1000);
                 }
             }
+            
+            if(this.idleCounter == 600){
+                this.idleTrigger = true;
+                this.idleCounter=0;
+            }
+            this.idleCounter++;
             this.world.camera_x = -this.x;
-
         }, 1000 / 60);
 
 
@@ -151,9 +174,10 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
-            }
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
+            } else if(this.idleTrigger){
+                this.playAnimation(this.IMAGES_IDLE_SLEEP);
             }
 
         }, 50);
@@ -161,5 +185,8 @@ class Character extends MovableObject {
         this.world?.intervalIdCollection.push(interval, interval2);
     }
 
-    
+    onAnyInput(){
+        this.idleTigger = false;
+    };
+
 }

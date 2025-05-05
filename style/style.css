@@ -5,25 +5,21 @@
 }
 
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    
     margin: 0;
     padding: 0;
     height: 100%;
     overflow: hidden;
     background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
-    background-repeat: none;
-}
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;}
 
 canvas{
     background-color: black;
     display: block;
     margin : 0;
     padding: 0;
-    height: 100vh;
-    width: 100vw;
 }
 
 h1{
@@ -47,4 +43,33 @@ table{
 }
 .d-none{
     display: none;
+}
+.impressum{
+    color: white;
+    font-family: 'luckiest guy';
+}
+.orga{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+.pointer{
+    cursor: pointer;
+}
+.cleanLink{
+    text-decoration: none;
+    color: white;
+}
+h1,h2,h3{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+.centerText{
+    text-align: center;
+}
+.back{
+    font-size: 30mm;
+    font-family: 'luckiest guy';
 }

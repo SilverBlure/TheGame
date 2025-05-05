@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
         this.stopMove();
         setTimeout(() => {
           this.isAlive = false;
-          clearInterval(interval);
+          //clearInterval(interval);
         }, 3000);
         
       } else if (this.isHurt()) {
@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
       }
     }, 200);
 
-    this.world?.intervalIdCollection.push(interval);
+    //this.world?.intervalIdCollection.push(interval);
   }
 
   animateIntro(callback) {
@@ -110,14 +110,13 @@ class Endboss extends MovableObject {
       this.y = 0;
     }, 120);
 
-    this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
+    //this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
   }
 
   attackPattern() {
     this.inMove = true;
     this.patternIndex = Math.random();
     
-
     if (this.patternIndex <= 0.33) {
       console.log("top 200");
       this.gotToPos(-70);

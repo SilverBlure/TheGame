@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
     moveIntervall = null;
     isAlive = true;
     animationeDone = false;
+    lastKeyPressed = 0;
     
 
 
@@ -106,7 +107,10 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-   
+   isLongIdle(){
+    let now = 0;
+    this.lastKeyPressed
+   }
 
 
 

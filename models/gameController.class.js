@@ -15,49 +15,36 @@ class GameController {
     
     this.keyboard = keyboard;
     this.loop();
-    this.getDevice();
-    this.checkOrientationAndStart();
+    // window.addEventListener('resize',()=>{
+    //   this.checkOrientationAndStart();
+    // });
 
-    window.addEventListener('resize',()=>{
-      this.checkOrientationAndStart();
-    });
+    // window.addEventListener('orientationchange',()=>{
+    //   this.checkOrientationAndStart();
+    // });
+    // if(this.getDevice()){
+    //   document.getElementById('headline').classList.add('d-none');    }
+    this.loadMenue();
 
-    window.addEventListener('orientationchange',()=>{
-      this.checkOrientationAndStart();
-    });
-    if(this.getDevice()){
-      document.getElementById('headline').classList.add('d-none');    }
   }
 
-  getDeviceData() {
-    let screenW = this.getDeviceScreenW();
-    let screenH = this.getDeviceScreenH();
-    if (this.getDevice()) {
-      this.device = 'mobile'
-      this.canvas.width = screenW;
-      this.canvas.height = screenH;
-    }
-  }
+  
 
   loadMenue() {
+    if (this.menue && this.state === "menue") return; // ❌ nicht nochmal laden
     this.mouse.block = false;
-    if (this.firstLoad) {
-      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(),);
-      this.state = "menue";
-      this.firstLoad = false;
-    } else {
-      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(),);
-      this.state = "menue";
-      
-    }
-  }
+
+    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
+    this.state = "menue";
+    this.firstLoad = false;
+}
 
 
 
   checkOrientationAndStart() {
-    if (this.isLandscape()) {
+    if (this.isLandscape()) {   //checkt ob das handy wagerecht ist
         if (this.state === "blocked" || (!this.world && !this.menue)) {
-            this.getDeviceData();
+            //this.getDeviceData();
             this.loadMenue();
         }
     } else {
@@ -77,13 +64,7 @@ class GameController {
     this.ctx.fillText("Bitte ins Querformat drehen!", this.canvas.width / 2, this.canvas.height / 2);
 }
 
-  getDeviceScreenW() {
-    
-    return window.innerWidth;
-      }
-  getDeviceScreenH() {
-    return window.innerHeight;
-  }
+ 
 
 
   loadWorld() {

@@ -3,52 +3,61 @@ let ctx;
 let world;
 let game;
 let keyboard = new Keyboard();
-let mouse = new Mouse(canvas);
+let mouse;
 
 
 function init() {
- 
-      canvas = document.getElementById("canvas");
-      ctx = canvas.getContext("2d"),
-      game = new GameController(canvas, ctx, mouse, keyboard);
 
-      this.canvas = canvas;
-      this.canvas.addEventListener("mousemove", (event) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.pos_x = (event.clientX - rect.left) * (canvas.width / rect.width);
-        mouse.pos_y =
-          (event.clientY - rect.top) * (canvas.height / rect.height);
-      });
-   
+  canvas = document.getElementById("canvas");
 
-      canvas.addEventListener("touchstart", (e) => {
-        e.preventDefault(); 
-        const rect = canvas.getBoundingClientRect();
-      
-        for (let touch of e.touches) {
-          const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
-          const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
-      
-          handleTouchDown(x, y);
-        }
-      }, { passive: false });
-      
-      canvas.addEventListener("touchend", (e) => {
-        handleTouchUp();
-      });
+  
+
+  ctx = canvas.getContext("2d");
+
+
+  mouse = new Mouse(canvas);
+  game = new GameController(canvas, ctx, mouse, keyboard);
+
+
+
+  this.canvas = canvas;
+  this.canvas.addEventListener("mousemove", (event) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.pos_x = (event.clientX - rect.left) * (canvas.width / rect.width);
+    mouse.pos_y =
+      (event.clientY - rect.top) * (canvas.height / rect.height);
+  });
+
+
+  canvas.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    game?.world?.character?.onAnyInput?.();
+    const rect = canvas.getBoundingClientRect();
+
+    for (let touch of e.touches) {
+      const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+
+      handleTouchDown(x, y);
+    }
+  }, { passive: false });
+
+  canvas.addEventListener("touchend", (e) => {
+    handleTouchUp();
+  });
 }
 
-function handleTouchUp(){
+function handleTouchUp() {
   let kb = game.keyboard;
-  kb.LEFT = false;   //keycode 37
-  kb.RIGHT = false; //keycode 39
-  kb.UP = false; //keycode 38
-  kb.DOWN = false;   //keycode 40
-  kb.SPACE = false;  //keycode 32
-  kb.A = false; //attack mele 65
-  kb.S = false; //attack range 83
-  kb.Escape = false; //keycode
-  kb.P = false; //keycode 
+  kb.LEFT = false;
+  kb.RIGHT = false;
+  kb.UP = false;
+  kb.DOWN = false;
+  kb.SPACE = false;
+  kb.A = false;
+  kb.S = false;
+  kb.Escape = false;
+  kb.P = false;
 }
 
 
@@ -56,12 +65,12 @@ function handleTouchDown(x, y) {
   if (!game) return;
 
   if (game.state === "menue") {
-    // Im Menü → Menü-Button prüfen
+
     if (game.menue) {
       game.menue.handleTouch(x, y);
     }
   } else if (game.state === "game") {
-    // Im Spiel → MobileController prüfen
+
     if (game.world && game.world.mobileController) {
       const controller = game.world.mobileController;
       const kb = game.keyboard;
@@ -88,9 +97,10 @@ function handleTouchDown(x, y) {
 }
 
 
- 
+
 
 window.addEventListener("keydown", (e) => {
+  game?.world?.character?.onAnyInput?.();
   if (e.keyCode == 37) {
     keyboard.LEFT = true;
   }
@@ -161,7 +171,6 @@ window.addEventListener("mouseup", (e) => {
     mouse.click = false;
   }
 });
-
 
 window.addEventListener("touchstart", (e) => {
   mouse.click = true;
