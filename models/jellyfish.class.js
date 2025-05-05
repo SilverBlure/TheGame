@@ -1,5 +1,5 @@
 class Jellyfish extends MovableObject{
-
+energy = 20;
 base_y;
 range = 50;
 stateDirection = null;
