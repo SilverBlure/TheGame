@@ -21,7 +21,8 @@ class DrawableObject{
 
     drawFrame(ctx) {
         if(this.mode === 'Dev'){
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss || this instanceof ThrowableObject, this instanceof FinAttack) { //asks if it is a Instance of Character, Enemie or Endboss
+        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss || this instanceof ThrowableObject || this instanceof Jellyfish || this instanceof FinAttack
+        ) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';

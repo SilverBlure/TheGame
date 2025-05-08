@@ -99,10 +99,7 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-   isLongIdle(){
-    let now = 0;
-    this.lastKeyPressed
-   }
+ 
 
 
 

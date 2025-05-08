@@ -193,9 +193,6 @@ class World {
   checkBossLive() {
     if (!this.endboss.isAlive) {
       this.state = "won";
-
-      //alle intervale und animationframes beenden
-
       setTimeout(() => {
         this.onExit();
       }, 3000);
@@ -235,7 +232,6 @@ class World {
       }
     });
   }
-
 
   addToMap(mo) {
     if (mo.otherDirection) {

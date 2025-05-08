@@ -41,13 +41,16 @@ span{
 table{
     text-align: center ;
 }
+
 .d-none{
     display: none;
 }
+
 .impressum{
     color: white;
     font-family: 'luckiest guy';
 }
+
 .orga{
     display: flex;
     flex-direction: column;

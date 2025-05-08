@@ -119,7 +119,7 @@ class Character extends MovableObject {
     }
 
     animate() {
-        let now =0;
+
         const interval = setInterval(() => {
             if (!this.isDead() && this.world.state != 'won') {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -138,7 +138,7 @@ class Character extends MovableObject {
                     this.y += this.speed;
 
                 }
-                if(this.world.keyboard.S && this.canAct){
+                if (this.world.keyboard.S && this.canAct) {
                     this.world.meleeAtk.push(new FinAttack(this.world.character.x,
                         this.world.character.y,
                         this.world.character.width,
@@ -148,12 +148,10 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
                         this.canAct = true;
-                        console.log('ready')
                     }, 1500);
                 }
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
-
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
                     this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection, this.world));
                     this.canAct = false;
@@ -162,12 +160,14 @@ class Character extends MovableObject {
                     }, 500);
                 }
             }
-            
-            if(this.idleCounter == 600){
+
+            if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
-                this.idleCounter=0;
+                this.idleCounter = 0;
             }
             this.idleCounter++;
+
+
             this.world.camera_x = -this.x;
         }, 1000 / 60);
 
@@ -181,17 +181,18 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
-            } else if(this.idleTrigger){
+            } else if (this.idleTrigger) {
                 this.playAnimation(this.IMAGES_IDLE_SLEEP);
             }
 
         }, 50);
 
-        this.world?.intervalIdCollection.push(interval, interval2);
+
     }
 
-    onAnyInput(){
-        this.idleTigger = false;
+    onAnyInput() {
+        this.idleCounter = 0;
+        this.idleTrigger = false;
     };
 
 }
