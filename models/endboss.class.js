@@ -5,7 +5,7 @@ class Endboss extends MovableObject {
   y = -300;
   interval;
   isAlive = true;
-  energy = 20;
+  energy = 80;
   inMove = false;
   patternIndex;
 
@@ -66,57 +66,49 @@ class Endboss extends MovableObject {
   }
 
   animate() {
+    this.playAnimation(this.ENDBOSS_STAY);
     if (this.idleStarted) return;
     this.idleStarted = true;
 
     setInterval(() => {
       if (!this.inMove) {
-        console.log("Attack");
         this.attackPattern();
       }
-
-      if (this.isDead()) {
-        console.log("animation dead");
-
-        this.playAnimationOnce(this.ENDBOSS_DEAD);
-        this.stopMove();
+      if (this.isHurt()) {
+        this.playAnimation(this.ENDBOSS_HURT);
+      }
+      else if (this.isDead()) {
+        console.log('tod')
+        this.playAnimation(this.ENDBOSS_DEAD);
         setTimeout(() => {
           this.isAlive = false;
-          //clearInterval(interval);
         }, 3000);
-        
-      } else if (this.isHurt()) {
-        console.log("animation hurt");
-        this.playAnimation(this.ENDBOSS_HURT);
       } else {
         this.playAnimation(this.ENDBOSS_STAY);
       }
     }, 200);
 
-    //this.world?.intervalIdCollection.push(interval);
+
   }
 
   animateIntro(callback) {
     let i = 0;
-
     const interval = setInterval(() => {
       this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
       i++;
-
       if (i >= this.ENDBOSS_INTRODUCE.length) {
-        //clearInterval(interval);
         callback?.();
       }
       this.y = 0;
     }, 120);
 
-    //this.world?.intervalIdCollection.push(interval); // ⬅️ vor dem clearInterval
+
   }
 
   attackPattern() {
     this.inMove = true;
     this.patternIndex = Math.random();
-    
+
     if (this.patternIndex <= 0.33) {
       console.log("top 200");
       this.gotToPos(-70);
@@ -130,14 +122,17 @@ class Endboss extends MovableObject {
   }
 
   gotToPos(value) {
-    const interval = setInterval(() => {
+    if (this.moveInterval) clearInterval(this.moveInterval); // Vorherigen Intervall stoppen
+
+    this.moveInterval = setInterval(() => {
       if (this.y < value) {
         this.y += 1;
-        this.positionCheck(value);
       } else if (this.y > value) {
         this.y -= 1;
-        this.positionCheck(value);
-      } 
+      } else {
+        clearInterval(this.moveInterval); // Ziel erreicht → Intervall beenden
+        this.inMove = false;
+      }
     }, 50);
   }
 

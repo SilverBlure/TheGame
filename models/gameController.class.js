@@ -7,6 +7,7 @@ class GameController {
   state = "menue";
   firstLoad = true;
   device = null;
+  sound = new SoundButton();
 
   constructor(canvas, ctx, mouse, keyboard) {
     this.canvas = canvas;
@@ -34,7 +35,7 @@ class GameController {
     if (this.menue && this.state === "menue") return; // ❌ nicht nochmal laden
     this.mouse.block = false;
 
-    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld());
+    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound)
     this.state = "menue";
     this.firstLoad = false;
 }
@@ -55,14 +56,14 @@ class GameController {
 }
 
 
-  showRotateScreen() {
-    this.ctx.fillStyle = "black";
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = "white";
-    this.ctx.font = "30px Arial";
-    this.ctx.textAlign = "center";
-    this.ctx.fillText("Bitte ins Querformat drehen!", this.canvas.width / 2, this.canvas.height / 2);
-}
+//   showRotateScreen() {
+//     this.ctx.fillStyle = "black";
+//     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+//     this.ctx.fillStyle = "white";
+//     this.ctx.font = "30px Arial";
+//     this.ctx.textAlign = "center";
+//     this.ctx.fillText("Bitte ins Querformat drehen!", this.canvas.width / 2, this.canvas.height / 2);
+// }
 
  
 
@@ -70,7 +71,7 @@ class GameController {
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
       this.loadMenue()
-    , this.device);
+    , this.sound);
     this.state = "game";
     
   }
@@ -86,16 +87,16 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
-  getDevice() {
-    return (
-      /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-      window.matchMedia("(pointer: coarse)").matches
-    );
+  // getDevice() {
+  //   return (
+  //     /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+  //     window.matchMedia("(pointer: coarse)").matches
+  //   );
+  // }
+
+  // isLandscape() {
+  //   return window.matchMedia("(orientation: landscape)").matches;
+  //  }
+
+
   }
-
-  isLandscape() {
-    return window.matchMedia("(orientation: landscape)").matches;
-   }
-
-                  //cleanup funktion implementieren die animationrequests loescht
-}

@@ -1,49 +1,51 @@
 class World {
-    ctx;
-    level = level1;
-    character = new Character();
-    enemies = level1.enemies;
-    lights = level1.lights;
-    backgroundObjects = level1.backgroundObjects;
-    collectable = [
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 100, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 400, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 700, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 1200, 320),
-        new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 2100, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png', 100, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png', 550, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png', 300, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png', 2200, 320),
-        new Coin('assets/4. Marcadores/1. Coins/1.png', 850, 320),
-    ];
-    world;
-    camera_x = 0;
-    keyboard;
-    mouse;
-    mobileController = new MobileController();
-    statusBar = new StatusBar();
-    poisonBar = new PoisonBar();
-    coinBar = new CoinBar();
-    throwableObjects = [];
-    meleeAtk = [];
-    state;
-    fadeAlpha = 0;
-    tryAgainImage = new Image()
-    intervalIdCollection = [];
-    requestAnimationFrameID;
-    intervals = [ ];
-    bossIntroPlayed = false;
-    endboss;
-    state = null;
-    now = 0;
-    device;
+  ctx;
+  level = level1;
+  character = new Character();
+  enemies = level1.enemies;
+  lights = level1.lights;
+  backgroundObjects = level1.backgroundObjects;
+  collectable = [
+    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 100, 320),
+    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 400, 320),
+    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 700, 320),
+    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 1200, 320),
+    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 2100, 320),
+    new Coin('assets/4. Marcadores/1. Coins/1.png', 100, 320),
+    new Coin('assets/4. Marcadores/1. Coins/1.png', 550, 320),
+    new Coin('assets/4. Marcadores/1. Coins/1.png', 300, 320),
+    new Coin('assets/4. Marcadores/1. Coins/1.png', 2200, 320),
+    new Coin('assets/4. Marcadores/1. Coins/1.png', 850, 320),
+  ];
+  world;
+  camera_x = 0;
+  keyboard;
+  mouse;
+  mobileController = new MobileController();
+  statusBar = new StatusBar();
+  poisonBar = new PoisonBar();
+  coinBar = new CoinBar();
+  throwableObjects = [];
+  meleeAtk = [];
+  state;
+  fadeAlpha = 0;
+  tryAgainImage = new Image()
+  intervalIdCollection = [];
+  requestAnimationFrameID;
+  intervals = [];
+  bossIntroPlayed = false;
+  endboss;
+  state = null;
+  now = 0;
+  sound;
 
-  constructor(canvas, keyboard, mouse, onExit, device) {
+
+  constructor(canvas, keyboard, mouse, onExit, sound) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.mouse = mouse;
+    this.sound = sound;
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
     this.setWorld();
@@ -51,7 +53,7 @@ class World {
     this.state = "running";
     this.onExit = onExit;
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
-    this.device = device;
+
   }
 
   setWorld() {
@@ -109,11 +111,10 @@ class World {
   checkProjectileEnemyCollision() {
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
       let hit = false;
-
       this.enemies.forEach((enemy) => {
         if (this.character.isCollidingWithTrowable(projectile, enemy)) {
           enemy.hit(40);
-          if(enemy instanceof Pufferfish){
+          if (enemy instanceof Pufferfish) {
             enemy.playAnimationOnce(enemy.PUFFERFISH_DEAD);
           }
           hit = true;
@@ -123,16 +124,17 @@ class World {
     });
   }
 
-  checkcollisionFinSlap() {
-    if(this.meleeAtk.length > 0){   
-        this.enemies.forEach((enemy) => {
-            this.meleeAtk.forEach((fin) => {
-      //const enemyBox = enemy.getCollider();
-      if (fin.isColliding(fin, enemy)) {
-        enemy.hit(80);
-        console.log('feuer')
-      }
-    });})}
+  checkCollisionFinSlap() {
+    if (this.meleeAtk.length > 0) {
+      this.enemies.forEach((enemy) => {
+        this.meleeAtk.forEach((fin) => {
+          if (fin.isColliding(fin, enemy)) {
+            enemy.hit(80);
+            console.log('feuer')
+          }
+        });
+      })
+    }
   }
 
   checkIfEnemyRunOut() {
@@ -148,6 +150,7 @@ class World {
 
     //--------Space for FixObjects---------//
     this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.sound);
     this.addToMap(this.statusBar);
     this.addToMap(this.poisonBar);
     this.addToMap(this.coinBar);
@@ -178,8 +181,9 @@ class World {
     this.checkBossIntroTrigger();
     this.checkBossLive();
     this.jellyFloat();
-    this.checkcollisionFinSlap();
-    
+    this.checkCollisionFinSlap();
+    this.checkMousePosition();
+
   }
 
   jellyFloat() {
@@ -270,6 +274,39 @@ class World {
       this.endboss.animateIntro(() => {
         this.endboss.animate();
       });
+    }
+  }
+
+
+  collisionWithButton(button) {
+    if (
+      this.mouse.pos_x > button.x &&
+      this.mouse.pos_x < button.x + button.width &&
+      this.mouse.pos_y > button.y &&
+      this.mouse.pos_y < button.y + button.height
+    ) {
+
+      return true;
+    }
+    return false;
+  }
+
+  hoverPointer() {
+    if (
+      this.collisionWithButton(this.sound)
+    ) {
+      document.body.style.cursor = "pointer";
+    } else {
+      document.body.style.cursor = "default";
+    }
+  }
+
+  checkMousePosition() {
+    if (this.collisionWithButton(this.sound) &&
+      this.mouse.click &&
+      !this.mouse.block) {
+      this.sound.clickToggle();
+      this.sound.checkState();
     }
   }
 }

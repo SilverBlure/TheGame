@@ -54,8 +54,6 @@ class MovableObject extends DrawableObject {
         }, 1000 / 60);
     }
 
-    stopMove(){
-    }
 
 
     playAnimation(imageArr) {

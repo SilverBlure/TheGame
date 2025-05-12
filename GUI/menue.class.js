@@ -10,14 +10,15 @@ class Menue {
   fullwindow = false;
   requestAnimationFrameID;
   device;
+  sound;
 
-  constructor(canvas, mouse, loadWorld, device) {
+  constructor(canvas, mouse, loadWorld, sound) {
     this.ctx = canvas.getContext("2d");
     this.mouse = mouse;
     this.onStart = loadWorld;
-    this.draw();
     this.canvas = canvas;
-    this.device = device;
+    this.sound = sound;
+    this.draw();
   }
 
   collisionWithButton(button) {
@@ -35,7 +36,8 @@ class Menue {
   hoverPointer() {
     if (
       this.collisionWithButton(this.startButton) ||
-      this.collisionWithButton(this.fullScreen)
+      this.collisionWithButton(this.fullScreen) ||
+      this.collisionWithButton(this.sound)
     ) {
       document.body.style.cursor = "pointer";
     } else {
@@ -59,6 +61,11 @@ class Menue {
     ) {
       this.mouse.block = true;
       this.toggleFullscreen();
+    }
+    if (this.collisionWithButton(this.sound) &&
+      this.mouse.click &&
+      !this.mouse.block) {
+      this.sound.clickToggle();
     }
   }
 
@@ -98,23 +105,25 @@ class Menue {
     this.addToMap(this.menueBG);
     this.addToMap(this.startButton);
     this.addToMap(this.fullScreen);
+    this.addToMap(this.sound);
     this.checkMousePosition();
     this.hoverPointer();
-    }
-  
+    this.sound.checkState();
+  }
 
-    handleTouch(x, y) {
-      this.mouse.pos_x = x;
-      this.mouse.pos_y = y;
-      if (this.collisionWithButton(this.startButton)) {
-        this.onStart(); // Spiel starten
-        console.log('menue.touchHandler')
-      }
-      if (this.collisionWithButton(this.fullScreen)) {
-        this.toggleFullscreen(); // Fullscreen einschalten
-      }
+
+  handleTouch(x, y) {
+    this.mouse.pos_x = x;
+    this.mouse.pos_y = y;
+    if (this.collisionWithButton(this.startButton)) {
+      this.onStart(); // Spiel starten
+      console.log('menue.touchHandler')
     }
-    
+    if (this.collisionWithButton(this.fullScreen)) {
+      this.toggleFullscreen(); // Fullscreen einschalten
+    }
+  }
+
 
   cleanUp() {
     cancelAnimationFrame(this.requestAnimationFrameID);
