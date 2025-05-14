@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
   energy = 80;
   inMove = false;
   patternIndex;
+  intro = 'done';
 
   ENDBOSS_STAY = [
     "assets/2.Enemy/3 Final Enemy/2.floating/1.png",
@@ -67,82 +68,59 @@ class Endboss extends MovableObject {
 
   animate() {
     this.playAnimation(this.ENDBOSS_STAY);
-    if (this.idleStarted) return;
-    this.idleStarted = true;
+    //if (this.idleStarted) return;
+   // this.idleStarted = true;
 
-    setInterval(() => {
-      if (!this.inMove) {
-        this.attackPattern();
-      }
-      if (this.isHurt()) {
-        this.playAnimation(this.ENDBOSS_HURT);
-      }
-      else if (this.isDead()) {
-        console.log('tod')
-        this.playAnimation(this.ENDBOSS_DEAD);
-        setTimeout(() => {
-          this.isAlive = false;
-        }, 3000);
-      } else {
-        this.playAnimation(this.ENDBOSS_STAY);
-      }
-    }, 200);
+    
+        //  muss false sein
+        //this.attackPattern();
+      
+  //     if (this.isHurt()) {
+  //       this.playAnimation(this.ENDBOSS_HURT);
+  //     }
+  //     else if (this.isDead()) {
+  //       console.log('tod')
+  //       this.playAnimation(this.ENDBOSS_DEAD);
+  //       setTimeout(() => {
+  //         this.isAlive = false;
+  //       }, 3000);
+  //     } else {
+  //       this.playAnimation(this.ENDBOSS_STAY);
+  //     }
+  
+
+}
 
 
+  attackPattern(){
+    if(!this.inMove){
+      this.patternIndex = this.rollANumber();
+    }
+    if(this.patternIndex >= 0.5){
+      this.y = -30;
+      //console.log('test')
+    }
+
+    //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht 
   }
 
-  animateIntro(callback) {
+  animateIntro() {
     let i = 0;
     const interval = setInterval(() => {
       this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
       i++;
       if (i >= this.ENDBOSS_INTRODUCE.length) {
-        callback?.();
+        
       }
       this.y = 0;
     }, 120);
-
-
+    
+    this.intro = 'done';
   }
 
-  attackPattern() {
-    this.inMove = true;
-    this.patternIndex = Math.random();
-
-    if (this.patternIndex <= 0.33) {
-      console.log("top 200");
-      this.gotToPos(-70);
-    } else if (this.patternIndex >= 0.33 && this.patternIndex <= 0.66) {
-      console.log("middle 70");
-      this.gotToPos(70);
-    } else {
-      console.log("bottom -70");
-      this.gotToPos(200);
-    }
+  
+  rollANumber(){
+    return Math.random();
   }
 
-  gotToPos(value) {
-    if (this.moveInterval) clearInterval(this.moveInterval); // Vorherigen Intervall stoppen
-
-    this.moveInterval = setInterval(() => {
-      if (this.y < value) {
-        this.y += 1;
-      } else if (this.y > value) {
-        this.y -= 1;
-      } else {
-        clearInterval(this.moveInterval); // Ziel erreicht → Intervall beenden
-        this.inMove = false;
-      }
-    }, 50);
-  }
-
-  positionCheck(value) {
-    if (Math.abs(this.y - value) <= 10) {
-      this.y = value;
-      setTimeout(() => {
-        this.inMove = false;
-        console.log("timeoutOver"); //nach erstem mal durchlaufen geht die funktion duchch und gibt immer true an
-      }, 2000);
-    }
-  }
 }

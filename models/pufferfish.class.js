@@ -46,8 +46,11 @@ class Pufferfish extends MovableObject {
                 this.playAnimation(this.PUFFERFISH_STAY);
             } else {
                 this.playAnimationOnce(this.PUFFERFISH_DEAD);
-                this.stopMove();
+                
                 this.isAlive = false;
+                setTimeout(() => {
+                    clearInterval(interval);
+                }, 500);
             }
 
         }, 800);

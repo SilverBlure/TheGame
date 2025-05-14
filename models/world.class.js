@@ -271,42 +271,53 @@ class World {
   checkBossIntroTrigger() {
     if (!this.bossIntroPlayed && this.character.x >= 2100) {
       this.bossIntroPlayed = true;
-      this.endboss.animateIntro(() => {
-        this.endboss.animate();
-      });
+      this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
+      setTimeout(() => {
+        this.endboss.y = 0;
+      }, 100);
     }
-  }
-
-
-  collisionWithButton(button) {
-    if (
-      this.mouse.pos_x > button.x &&
-      this.mouse.pos_x < button.x + button.width &&
-      this.mouse.pos_y > button.y &&
-      this.mouse.pos_y < button.y + button.height
-    ) {
-
-      return true;
+    if (this.bossIntroPlayed) {
+      this.endboss.animate();
     }
-    return false;
-  }
 
-  hoverPointer() {
-    if (
-      this.collisionWithButton(this.sound)
-    ) {
-      document.body.style.cursor = "pointer";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }
 
-  checkMousePosition() {
-    if (this.collisionWithButton(this.sound) &&
-      this.mouse.click &&
-      !this.mouse.block) {
-      this.sound.clickToggle();
-      this.sound.checkState();
-    }
+  
+  //if (this.endboss.intro === 'done') {
+  //   this.endboss.animate();
+
+  // }
+}
+
+
+collisionWithButton(button) {
+  if (
+    this.mouse.pos_x > button.x &&
+    this.mouse.pos_x < button.x + button.width &&
+    this.mouse.pos_y > button.y &&
+    this.mouse.pos_y < button.y + button.height
+  ) {
+
+    return true;
   }
+  return false;
+}
+
+hoverPointer() {
+  if (
+    this.collisionWithButton(this.sound)
+  ) {
+    document.body.style.cursor = "pointer";
+  } else {
+    document.body.style.cursor = "default";
+  }
+}
+
+checkMousePosition() {
+  if (this.collisionWithButton(this.sound) &&
+    this.mouse.click &&
+    !this.mouse.block) {
+    this.sound.clickToggle();
+    this.sound.checkState();
+  }
+}
 }

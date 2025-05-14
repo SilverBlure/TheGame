@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
     isAlive = true;
     animationeDone = false;
     lastKeyPressed = 0;
-    
+
 
 
     applyGravity() {
@@ -49,7 +49,7 @@ class MovableObject extends DrawableObject {
 
 
     moveLeft() {
-         const interval = setInterval(() => {
+        const interval = setInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
     }
@@ -57,7 +57,6 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(imageArr) {
-
         let i = this.currentImage % imageArr.length;
         let path = imageArr[i];
         this.img = this.imageCache[path];
@@ -66,16 +65,14 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimationOnce(imageArr) {
-        if (this.animationeDone) return;
-    
-        let path = imageArr[this.currentImage];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    
-        if (this.currentImage >= imageArr.length) {
-            this.animationeDone = true;
-            this.currentImage = 0;  // optional zurücksetzen
-        }
+       let movementInterval = setInterval(() => {
+           let i = this.currentImage % imageArr.length;
+            this.loadImage(imageArr[i]);
+            this.currentImage++;
+            if (i == imageArr.length - 1) {
+                clearInterval(movementInterval);
+            }
+        }, 100);
     }
 
     hit(value) {
@@ -97,7 +94,7 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
- 
+
 
 
 
