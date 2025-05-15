@@ -33,7 +33,6 @@ class Pufferfish extends MovableObject {
         this.y = 250 * Math.random();
         this.loadImages(this.PUFFERFISH_STAY);
         this.loadImages(this.PUFFERFISH_DEAD);
-        this.animate();
         this.speed = 0.15 + Math.random() * 0.25;
         
     }
@@ -43,13 +42,12 @@ class Pufferfish extends MovableObject {
         this.moveLeft();
             if (this.checkAlive()) {
                 this.playAnimation(this.PUFFERFISH_STAY);
-            } else {
-                this.playAnimationOnce(this.PUFFERFISH_DEAD);
-                
+            } else if (this.isDead() && !this.animated)
+                {
                 this.isAlive = false;
-                setTimeout(() => {
-                    clearInterval(interval);
-                }, 500);
+                console.log("Pufferfish Dead!")
+                this.playAnimationOnce(this.PUFFERFISH_DEAD); 
+                
             }    
     }
 
@@ -57,11 +55,4 @@ class Pufferfish extends MovableObject {
         return this.energy > 0;
     }
 
-    deadPosition() {
-        if (this.y >= 0) {
-            this.y -= 20;
-        }else if(this.y <= 20){
-            this.inEndposition = true;
-            
-        }
-    } }
+    }

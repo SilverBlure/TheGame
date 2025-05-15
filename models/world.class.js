@@ -260,7 +260,7 @@ class World {
 
   clearDeadEnemys() {
     this.enemies = this.enemies.filter((enemy) => {
-      if (enemy.isAlive && !enemy.inEndposition) {
+      if (enemy.isAlive) {
         return true;
       }
     });
