@@ -49,9 +49,7 @@ class MovableObject extends DrawableObject {
 
 
     moveLeft() {
-        const interval = setInterval(() => {
             this.x -= this.speed;
-        }, 1000 / 60);
     }
 
 

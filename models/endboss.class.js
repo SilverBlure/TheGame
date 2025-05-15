@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
   energy = 80;
   inMove = false;
   patternIndex;
-  intro = 'done';
+  intro = "done";
 
   ENDBOSS_STAY = [
     "assets/2.Enemy/3 Final Enemy/2.floating/1.png",
@@ -67,41 +67,41 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    this.playAnimation(this.ENDBOSS_STAY);
-    //if (this.idleStarted) return;
-   // this.idleStarted = true;
-
-    
-        //  muss false sein
-        //this.attackPattern();
-      
-  //     if (this.isHurt()) {
-  //       this.playAnimation(this.ENDBOSS_HURT);
-  //     }
-  //     else if (this.isDead()) {
-  //       console.log('tod')
-  //       this.playAnimation(this.ENDBOSS_DEAD);
-  //       setTimeout(() => {
-  //         this.isAlive = false;
-  //       }, 3000);
-  //     } else {
-  //       this.playAnimation(this.ENDBOSS_STAY);
-  //     }
-  
-
-}
+    this.checkBossLive();
+    if (this.isDead()) {
+      this.playAnimationOnce(this.ENDBOSS_DEAD);
+      setTimeout(() => {
+        this.isAlive = false;
+      }, 3000);
+    } else if (this.isHurt()) {
+      this.state = "hurt";
+      this.playAnimationOnce(this.ENDBOSS_HURT);
+      setTimeout(() => {}, 2000);
+      this.state = "idle";
+    } else if ((this.state = "idle")){
+       this.playAnimation(this.ENDBOSS_STAY);
+  }}
 
 
-  attackPattern(){
-    if(!this.inMove){
+checkBossLive() {
+    if (!this.isAlive) {
+      this.state = "won";
+      setTimeout(() => {
+        this.onExit();
+      }, 3000);
+    }
+  }
+
+  attackPattern() {
+    if (!this.inMove) {
       this.patternIndex = this.rollANumber();
     }
-    if(this.patternIndex >= 0.5){
+    if (this.patternIndex >= 0.5) {
       this.y = -30;
       //console.log('test')
     }
 
-    //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht 
+    //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht
   }
 
   animateIntro() {
@@ -110,17 +110,14 @@ class Endboss extends MovableObject {
       this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
       i++;
       if (i >= this.ENDBOSS_INTRODUCE.length) {
-        
       }
       this.y = 0;
     }, 120);
-    
-    this.intro = 'done';
+
+    this.intro = "done";
   }
 
-  
-  rollANumber(){
+  rollANumber() {
     return Math.random();
   }
-
 }

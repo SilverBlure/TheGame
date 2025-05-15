@@ -41,7 +41,6 @@ class Pufferfish extends MovableObject {
 
     animate() {
         this.moveLeft();
-        const interval = setInterval(() => {
             if (this.checkAlive()) {
                 this.playAnimation(this.PUFFERFISH_STAY);
             } else {
@@ -51,23 +50,14 @@ class Pufferfish extends MovableObject {
                 setTimeout(() => {
                     clearInterval(interval);
                 }, 500);
-            }
-
-        }, 800);
-        try {
-            this.world?.intervalIdCollection.push(interval);    
-
-        } catch (error) {
-            console.warn('war nicht erfolgreich!')
-        }
-    
+            }    
     }
 
     checkAlive() {
         return this.energy > 0;
     }
 
-    deadPosition(interval) {
+    deadPosition() {
         if (this.y >= 0) {
             this.y -= 20;
         }else if(this.y <= 20){

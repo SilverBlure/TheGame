@@ -6,16 +6,16 @@ class World {
   lights = level1.lights;
   backgroundObjects = level1.backgroundObjects;
   collectable = [
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 100, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 400, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 700, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Right.png', 1200, 320),
-    new PoisonBottle('assets/4. Marcadores/Posión/Dark - Left.png', 2100, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png', 100, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png', 550, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png', 300, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png', 2200, 320),
-    new Coin('assets/4. Marcadores/1. Coins/1.png', 850, 320),
+    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 100, 320),
+    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Right.png", 400, 320),
+    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 700, 320),
+    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Right.png", 1200, 320),
+    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 2100, 320),
+    new Coin("assets/4. Marcadores/1. Coins/1.png", 100, 320),
+    new Coin("assets/4. Marcadores/1. Coins/1.png", 550, 320),
+    new Coin("assets/4. Marcadores/1. Coins/1.png", 300, 320),
+    new Coin("assets/4. Marcadores/1. Coins/1.png", 2200, 320),
+    new Coin("assets/4. Marcadores/1. Coins/1.png", 850, 320),
   ];
   world;
   camera_x = 0;
@@ -29,7 +29,7 @@ class World {
   meleeAtk = [];
   state;
   fadeAlpha = 0;
-  tryAgainImage = new Image()
+  tryAgainImage = new Image();
   intervalIdCollection = [];
   requestAnimationFrameID;
   intervals = [];
@@ -38,7 +38,6 @@ class World {
   state = null;
   now = 0;
   sound;
-
 
   constructor(canvas, keyboard, mouse, onExit, sound) {
     this.ctx = canvas.getContext("2d");
@@ -53,7 +52,6 @@ class World {
     this.state = "running";
     this.onExit = onExit;
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
-
   }
 
   setWorld() {
@@ -130,10 +128,10 @@ class World {
         this.meleeAtk.forEach((fin) => {
           if (fin.isColliding(fin, enemy)) {
             enemy.hit(80);
-            console.log('feuer')
+            console.log("feuer");
           }
         });
-      })
+      });
     }
   }
 
@@ -170,6 +168,7 @@ class World {
   }
 
   update() {
+    //#######CollisionsAbfragen######
     this.checkCharacterEnemyCollision();
     this.checkProjectileEnemyCollision();
     this.checkCharacterCollectablesCollision();
@@ -178,29 +177,28 @@ class World {
     this.checkIfEnemyRunOut();
     this.reSpawnEnemie();
     this.stopProjectile();
-    this.checkBossIntroTrigger();
-    this.checkBossLive();
-    this.jellyFloat();
     this.checkCollisionFinSlap();
     this.checkMousePosition();
-
+    //#######Enemy Intervale#######
+    this.endbossInterval();
+    this.jellyFishInterval();
+    this.pufferFishInterval();
   }
 
-  jellyFloat() {
+  pufferFishInterval() {
     this.enemies.forEach((enemie) => {
-      if (enemie instanceof Jellyfish) {
+      if (enemie instanceof Pufferfish) {
         enemie.animate();
       }
     });
   }
 
-  checkBossLive() {
-    if (!this.endboss.isAlive) {
-      this.state = "won";
-      setTimeout(() => {
-        this.onExit();
-      }, 3000);
-    }
+  jellyFishInterval() {
+    this.enemies.forEach((enemie) => {
+      if (enemie instanceof Jellyfish) {
+        enemie.animate();
+      }
+    });
   }
 
   reSpawnEnemie() {
@@ -268,7 +266,7 @@ class World {
     });
   }
 
-  checkBossIntroTrigger() {
+  endbossInterval() {
     if (!this.bossIntroPlayed && this.character.x >= 2100) {
       this.bossIntroPlayed = true;
       this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
@@ -279,45 +277,36 @@ class World {
     if (this.bossIntroPlayed) {
       this.endboss.animate();
     }
-
-
-  
-  //if (this.endboss.intro === 'done') {
-  //   this.endboss.animate();
-
-  // }
-}
-
-
-collisionWithButton(button) {
-  if (
-    this.mouse.pos_x > button.x &&
-    this.mouse.pos_x < button.x + button.width &&
-    this.mouse.pos_y > button.y &&
-    this.mouse.pos_y < button.y + button.height
-  ) {
-
-    return true;
   }
-  return false;
-}
 
-hoverPointer() {
-  if (
-    this.collisionWithButton(this.sound)
-  ) {
-    document.body.style.cursor = "pointer";
-  } else {
-    document.body.style.cursor = "default";
+  collisionWithButton(button) {
+    if (
+      this.mouse.pos_x > button.x &&
+      this.mouse.pos_x < button.x + button.width &&
+      this.mouse.pos_y > button.y &&
+      this.mouse.pos_y < button.y + button.height
+    ) {
+      return true;
+    }
+    return false;
   }
-}
 
-checkMousePosition() {
-  if (this.collisionWithButton(this.sound) &&
-    this.mouse.click &&
-    !this.mouse.block) {
-    this.sound.clickToggle();
-    this.sound.checkState();
+  hoverPointer() {
+    if (this.collisionWithButton(this.sound)) {
+      document.body.style.cursor = "pointer";
+    } else {
+      document.body.style.cursor = "default";
+    }
   }
-}
+
+  checkMousePosition() {
+    if (
+      this.collisionWithButton(this.sound) &&
+      this.mouse.click &&
+      !this.mouse.block
+    ) {
+      this.sound.clickToggle();
+      this.sound.checkState();
+    }
+  }
 }
