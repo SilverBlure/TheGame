@@ -35,53 +35,73 @@ class World {
   intervals = [];
   bossIntroPlayed = false;
   endboss;
+  audio;
   state = null;
   now = 0;
   sound;
+  frameCounter = 0;
 
   constructor(canvas, keyboard, mouse, onExit, sound) {
+
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.mouse = mouse;
     this.sound = sound;
+    this.audio = new Audio();
+    this.audio.src = 'assets/sounds/gameBGMusic.wav';
+    this.audio.loop = 'loop';
+    this.audio.volume = '0.1';
+    this.gameOver = new GameOver(this.canvas);
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
     this.setWorld();
     this.loop();
     this.state = "running";
     this.onExit = onExit;
+    this.tryAgainImage = new Image();
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
+
   }
 
+  checkAudio() {
+    if (this.sound.volumeState == 'off' || this.character.isDead() || this.state == 'won') {
+      
+      this.audio.pause();
+    } else if (this.sound.volumeState == 'on') {
+      this.audio.play();
+    }
+  }
   setWorld() {
     this.character.world = this;
     this.level.enemies.forEach((enemy) => {
       enemy.world = this;
     });
-
     this.endboss = this.level.enemies.find((e) => e instanceof Endboss);
   }
 
-  checkGameOver() {
-    if (this.character.energy <= 0 && this.state !== "dead") {
-      this.state = "dead";
-      this.character.cleanUp();
-      this.enemies.forEach((enemy) => {
-        enemy.cleanUp();
-      });
-      this.throwableObjects.forEach((throwableObject) => {
-        throwableObject.cleanUp();
-      });
-      this.startGameOverSequence();
+
+
+  finished() {
+    if (this.endboss.isDead()) {
+
+      this.state = 'won'
+      setTimeout(() => {
+        this.onExit();
+      }, 1500);
+
     }
   }
 
-  startGameOverSequence() {
-    setTimeout(() => {
-      this.onExit();
-    }, 3000);
+  tryAgain() {
+    if (this.character.isDead()) {
+      this.state = 'gameOver'
+    }
   }
+
+
+
+
 
   checkCharacterEnemyCollision() {
     this.enemies.forEach((enemy) => {
@@ -96,8 +116,15 @@ class World {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
+          let sound = new Audio();
+          sound.src = "assets/sounds/glassCollection.wav";
+          sound.play();
           this.poisonBar.addPoison(20);
+
         } else if (obj instanceof Coin) {
+          let sound = new Audio();
+          sound.src = "assets/sounds/coinCollection.wav";
+          sound.play();
           this.coinBar.addCoin(20);
         }
         return false;
@@ -107,15 +134,27 @@ class World {
   }
 
   checkProjectileEnemyCollision() {
+    let sound = new Audio();
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
       let hit = false;
       this.enemies.forEach((enemy) => {
         if (this.character.isCollidingWithTrowable(projectile, enemy)) {
+
           enemy.hit(40);
-          //if (enemy instanceof Pufferfish) {
-           // enemy.playAnimationOnce(enemy.PUFFERFISH_DEAD);  //<----------- hier
-         // }
           hit = true;
+          if (enemy instanceof Pufferfish) {
+            sound.src = 'assets/sounds/pufferfish_1.wav';
+            sound.play();
+          }
+          if (enemy instanceof Endboss) {
+            sound.src = 'assets/sounds/bossHurtSound.mp3';
+            sound.play();
+          }
+          if (enemy instanceof Endboss && this.endboss.isDead()) {
+            let sound = new Audio();
+            sound.src = 'assets/sounds/winning.wav';
+            sound.play();
+          }
         }
       });
       return !hit;
@@ -145,7 +184,6 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjects);
-
     //--------Space for FixObjects---------//
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.sound);
@@ -162,27 +200,42 @@ class World {
     if (this.device === "mobile") {
       this.addToMap(this.mobileController);
     }
+    if (this.state === "gameOver") {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      this.addToMap(this.gameOver);
+
+    }
     if (this.state === "won") {
       this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
     }
   }
 
   update() {
+    this.frameCounter++
     //#######CollisionsAbfragen######
     this.checkCharacterEnemyCollision();
     this.checkProjectileEnemyCollision();
     this.checkCharacterCollectablesCollision();
     this.clearDeadEnemys();
-    this.checkGameOver();
+    this.finished();
+    this.tryAgain();
     this.checkIfEnemyRunOut();
     this.reSpawnEnemie();
     this.stopProjectile();
     this.checkCollisionFinSlap();
     this.checkMousePosition();
+    this.checkAudio();
     //#######Enemy Intervale#######
-    this.endbossInterval();
+    if (this.frameCounter % 4 == 0) {
+      this.endbossInterval();
+    }
     this.jellyFishInterval();
     this.pufferFishInterval();
+
+    if (this.frameCounter > 100000) {
+      this.frameCounter = 0;
+    }
   }
 
   pufferFishInterval() {
@@ -222,10 +275,7 @@ class World {
     this.now++;
   }
 
-  cleanUp() {
-    cancelAnimationFrame(this.requestAnimationFrameID);
-    this.requestAnimationFrameID = null;
-  }
+
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -272,9 +322,13 @@ class World {
       this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
       setTimeout(() => {
         this.endboss.y = 0;
+
       }, 100);
+      setTimeout(() => {
+        this.endboss.state = 'idle';
+      }, 1300);
     }
-    if (this.bossIntroPlayed) {
+    if (this.bossIntroPlayed && this.endboss.state == 'idle') {
       this.endboss.animate();
     }
   }
@@ -307,6 +361,18 @@ class World {
     ) {
       this.sound.clickToggle();
       this.sound.checkState();
+    }
+    if (this.collisionWithButton(this.gameOver.try_again_button) &&
+      this.mouse.click &&
+      !this.mouse.block) {
+      this.character.energy = 100;
+      this.character.loadImage(this.character.IMAGES_SWIM[0]);
+      this.character.animate();
+      this.character.x = 150;
+      this.character.y = 120;
+      this.state = 'running'
+      this.statusBar.setPercentage(100);
+
     }
   }
 }

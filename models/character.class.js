@@ -4,7 +4,7 @@ class Character extends MovableObject {
     y = 150;
     speed = 10;
     canAct = true;
-    energy = 100000;
+    energy = 100;
     idleCounter = 0;
     idleTrigger = false
 
@@ -144,6 +144,9 @@ class Character extends MovableObject {
                         this.world.character.width,
                         this.world.character.height));
                     this.playAnimationOnce(this.FIN_MELEE_HIT);
+                    let sound = new Audio();
+                    sound.src = 'assets/sounds/characterWhip.wav';
+                    sound.play();
                     this.canAct = false;
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
@@ -169,22 +172,34 @@ class Character extends MovableObject {
 
 
             this.world.camera_x = -this.x;
+            if (this.isDead()) {
+                clearInterval(interval);
+            }
         }, 1000 / 60);
 
 
 
 
         const interval2 = setInterval(() => {
+            this.frameCounter++;
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_POISON);
+                let sound = new Audio();
+                sound.src = 'assets/sounds/GameOver.mp3';
+                sound.play();
+                clearInterval(interval2);
+                this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
             } else if (this.idleTrigger) {
-                this.playAnimation(this.IMAGES_IDLE_SLEEP);
+                if (this.frameCounter % 3 == 0) {
+                    this.playAnimation(this.IMAGES_IDLE_SLEEP);
+                }
             }
-
+            if (this.frameCounter > 10000) {
+                this.frameCounter = 0;
+            }
         }, 50);
 
 
@@ -193,6 +208,6 @@ class Character extends MovableObject {
     onAnyInput() {
         this.idleCounter = 0;
         this.idleTrigger = false;
-    };
+    }
 
 }

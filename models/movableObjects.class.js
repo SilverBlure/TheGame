@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
   animationeDone = false;
   lastKeyPressed = 0;
   animated = false;
+  frameCounter = 0;
 
   applyGravity() {
     const interval = setInterval(() => {
@@ -66,8 +67,11 @@ class MovableObject extends DrawableObject {
       this.loadImage(imageArr[i]);
       this.currentImage++;
       if (i == imageArr.length - 1) {
+        this.animated = false;
         clearInterval(movementInterval);
+        
       }
+      
     }, 100);
   }
 
