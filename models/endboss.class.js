@@ -72,7 +72,9 @@ class Endboss extends MovableObject {
       this.playAnimationOnce(this.ENDBOSS_HURT);
     } else if (this.energy >= 0){
       this.playAnimation(this.ENDBOSS_STAY);
-  }}
+  }
+
+}
 
 
 checkBossLive() {

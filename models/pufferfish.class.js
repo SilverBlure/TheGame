@@ -42,8 +42,8 @@ class Pufferfish extends MovableObject {
     }
     if (!this.isDead()) {
       this.playAnimation(this.PUFFERFISH_STAY);
-    } else if (this.isDead() && !this.animated) {
-      console.log("Pufferfish Dead!");
+    } else if (this.isDead() && !this.animated) 
+        {
       this.playAnimationOnce(this.PUFFERFISH_DEAD);
       setTimeout(() => {
         this.isAlive = false;
