@@ -3,9 +3,7 @@ class Endboss extends MovableObject {
   width = 300;
   x = 150;
   y = -300;
-  interval;
-  isAlive = true;
-  energy = 80;
+  energy = 120;
   inMove = false;
   patternIndex;
   intro = "done";
@@ -67,19 +65,13 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    this.checkBossLive();
+    this.checkBossLive();    //<-- check wenn der boss tod ist 
     if (this.isDead()) {
       this.playAnimationOnce(this.ENDBOSS_DEAD);
-      setTimeout(() => {
-        this.isAlive = false;
-      }, 3000);
     } else if (this.isHurt()) {
-      this.state = "hurt";
       this.playAnimationOnce(this.ENDBOSS_HURT);
-      setTimeout(() => {}, 2000);
-      this.state = "idle";
-    } else if ((this.state = "idle")){
-       this.playAnimation(this.ENDBOSS_STAY);
+    } else if (this.energy >= 0){
+      this.playAnimation(this.ENDBOSS_STAY);
   }}
 
 
@@ -98,7 +90,6 @@ checkBossLive() {
     }
     if (this.patternIndex >= 0.5) {
       this.y = -30;
-      //console.log('test')
     }
 
     //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht

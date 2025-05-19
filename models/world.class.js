@@ -112,9 +112,9 @@ class World {
       this.enemies.forEach((enemy) => {
         if (this.character.isCollidingWithTrowable(projectile, enemy)) {
           enemy.hit(40);
-          if (enemy instanceof Pufferfish) {
-            enemy.playAnimationOnce(enemy.PUFFERFISH_DEAD);
-          }
+          //if (enemy instanceof Pufferfish) {
+           // enemy.playAnimationOnce(enemy.PUFFERFISH_DEAD);  //<----------- hier
+         // }
           hit = true;
         }
       });
