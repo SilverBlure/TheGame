@@ -51,8 +51,11 @@ class SoundButton extends MovableObject {
         let soundState = localStorage.getItem('sound');
         if (soundState === 'on') {
             localStorage.setItem('sound', 'off');
+            this.volumeState = 'off';
         } else if (soundState === 'off') {
             localStorage.setItem('sound', 'on');
+            this.volumeState = 'on';
+
         }
     }
 

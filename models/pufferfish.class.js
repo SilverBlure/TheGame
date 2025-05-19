@@ -34,6 +34,7 @@ class Pufferfish extends MovableObject {
     this.loadImages(this.PUFFERFISH_STAY);
     this.loadImages(this.PUFFERFISH_DEAD);
     this.speed = 0.15 + Math.random() * 0.25;
+    
   }
 
   animate() {
@@ -42,8 +43,7 @@ class Pufferfish extends MovableObject {
     }
     if (!this.isDead()) {
       this.playAnimation(this.PUFFERFISH_STAY);
-    } else if (this.isDead() && !this.animated) 
-        {
+    } else if (this.isDead() && !this.animated) {
       this.playAnimationOnce(this.PUFFERFISH_DEAD);
       setTimeout(() => {
         this.isAlive = false;

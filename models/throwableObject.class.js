@@ -23,9 +23,16 @@ class ThrowableObject extends MovableObject {
         this.throw(this.x + 180, this.y + 70);
         this.oldX = this.x + 180;
         this.world = world;
-
+        this.sound = new Audio();
+        this.sound.src = 'assets/sounds/BubbleShot.wav';
+        this.soundcheck();
     }
-
+    
+    soundcheck(){
+        if(this.world.sound.volumeState === 'on'){
+            this.sound.play();
+        }
+    }
 
 
     throw(x, y) {

@@ -16,15 +16,6 @@ class GameController {
     
     this.keyboard = keyboard;
     this.loop();
-    // window.addEventListener('resize',()=>{
-    //   this.checkOrientationAndStart();
-    // });
-
-    // window.addEventListener('orientationchange',()=>{
-    //   this.checkOrientationAndStart();
-    // });
-    // if(this.getDevice()){
-    //   document.getElementById('headline').classList.add('d-none');    }
     this.loadMenue();
 
   }
@@ -32,7 +23,7 @@ class GameController {
   
 
   loadMenue() {
-    if (this.menue && this.state === "menue") return; // ❌ nicht nochmal laden
+    if (this.menue && this.state === "menue") return;
     this.mouse.block = false;
 
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound)
@@ -73,6 +64,8 @@ class GameController {
       this.loadMenue()
     , this.sound);
     this.state = "game";
+   this.resetBoss();
+    
     
   }
 
@@ -87,16 +80,12 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
-  // getDevice() {
-  //   return (
-  //     /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-  //     window.matchMedia("(pointer: coarse)").matches
-  //   );
-  // }
-
-  // isLandscape() {
-  //   return window.matchMedia("(orientation: landscape)").matches;
-  //  }
-
-
+  resetBoss(){
+    this.world.endboss.y = -300;
+    this.world.endboss.energy = 120;
+    this.world.bossIntroPlayed = false;
+    this.world.endboss.state = null;
+  }
+ 
+ 
   }

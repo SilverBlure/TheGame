@@ -7,6 +7,7 @@ class Endboss extends MovableObject {
   inMove = false;
   patternIndex;
   intro = "done";
+  now = 0;
 
   ENDBOSS_STAY = [
     "assets/2.Enemy/3 Final Enemy/2.floating/1.png",
@@ -64,20 +65,45 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_HURT);
   }
 
-  animate() {
-    this.checkBossLive();    //<-- check wenn der boss tod ist 
-    if (this.isDead()) {
-      this.playAnimationOnce(this.ENDBOSS_DEAD);
-    } else if (this.isHurt()) {
-      this.playAnimationOnce(this.ENDBOSS_HURT);
-    } else if (this.energy >= 0){
-      this.playAnimation(this.ENDBOSS_STAY);
+  animateIntro() {
+    let i = 0;
+    const interval = setInterval(() => {
+      this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
+      i++;
+      if (i >= this.ENDBOSS_INTRODUCE.length) {
+        clearInterval(interval);
+      }
+      this.y = 0;
+    }, 120);
+
+    this.intro = "done";
   }
 
-}
+  animate() {
+    if (this.state == 'idle') {
+      this.playAnimation(this.ENDBOSS_STAY);
+    }
+    if (this.isHurt()) {
+      //console.log('ist verletzt!')
+      //this.state = 'hurt';
+      this.playAnimationOnce(this.ENDBOSS_HURT);
+      setTimeout(() => {
+        console.log("Back to Idle!");
+        
+        this.loadImage(this.ENDBOSS_STAY[0]);
+        this.state = 'idle';
+      }, 1300);
+    } else if (this.isDead()) {
+      this.playAnimationOnce(this.ENDBOSS_DEAD);
+      setTimeout(() => {
+        this.state = "dead"
+      }, 3000);
+    }
+    this.now++;
+  }
 
 
-checkBossLive() {
+  checkBossLive() {
     if (!this.isAlive) {
       this.state = "won";
       setTimeout(() => {
@@ -97,18 +123,7 @@ checkBossLive() {
     //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht
   }
 
-  animateIntro() {
-    let i = 0;
-    const interval = setInterval(() => {
-      this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
-      i++;
-      if (i >= this.ENDBOSS_INTRODUCE.length) {
-      }
-      this.y = 0;
-    }, 120);
 
-    this.intro = "done";
-  }
 
   rollANumber() {
     return Math.random();
