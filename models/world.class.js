@@ -65,10 +65,10 @@ class World {
   }
 
   checkAudio() {
-    if (this.sound.volumeState == 'off' || this.character.isDead() || this.state == 'won') {
+    if (this.sound.state == false || this.character.isDead() || this.state == 'won') {
       
       this.audio.pause();
-    } else if (this.sound.volumeState == 'on') {
+    } else if (this.sound.state == true) {
       this.audio.play();
     }
   }

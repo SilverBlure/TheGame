@@ -6,7 +6,8 @@ class Character extends MovableObject {
     canAct = true;
     energy = 100;
     idleCounter = 0;
-    idleTrigger = false
+    idleTrigger = false;
+    hurthasPlayed = false;
 
 
     IMAGES_SWIM = [
@@ -144,9 +145,11 @@ class Character extends MovableObject {
                         this.world.character.width,
                         this.world.character.height));
                     this.playAnimationOnce(this.FIN_MELEE_HIT);
-                    let sound = new Audio();
-                    sound.src = 'assets/sounds/characterWhip.wav';
-                    sound.play();
+
+                    if (this.world.sound.state) {
+                        let sound = new Audio('assets/sounds/characterWhip.wav');
+                        sound.play();
+                    }
                     this.canAct = false;
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
@@ -183,13 +186,29 @@ class Character extends MovableObject {
         const interval2 = setInterval(() => {
             this.frameCounter++;
             if (this.isDead()) {
-                let sound = new Audio();
-                sound.src = 'assets/sounds/GameOver.mp3';
-                sound.play();
+
+                if (this.world.sound.state) {
+                    let sound = new Audio('assets/sounds/GameOver.mp3');
+                    sound.play();
+                }
+
                 clearInterval(interval2);
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
+                if (!this.hurthasPlayed) {
+                    this.hurthasPlayed = true;
+
+                    if (this.world.sound.state) {
+                        let sound = new Audio('assets/sounds/playerHurt.mp3');
+                        console.log(sound.duration);
+                        sound.play();
+                        setTimeout(() => {
+                            this.hurthasPlayed = false;
+                        }, 1000);
+                    }
+
+                }
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
             } else if (this.idleTrigger) {
@@ -201,8 +220,6 @@ class Character extends MovableObject {
                 this.frameCounter = 0;
             }
         }, 50);
-
-
     }
 
     onAnyInput() {

@@ -29,7 +29,7 @@ class ThrowableObject extends MovableObject {
     }
     
     soundcheck(){
-        if(this.world.sound.volumeState === 'on'){
+        if(this.world.sound.state){
             this.sound.play();
         }
     }

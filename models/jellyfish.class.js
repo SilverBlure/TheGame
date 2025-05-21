@@ -6,17 +6,17 @@ class Jellyfish extends MovableObject {
   now = 0;
 
   IDLE_JELLYFISH = [
-    "assets/2.Enemy/2JellyFish/RegularDamage/Lila1.png",
-    "assets/2.Enemy/2JellyFish/RegularDamage/Lila2.png",
-    "assets/2.Enemy/2JellyFish/RegularDamage/Lila3.png",
-    "assets/2.Enemy/2JellyFish/RegularDamage/Lila4.png",
+    "assets/2Enemy/2JellyFish/RegularDamage/Lila1.png",
+    "assets/2Enemy/2JellyFish/RegularDamage/Lila2.png",
+    "assets/2Enemy/2JellyFish/RegularDamage/Lila3.png",
+    "assets/2Enemy/2JellyFish/RegularDamage/Lila4.png",
   ];
 
   DEAD_JELLYFISH = [
-    "assets/2.Enemy/2JellyFish/Dead/Lila/L1.png",
-    "assets/2.Enemy/2JellyFish/Dead/Lila/L3.png",
-    "assets/2.Enemy/2JellyFish/Dead/Lila/L3.png",
-    "assets/2.Enemy/2JellyFish/Dead/Lila/L4.png",
+    "assets/2Enemy/2JellyFish/Dead/Lila/L1.png",
+    "assets/2Enemy/2JellyFish/Dead/Lila/L3.png",
+    "assets/2Enemy/2JellyFish/Dead/Lila/L3.png",
+    "assets/2Enemy/2JellyFish/Dead/Lila/L4.png",
   ];
 
   constructor() {

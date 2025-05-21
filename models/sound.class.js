@@ -1,12 +1,12 @@
 class SoundButton extends MovableObject {
 
-    volumeState = 'on'; //off
+    state = true;
 
     SOUND_IMAGES = ['GUI/volumeOff.svg',
         'GUI/volumeOn.svg'];
 
 
-        
+
     constructor() {
         super();
         this.loadImages(this.SOUND_IMAGES);
@@ -26,35 +26,35 @@ class SoundButton extends MovableObject {
         try {
             this.volume = localStorage.getItem(sound);
         } catch (error) {
-            localStorage.setItem('sound', 'on');
+            localStorage.setItem('sound', 'true');
         }
     }
 
     setSoundOn() {
-        localStorage.setItem('sound', 'on');
+        localStorage.setItem('sound', 'true');
     }
 
     setSoundOff() {
-        localStorage.setItem('sound', 'off');
+        localStorage.setItem('sound', 'false');
     }
 
     checkState() {
         let soundState = localStorage.getItem('sound');
-        if (soundState === 'on') {
+        if (soundState == 'true') {
             this.loadImage(this.SOUND_IMAGES[1]);
-        } else if (soundState === 'off') {
+        } else if (soundState == 'false') {
             this.loadImage(this.SOUND_IMAGES[0]);
         }
     }
 
     clickToggle() {
         let soundState = localStorage.getItem('sound');
-        if (soundState === 'on') {
-            localStorage.setItem('sound', 'off');
-            this.volumeState = 'off';
-        } else if (soundState === 'off') {
-            localStorage.setItem('sound', 'on');
-            this.volumeState = 'on';
+        if (soundState == 'true') {
+            localStorage.setItem('sound', false);
+            this.state = false;
+        } else if (soundState == 'false') {
+            localStorage.setItem('sound', true);
+            this.state = true;
 
         }
     }

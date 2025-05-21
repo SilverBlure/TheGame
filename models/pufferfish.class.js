@@ -10,11 +10,11 @@ class Pufferfish extends MovableObject {
   randomGen = false;
 
   PUFFERFISH_STAY = [
-    "assets/2.Enemy/1.PufferFish/1.Swim/swim1.png",
-    "assets/2.Enemy/1.PufferFish/1.Swim/swim2.png",
-    "assets/2.Enemy/1.PufferFish/1.Swim/swim3.png",
-    "assets/2.Enemy/1.PufferFish/1.Swim/swim4.png",
-    "assets/2.Enemy/1.PufferFish/1.Swim/swim5.png",
+    "assets/2Enemy/1PufferFish/1.Swim/swim1.png",
+    "assets/2Enemy/1PufferFish/1.Swim/swim2.png",
+    "assets/2Enemy/1PufferFish/1.Swim/swim3.png",
+    "assets/2Enemy/1PufferFish/1.Swim/swim4.png",
+    "assets/2Enemy/1PufferFish/1.Swim/swim5.png",
   ];
 
   PUFFERFISH_DEAD = [

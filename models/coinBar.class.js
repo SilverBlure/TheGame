@@ -1,12 +1,12 @@
 class CoinBar extends DrawableObject {
     percentage;
     coinBar = [
-        'assets/4. Marcadores/green/Coin/0_.png',
-        'assets/4. Marcadores/green/Coin/20_.png',
-        'assets/4. Marcadores/green/Coin/40_.png',
-        'assets/4. Marcadores/green/Coin/60_.png',
-        'assets/4. Marcadores/green/Coin/80_.png',
-        'assets/4. Marcadores/green/Coin/100_.png',
+        'assets/4.Marcadores/green/Coin/0_.png',
+        'assets/4.Marcadores/green/Coin/20_.png',
+        'assets/4.Marcadores/green/Coin/40_.png',
+        'assets/4.Marcadores/green/Coin/60_.png',
+        'assets/4.Marcadores/green/Coin/80_.png',
+        'assets/4.Marcadores/green/Coin/100_.png',
     ];
 
     
