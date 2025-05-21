@@ -36,6 +36,7 @@ class World {
   bossIntroPlayed = false;
   endboss;
   audio;
+  device;
   state = null;
   now = 0;
   sound;
@@ -61,8 +62,20 @@ class World {
     this.onExit = onExit;
     this.tryAgainImage = new Image();
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
-
+    this.checkDevice()
   }
+
+  checkDevice(){
+    if(this.isMobile()){
+      this.device = 'mobile';
+    }
+  }
+
+
+  isMobile() {
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
+
 
   checkAudio() {
     if (this.sound.state == false || this.character.isDead() || this.state == 'won') {
