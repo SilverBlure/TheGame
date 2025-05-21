@@ -6,16 +6,16 @@ class World {
   lights = level1.lights;
   backgroundObjects = level1.backgroundObjects;
   collectable = [
-    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 100, 320),
-    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Right.png", 400, 320),
-    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 700, 320),
-    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Right.png", 1200, 320),
-    new PoisonBottle("assets/4. Marcadores/Posión/Dark - Left.png", 2100, 320),
-    new Coin("assets/4. Marcadores/1. Coins/1.png", 100, 320),
-    new Coin("assets/4. Marcadores/1. Coins/1.png", 550, 320),
-    new Coin("assets/4. Marcadores/1. Coins/1.png", 300, 320),
-    new Coin("assets/4. Marcadores/1. Coins/1.png", 2200, 320),
-    new Coin("assets/4. Marcadores/1. Coins/1.png", 850, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 100, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 400, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 700, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 1200, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 2100, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 100, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 550, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 300, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 2200, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 850, 320),
   ];
   world;
   camera_x = 0;

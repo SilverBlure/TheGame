@@ -10,24 +10,22 @@ class Pufferfish extends MovableObject {
   randomGen = false;
 
   PUFFERFISH_STAY = [
-    "assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png",
+    "assets/2.Enemy/1.PufferFish/1.Swim/swim1.png",
+    "assets/2.Enemy/1.PufferFish/1.Swim/swim2.png",
+    "assets/2.Enemy/1.PufferFish/1.Swim/swim3.png",
+    "assets/2.Enemy/1.PufferFish/1.Swim/swim4.png",
+    "assets/2.Enemy/1.PufferFish/1.Swim/swim5.png",
   ];
 
   PUFFERFISH_DEAD = [
-    "assets/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead_1.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead_2.png",
-    "assets/2.Enemy/1.Puffer fish (3 color options)/4.DIE/1.Dead_3.png",
+    "assets/2Enemy/1PufferFish/4DIE/Dead1.png",
+    "assets/2Enemy/1PufferFish/4DIE/Dead2.png",
+    "assets/2Enemy/1PufferFish/4DIE/Dead3.png",
   ];
 
   constructor() {
     super();
-    this.loadImage(
-      "./../assets/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png"
-    );
+    this.loadImage(this.PUFFERFISH_STAY[0]);
     this.world = null;
     this.x = 740 + Math.random() * 1600;
     this.y = 250 * Math.random();
