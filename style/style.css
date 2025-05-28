@@ -76,3 +76,39 @@ h1,h2,h3{
     font-size: 30mm;
     font-family: 'luckiest guy';
 }
+
+
+@media (max-width: 750px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 560px;
+        height: 380px;
+    }
+    
+}
+
+@media (max-width: 600px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 450px;
+        height: 300px;
+    }
+    
+}
+@media (max-width: 470px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 350px;
+        height: 200px;
+    }
+    
+}
