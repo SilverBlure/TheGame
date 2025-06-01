@@ -84,8 +84,6 @@ class Endboss extends MovableObject {
       this.playAnimation(this.ENDBOSS_STAY);
     }
     if (this.isHurt()) {
-      //console.log('ist verletzt!')
-      //this.state = 'hurt';
       this.playAnimationOnce(this.ENDBOSS_HURT);
       setTimeout(() => {
         console.log("Back to Idle!");

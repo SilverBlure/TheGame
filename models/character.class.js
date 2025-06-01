@@ -201,7 +201,7 @@ class Character extends MovableObject {
 
                     if (this.world.sound.state) {
                         let sound = new Audio('assets/sounds/playerHurt.mp3');
-                        console.log(sound.duration);
+                        
                         sound.play();
                         setTimeout(() => {
                             this.hurthasPlayed = false;

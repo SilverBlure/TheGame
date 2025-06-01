@@ -3,7 +3,6 @@ class Menue {
   mouse;
   menueBG = new MenueBackground();
   startButton = new Startgame();
-  fullScreen = new Fullscreen();
   loadWorld;
   originalWidth;
   originalHeight;
@@ -12,14 +11,17 @@ class Menue {
   device;
   sound;
 
-  constructor(canvas, mouse, loadWorld, sound) {
+  constructor(canvas, mouse, loadWorld, sound, fullscreen) {
     this.ctx = canvas.getContext("2d");
     this.mouse = mouse;
     this.onStart = loadWorld;
     this.canvas = canvas;
     this.sound = sound;
+    this.fullScreen = fullscreen;
     this.draw();
+    
   }
+
 
   collisionWithButton(button) {
     if (
@@ -54,14 +56,6 @@ class Menue {
       this.mouse.block = true;
       this.onStart();
     }
-    if (
-      this.collisionWithButton(this.fullScreen) &&
-      this.mouse.click &&
-      !this.mouse.block
-    ) {
-      this.mouse.block = true;
-      this.toggleFullscreen();
-    }
     if (this.collisionWithButton(this.sound) &&
       this.mouse.click &&
       !this.mouse.block) {
@@ -69,41 +63,11 @@ class Menue {
     }
   }
 
-  setReframe() {
-    if (this.fullwindow) {
-      this.canvas.width = this.originalWidth;
-      this.canvas.height = this.originalHeight;
-      this.fullwindow = false;
-    } else {
-      this.originalWidth = this.canvas.width;
-      this.originalHeight = this.canvas.height;
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      this.fullwindow = true;
-    }
-    this.startButton = new Startgame(this.canvas.width, this.canvas.height);
-    this.menueBG = new MenueBackground(this.canvas.width, this.canvas.height);
-    this.fullScreen = new Fullscreen(this.canvas.width, this.canvas.height);
-  }
-
-  toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      this.originalWidth = this.canvas.width;
-      this.originalHeight = this.canvas.height;
-
-      this.canvas.requestFullscreen().then(() => {
-        this.setCanvasToFullscreen();
-      });
-    } else {
-      document.exitFullscreen().then(() => {
-        this.resetCanvasSize();
-      });
-    }
-  }
 
   draw() {
     this.addToMap(this.menueBG);
     this.addToMap(this.startButton);
+    this.fullScreen.checkMode('menue');
     this.addToMap(this.fullScreen);
     this.addToMap(this.sound);
     this.checkMousePosition();
@@ -116,19 +80,11 @@ class Menue {
     this.mouse.pos_x = x;
     this.mouse.pos_y = y;
     if (this.collisionWithButton(this.startButton)) {
-      this.onStart(); // Spiel starten
-      console.log('menue.touchHandler')
+      this.onStart();
     }
-    if (this.collisionWithButton(this.fullScreen)) {
-      this.toggleFullscreen(); // Fullscreen einschalten
-    }
+    
   }
 
-
-  cleanUp() {
-    cancelAnimationFrame(this.requestAnimationFrameID);
-    this.requestAnimationFrameID = null;
-  }
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -140,7 +96,6 @@ class Menue {
 
   addToMap(mo) {
     // invert images
-
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
@@ -150,4 +105,7 @@ class Menue {
       this.flipImageBack(mo);
     }
   }
+
+
+
 }

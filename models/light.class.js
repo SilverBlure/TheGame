@@ -7,7 +7,6 @@ width = 400;
         super().loadImage(path, x, y);
         this.x = x;
         this.y = y;
-
         this.speed = 0.15 + Math.random() * 0.15;
         this.moveLeft()
     }
