@@ -338,7 +338,12 @@ class World {
     }
   }
 
-  collisionWithButton(button) {
+  collisionWithButton(button, x, y) {
+    if(x !== undefined && y !== undefined)
+    {
+      this.mouse.pos_x = x;
+      this.mouse.pos_y = y;
+    }
     if (
       this.mouse.pos_x > button.x &&
       this.mouse.pos_x < button.x + button.width &&

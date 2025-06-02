@@ -14,33 +14,32 @@ function init() {
   // Touchstart skalieren
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    if (game.state === "menue") {
-      
-
-      if (!document.fullscreenElement) {
-        canvas.requestFullscreen();
-      }
-      if (document.fullscreenElement && game.menue.collisionWithButton(game.menue.fullScreen)) {
-        document.exitFullscreen();
-      }
-      
-      game?.world?.character?.onAnyInput?.();
-
+    //if (game.state === "menue") {
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
 
-      for (let touch of e.touches) {
-        const x = (touch.clientX - rect.left) * scaleX;
-        const y = (touch.clientY - rect.top) * scaleY;
-        handleTouchDown(x, y);
+    const touch = e.touches[0];
+    const x = (touch.clientX - rect.left) * scaleX;
+    const y = (touch.clientY - rect.top) * scaleY;
+
+      if (game.menue.collisionWithButton(game.menue.fullScreen, x ,y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
+        if (!document.fullscreenElement) {
+          canvas.requestFullscreen().catch((err) =>{});
+        }
+        if (document.fullscreenElement) {
+          console.log('Exit')
+          document.exitFullscreen().catch((err) =>{});
+        }
       }
+      game?.world?.character?.onAnyInput?.();
+      handleTouchDown(x, y);
+      
     }
-  }, { passive: false });
+  ), { passive: false };
 
   canvas.addEventListener("touchend", (e) => {
     handleTouchUp();
-
   });
 
   // Touchverarbeitung
