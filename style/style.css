@@ -19,6 +19,7 @@ canvas{
     display: block;
     margin : 0;
     padding: 0;
+    object-fit: fill;
 }
 
 h1{
@@ -76,15 +77,15 @@ h1,h2,h3{
     font-size: 30mm;
     font-family: 'luckiest guy';
 }
-.block{
-    z-index: 100;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+.blockBg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.2);
 }
+
 
 
 

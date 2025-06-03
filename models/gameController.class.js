@@ -25,17 +25,11 @@ class GameController {
   }
 
   loadMenue() {
-    if (this.device === 'mobile') {
-      if(this.landscape){
         if (this.menue && this.state === "menue") return;
       this.mouse.block = false;
       this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
       this.state = "menue";
       this.firstLoad = false;
-      }
-      
-    }
-
   }
 
   // checkOrientationAndStart() {

@@ -125,9 +125,9 @@ function init() {
     const rect = canvas.getBoundingClientRect();
     mouse.pos_x = (event.clientX - rect.left) * (canvas.width / rect.width);
     mouse.pos_y = (event.clientY - rect.top) * (canvas.height / rect.height);
-    console.log('MausPosition_X:', mouse.pos_x,
-                'MausPosition_Y:', mouse.pos_y,
-    )
+    // console.log('MausPosition_X:', mouse.pos_x,
+    //             'MausPosition_Y:', mouse.pos_y,
+    // )
   });
 
   
