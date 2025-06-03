@@ -5,6 +5,7 @@ class GameController {
   keyboard;
   world;
   menue;
+  landscape;
   state = "menue";
   firstLoad = true;
   device = null;
@@ -16,34 +17,55 @@ class GameController {
     this.ctx = ctx;
     this.mouse = mouse;
     this.keyboard = keyboard;
+    this.block = document.getElementById('dialogBlock');
+    this.device = this.getdevice();
     this.fullscreen = new Fullscreen(canvas);
-   
     this.loop();
     this.loadMenue();
   }
 
   loadMenue() {
-    if (this.menue && this.state === "menue") return;
-    this.mouse.block = false;
-    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
-    this.state = "menue";
-    this.firstLoad = false;
-  }
-
-  checkOrientationAndStart() {
-    if (this.isLandscape()) {   //checkt ob das handy wagerecht ist
-      if (this.state === "blocked" || (!this.world && !this.menue)) {
-        //this.getDeviceData();
-        this.loadMenue();
+    if (this.device === 'mobile') {
+      if(this.landscape){
+        if (this.menue && this.state === "menue") return;
+      this.mouse.block = false;
+      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
+      this.state = "menue";
+      this.firstLoad = false;
       }
-    } else {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.state = "blocked";
-      this.showRotateScreen();
+      
     }
+
   }
 
+  // checkOrientationAndStart() {
+  //   if (this.isLandscape()) {   //checkt ob das handy wagerecht ist
+  //     if (this.state === "blocked" || (!this.world && !this.menue)) {
+  //       //this.getDeviceData();
+  //       this.loadMenue();
+  //     }
+  //   } else {
+  //     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  //     this.state = "blocked";
+  //     this.showRotateScreen();
+  //   }
+  // }
 
+  isLandscapeMode() {
+  if(window.innerWidth > window.innerHeight){
+    this.landscape = true;
+  }else{
+    this.landscape = false;
+  }
+}
+
+  getdevice() {
+    if (this.isMobileDevice()) return "mobile"
+  }
+
+  isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
   //   showRotateScreen() {
   //     this.ctx.fillStyle = "black";
   //     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -63,6 +85,11 @@ class GameController {
   }
 
   loop() {
+    if(!this.landscape){
+      this.block.classList.remove('d-none');
+    }else{
+      this.block.classList.add('d-none');
+    }
     if (this.state === "menue" && this.menue) {
       this.menue.draw();
     } else if (this.state === "game" && this.world) {
@@ -70,6 +97,7 @@ class GameController {
     } else if (this.state === "blocked") {
       this.showRotateScreen();
     }
+    this.isLandscapeMode();
     requestAnimationFrame(() => this.loop());
   }
 

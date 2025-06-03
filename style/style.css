@@ -27,8 +27,9 @@ h1{
     font-size: 64px;
 }
 
-img{
-    scale: 0.5;
+.blockImg{
+    width: 100vw;
+    height: 100vh;
 }
 
 span{
@@ -75,6 +76,16 @@ h1,h2,h3{
     font-size: 30mm;
     font-family: 'luckiest guy';
 }
+.block{
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
 
 
 @media (max-width: 750px) {

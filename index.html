@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <link rel="stylesheet" href="./style/style.css">
-    <script src="./models/gameController.class.js" ></script>
+    <script src="./models/gameController.class.js"></script>
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/collectableObject.class.js"></script>
     <script src="./models/movableObjects.class.js"></script>
@@ -17,7 +18,7 @@
     <script src="./models/coinBar.class.js"></script>
     <script src="./models/button.class.js"></script>
     <script src="./models/fullScreen.class.js"></script>
-    <script src="./models/poisonBottle.class.js"></script>   
+    <script src="./models/poisonBottle.class.js"></script>
     <script src="./models/menue.class.js"></script>
     <script src="./models/startGame.class.js"></script>
     <script src="./models/coin.class.js"></script>
@@ -28,26 +29,34 @@
     <script src="./models/background.class.js"></script>
     <script src="./models/mobile.class.js"></script>
     <script src="./models/finAttack.class.js"></script>
-    <script src="./models/throwableObject.class.js"></script> 
+    <script src="./models/throwableObject.class.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/sound.class.js"></script>
     <script src="./models/gameOver.class.js"></script>
     <script src="./models/endboss.class.js"></script>
-    <script src="./levels/level1.js"></script>    
+    <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
     <title>TheGame</title>
 </head>
+
 <body onload="init()">
+    <dialog class="block d-none" id="dialogBlock">
+        <img class="blockImg" src="./GUI/Please_Landscape.png">
+
+    </dialog>
     <div class="orga">
-    <h1 class="impressum" id="headline">Sharky the Game</h1>
+        <h1 class="impressum" id="headline">Sharky the Game</h1>
 
-    <canvas id="canvas" width="720px" height="480px"></canvas>
-     
-    <footer class="impressum">
-        <a class="pointer cleanLink" href="./impressum.html">Impressum</a><!--  hier kommt ein link zu einer index page-->
+        <canvas id="canvas" width="720px" height="480px"></canvas>
 
-    </footer>
-</div>
+        <footer class="impressum">
+            <a class="pointer cleanLink"
+                href="./impressum.html">Impressum</a><!--  hier kommt ein link zu einer index page-->
+
+        </footer>
+    </div>
+
 </body>
+
 </html>

@@ -22,6 +22,9 @@ function init() {
     const touch = e.touches[0];
     const x = (touch.clientX - rect.left) * scaleX;
     const y = (touch.clientY - rect.top) * scaleY;
+    // console.log('coordinaten_x:', x,
+    //             'coordinaten_y:', y
+    // );
 
       if (game.menue.collisionWithButton(game.menue.fullScreen, x ,y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
         if (!document.fullscreenElement) {
@@ -122,7 +125,12 @@ function init() {
     const rect = canvas.getBoundingClientRect();
     mouse.pos_x = (event.clientX - rect.left) * (canvas.width / rect.width);
     mouse.pos_y = (event.clientY - rect.top) * (canvas.height / rect.height);
+    console.log('MausPosition_X:', mouse.pos_x,
+                'MausPosition_Y:', mouse.pos_y,
+    )
   });
+
+  
 
   window.addEventListener("mouseup", (e) => {
     if (e.button === 0) mouse.click = false;
