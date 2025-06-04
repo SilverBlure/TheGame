@@ -142,12 +142,10 @@ class World {
   }
 
   checkProjectileEnemyCollision() {
-    let opponent = new Audio();
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
       let hit = false;
       this.enemies.forEach((enemy) => {
         if (this.character.isCollidingWithTrowable(projectile, enemy)) {
-
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
@@ -230,7 +228,7 @@ class World {
     this.reSpawnEnemie();
     this.stopProjectile();
     this.checkCollisionFinSlap();
-    this.checkMousePosition();
+   // this.checkMousePosition();
     this.checkAudio();
     //#######Enemy Intervale#######
     if (this.frameCounter % 4 == 0) {
@@ -363,28 +361,23 @@ class World {
     }
   }
 
-  checkMousePosition() {
-    if (
-      this.collisionWithButton(this.sound) &&
-      this.mouse.check()){
-      this.sound.clickToggle();
-      this.sound.checkState();
-    }
-    if (this.collisionWithButton(this.gameOver.try_again_button) &&
-      this.mouse.click &&
-      !this.mouse.block) {
-      this.character.energy = 100;
-      this.character.loadImage(this.character.IMAGES_SWIM[0]);
-      this.character.animate();
-      this.character.x = 150;
-      this.character.y = 120;
-      this.state = 'running'
-      this.statusBar.setPercentage(100);
-    }
-    // if(this.collisionWithButton(this.fullScreen) && 
-    //   this.mouse.click && 
-    //   !this.mouse.block) {
-    //   this.fullScreen.toggleFullscreen();
-    // }
-  }
+  // checkMousePosition() {
+  //   if (
+  //     this.collisionWithButton(this.sound) &&
+  //     this.mouse.click){
+  //       console.log('sound');
+  //     this.sound.clickToggle();
+  //     this.sound.checkState();
+  //   }
+  //   if (this.collisionWithButton(this.gameOver.try_again_button) &&
+  //     this.mouse.click &&
+  //     !this.mouse.block) {
+  //     this.character.energy = 100;
+  //     this.character.loadImage(this.character.IMAGES_SWIM[0]);
+  //     this.character.animate();
+  //     this.character.x = 150;
+  //     this.character.y = 120;
+  //     this.state = 'running'
+  //     this.statusBar.setPercentage(100);
+  //   }  }
 }

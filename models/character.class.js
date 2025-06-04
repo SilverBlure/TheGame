@@ -8,6 +8,7 @@ class Character extends MovableObject {
     idleCounter = 0;
     idleTrigger = false;
     hurthasPlayed = false;
+    sound;
 
 
     IMAGES_SWIM = [
@@ -100,13 +101,14 @@ class Character extends MovableObject {
 
     constructor() {
         super();
-        this.loadImage('assets/1.Sharkie/3.Swim/1.png',);
+        this.loadImage('assets/1.Sharkie/3.Swim/1.png');
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_HURT_POISON);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
+        this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
     }
 
@@ -147,8 +149,7 @@ class Character extends MovableObject {
                     this.playAnimationOnce(this.FIN_MELEE_HIT);
 
                     if (this.world.sound.state) {
-                        let sound = new Audio('assets/sounds/characterWhip.wav');
-                        sound.play();
+                        this.sound.play();
                     }
                     this.canAct = false;
                     setTimeout(() => {

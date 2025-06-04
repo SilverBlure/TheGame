@@ -60,15 +60,7 @@ class GameController {
   isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
-  //   showRotateScreen() {
-  //     this.ctx.fillStyle = "black";
-  //     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  //     this.ctx.fillStyle = "white";
-  //     this.ctx.font = "30px Arial";
-  //     this.ctx.textAlign = "center";
-  //     this.ctx.fillText("Bitte ins Querformat drehen!", this.canvas.width / 2, this.canvas.height / 2);
-  // }
-
+ 
 
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>

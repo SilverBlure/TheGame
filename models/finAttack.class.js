@@ -18,7 +18,6 @@ constructor(x, y, char_width, char_height) {
     this.pos_y = y;
     this.char_width = char_width;
     this.char_height = char_height;
-    
     this.x = x + char_width; // Position direkt rechts vom Charakter
     this.y = y;              // Gleiche y-Position wie der Charakter
     this.width = 100;         // Länge der Hitbox nach rechts

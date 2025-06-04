@@ -1,12 +1,16 @@
+/**
+ * @class Represent a SoundObject extends Mo for rendering button
+ */
 class SoundButton extends MovableObject {
 
     state = true;
-
     SOUND_IMAGES = ['GUI/volumeOff.svg',
         'GUI/volumeOn.svg'];
 
 
-
+    /**
+     * @constuctor creates new Soundbutton obj
+     */
     constructor() {
         super();
         this.loadImages(this.SOUND_IMAGES);
@@ -17,27 +21,29 @@ class SoundButton extends MovableObject {
         this.startSequence();
     }
 
+    /**
+     * Method to check sound from local storage, and set
+     */
     startSequence() {
-        this.checksound();
+        this.checkRegister();
         this.checkState();
     }
 
-    checksound() {
-        try {
-            this.volume = localStorage.getItem(sound);
-        } catch (error) {
-            localStorage.setItem('sound', 'true');
+    /**
+     * Checks register of local storage, if nothing there set one
+     */
+    checkRegister() {
+        if (localStorage.getItem('sound')) {
+            console.log('geht');
+        }
+        else {
+            localStorage.setItem('sound', 'true')
         }
     }
 
-    setSoundOn() {
-        localStorage.setItem('sound', 'true');
-    }
-
-    setSoundOff() {
-        localStorage.setItem('sound', 'false');
-    }
-
+    /**
+     * Checks the state, and set the icon
+     */
     checkState() {
         let soundState = localStorage.getItem('sound');
         if (soundState == 'true') {
@@ -46,7 +52,9 @@ class SoundButton extends MovableObject {
             this.loadImage(this.SOUND_IMAGES[0]);
         }
     }
-
+    /**
+     * Sound toggle method, calls checkstate method
+     */
     clickToggle() {
         let soundState = localStorage.getItem('sound');
         if (soundState == 'true') {
@@ -55,8 +63,8 @@ class SoundButton extends MovableObject {
         } else if (soundState == 'false') {
             localStorage.setItem('sound', true);
             this.state = true;
-
         }
+        this.checkState();
     }
 
 }

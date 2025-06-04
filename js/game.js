@@ -15,7 +15,7 @@ function init() {
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
     //if (game.state === "menue") {
-      const rect = canvas.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
@@ -26,19 +26,19 @@ function init() {
     //             'coordinaten_y:', y
     // );
 
-      if (game.menue.collisionWithButton(game.menue.fullScreen, x ,y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
-        if (!document.fullscreenElement) {
-          canvas.requestFullscreen().catch((err) =>{});
-        }
-        if (document.fullscreenElement) {
-          console.log('Exit')
-          document.exitFullscreen().catch((err) =>{});
-        }
+    if (game.menue.collisionWithButton(game.menue.fullScreen, x, y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
+      if (!document.fullscreenElement) {
+        canvas.requestFullscreen().catch((err) => { });
       }
-      game?.world?.character?.onAnyInput?.();
-      handleTouchDown(x, y);
-      
+      if (document.fullscreenElement) {
+        console.log('Exit')
+        document.exitFullscreen().catch((err) => { });
+      }
     }
+    game?.world?.character?.onAnyInput?.();
+    handleTouchDown(x, y);
+
+  }
   ), { passive: false };
 
   canvas.addEventListener("touchend", (e) => {
@@ -104,9 +104,8 @@ function init() {
 
   // Maus-Klick
   window.addEventListener("mousedown", (e) => {
-    if (e.button === 0) mouse.click = true;
+    //if (e.button === 0) mouse.click = true;
     if (game.state === "menue") {
-      console.log(document.fullscreenElement);
       if (game.menue.collisionWithButton(game.menue.fullScreen)) {
         if (!document.fullscreenElement) {
           canvas.requestFullscreen();           //<-- öffnet fullscreen  
@@ -118,7 +117,25 @@ function init() {
     }
   });
 
+  window.addEventListener('click', (e) => {
+    //console.log(e.clientX, e.clientY)
+    if (game.state === 'menue') {
+      if (game.menue.collisionWithButton(game.menue.sound)) {
+        game.menue.sound.clickToggle();
+      } else if (game.menue.collisionWithButton(game.menue.startButton)){
+        game.loadWorld();
+      }
+    }else if (game.state === 'game') {
+        if (game.world.collisionWithButton(game.world.sound)) {console.log('clickengeht')
+          game.world.sound.clickToggle();
+        }
+      }
+    
+  })
 
+
+
+  canvas.addEventListener('mouseup', () => mouse.click = false)
 
   // Mausbewegung skalieren
   canvas.addEventListener("mousemove", (event) => {
@@ -130,11 +147,9 @@ function init() {
     // )
   });
 
-  
 
-  window.addEventListener("mouseup", (e) => {
-    if (e.button === 0) mouse.click = false;
-  });
+
+
 
   // Eingabe zurücksetzen
   function handleTouchUp() {

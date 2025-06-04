@@ -23,8 +23,7 @@ class ThrowableObject extends MovableObject {
         this.throw(this.x + 180, this.y + 70);
         this.oldX = this.x + 180;
         this.world = world;
-        this.sound = new Audio();
-        this.sound.src = 'assets/sounds/BubbleShot.wav';
+        this.sound = new Audio('assets/sounds/BubbleShot.wav');
         this.soundcheck();
     }
     
@@ -56,9 +55,6 @@ class ThrowableObject extends MovableObject {
                 clearInterval(interval);
             };
         }, 50);
-
-
-        this.world.intervals.push(interval);
     }
 
 }

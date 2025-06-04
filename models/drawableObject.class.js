@@ -21,7 +21,7 @@ class DrawableObject{
 
     drawFrame(ctx) {
         if(this.mode === 'Dev'){
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen
+        if (this instanceof Character || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen
         ) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
