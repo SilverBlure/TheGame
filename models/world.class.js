@@ -26,11 +26,9 @@ class World {
   coinBar = new CoinBar();
   throwableObjects = [];
   meleeAtk = [];
-  fadeAlpha = 0;
   tryAgainImage = new Image();
   intervalIdCollection = [];
   requestAnimationFrameID;
-  intervals = [];
   bossIntroPlayed = false;
   endboss;
   audio;
@@ -39,7 +37,8 @@ class World {
   now = 0;
   sound;
   frameCounter = 0;
-  soundGlasBroke
+  soundGlasBroke;
+  audioBGMusik;
 
   constructor(canvas, keyboard, mouse, onExit, sound, fullScreen) {
     this.ctx = canvas.getContext("2d");
@@ -69,18 +68,19 @@ class World {
     this.checkDevice()
   }
 
+  /**set device state if is mobile*/
   checkDevice() {
     if (this.isMobile()) {
       this.device = 'mobile';
     }
   }
 
-
+  /**check if is a mobile device */
   isMobile() {
     return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
   }
 
-
+  /**check audio if play or not */
   checkAudio() {
     if (this.sound.state == false || this.character.isDead() || this.state == 'won') {
       this.audioBGMusik.pause();
@@ -89,6 +89,9 @@ class World {
     }
   }
 
+  /**
+   * set world object in objects
+   */
   setWorld() {
     this.character.world = this;
     this.level.enemies.forEach((enemy) => {
@@ -98,23 +101,28 @@ class World {
   }
 
 
-
+  /**
+   * calls exit function, change gamestate
+   */
   finished() {
     if (this.endboss.isDead()) {
       this.state = 'won'
       setTimeout(() => {
         this.onExit();
-      }, 1500);
+      }, 2000);
     }
   }
 
+  /**
+   * changing gamestate if character dead
+   */
   tryAgain() {
     if (this.character.isDead()) {
       this.state = 'gameOver'
     }
   }
 
-
+  /**check if character is colliding mit enemie */
   checkCharacterEnemyCollision() {
     this.enemies.forEach((enemy) => {
       if (this.character.isColliding(this.character, enemy) && enemy.isAlive) {
@@ -124,13 +132,15 @@ class World {
     });
   }
 
+  /**
+   * check if character collects items
+   */
   checkCharacterCollectablesCollision() {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
           this.soundGlasBroke.play();
           this.poisonBar.addPoison(20);
-
         } else if (obj instanceof Coin) {
           this.soundCoinSound.play();
           this.coinBar.addCoin(20);
@@ -141,6 +151,9 @@ class World {
     });
   }
 
+  /**
+   * check if projectile collides with enemie
+   */
   checkProjectileEnemyCollision() {
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
       let hit = false;
@@ -154,7 +167,7 @@ class World {
           if (enemy instanceof Endboss) {
             this.enemyEndbossHurt.play();
           }
-          if (this.endboss.isDead()  && enemy instanceof Endboss) {          
+          if (this.endboss.isDead() && enemy instanceof Endboss) {
             this.enemyEndbossDead.play();
           }
         }
@@ -163,25 +176,33 @@ class World {
     });
   }
 
+  /**
+   * check if finslap hits enemie
+   */
   checkCollisionFinSlap() {
     if (this.meleeAtk.length > 0) {
       this.enemies.forEach((enemy) => {
         this.meleeAtk.forEach((fin) => {
           if (fin.isColliding(fin, enemy)) {
             enemy.hit(80);
-            console.log("feuer");
           }
         });
       });
     }
   }
 
+  /**
+   * desolves enemies out of map
+   */
   checkIfEnemyRunOut() {
     this.enemies = this.enemies.filter((enemy) => {
       return enemy.x + enemy.width >= 0;
     });
   }
 
+  /**
+   * draw function draws objects on canvas
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
@@ -196,7 +217,6 @@ class World {
     this.addObjectsToMap(this.collectable);
     this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
-
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
     this.fullScreen.checkMode('game');
@@ -208,13 +228,15 @@ class World {
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.addToMap(this.gameOver);
-
     }
     if (this.state === "won") {
       this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
     }
   }
 
+  /**
+   * update function calls more checks
+   */
   update() {
     this.frameCounter++
     //#######CollisionsAbfragen######
@@ -228,7 +250,6 @@ class World {
     this.reSpawnEnemie();
     this.stopProjectile();
     this.checkCollisionFinSlap();
-   // this.checkMousePosition();
     this.checkAudio();
     //#######Enemy Intervale#######
     if (this.frameCounter % 4 == 0) {
@@ -236,12 +257,14 @@ class World {
     }
     this.jellyFishInterval();
     this.pufferFishInterval();
-
     if (this.frameCounter > 100000) {
       this.frameCounter = 0;
     }
   }
 
+  /**
+   * interval von pufferfish objects
+   */
   pufferFishInterval() {
     this.enemies.forEach((enemie) => {
       if (enemie instanceof Pufferfish) {
@@ -250,6 +273,9 @@ class World {
     });
   }
 
+  /**
+   * interval von jellyFish objects
+   */
   jellyFishInterval() {
     this.enemies.forEach((enemie) => {
       if (enemie instanceof Jellyfish) {
@@ -258,18 +284,25 @@ class World {
     });
   }
 
+  /**
+   * respawns enemies till enboss
+   */
   reSpawnEnemie() {
     if (this.enemies.length < 6) {
       this.enemies.push(new Pufferfish());
     }
   }
 
+  /**
+   * stops projectiles that geos out of range
+   */
   stopProjectile() {
     this.throwableObjects = this.throwableObjects.filter((obj) => {
       return !obj.outOfRange;
     });
   }
 
+  /**loops update & draw */
   loop() {
     if (this.now >= 5) {
       this.update();
@@ -279,7 +312,10 @@ class World {
     this.now++;
   }
 
-
+/**
+ * renders objects to map
+ * @param {object} objects 
+ */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       if (o !== null) {
@@ -288,6 +324,10 @@ class World {
     });
   }
 
+/**
+ * renders object to map
+ * @param {objects} mo 
+ */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -299,6 +339,10 @@ class World {
     }
   }
 
+/**
+ * flip image to moving side 
+ * @param {object} mo 
+ */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -306,11 +350,18 @@ class World {
     mo.x = mo.x * -1;
   }
 
+/**
+ * set mo back in movin position
+ * @param {objects} mo 
+ */
   flipImageBack(mo) {
     this.ctx.restore();
     mo.x = mo.x * -1;
   }
 
+  /**
+   * removes dead Enemys
+   */
   clearDeadEnemys() {
     this.enemies = this.enemies.filter((enemy) => {
       if (enemy.isAlive) {
@@ -319,13 +370,15 @@ class World {
     });
   }
 
+/**
+ * interval an intro from endboss
+ */
   endbossInterval() {
     if (!this.bossIntroPlayed && this.character.x >= 2100) {
       this.bossIntroPlayed = true;
       this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
       setTimeout(() => {
         this.endboss.y = 0;
-
       }, 100);
       setTimeout(() => {
         this.endboss.state = 'idle';
@@ -336,9 +389,9 @@ class World {
     }
   }
 
+/**check if colliding mouse with button pos */
   collisionWithButton(button, x, y) {
-    if(x !== undefined && y !== undefined)
-    {
+    if (x !== undefined && y !== undefined) {
       this.mouse.pos_x = x;
       this.mouse.pos_y = y;
     }
@@ -353,6 +406,7 @@ class World {
     return false;
   }
 
+  /**set mouse to pointer  */
   hoverPointer() {
     if (this.collisionWithButton(this.sound)) {
       document.body.style.cursor = "pointer";
@@ -361,23 +415,14 @@ class World {
     }
   }
 
-  // checkMousePosition() {
-  //   if (
-  //     this.collisionWithButton(this.sound) &&
-  //     this.mouse.click){
-  //       console.log('sound');
-  //     this.sound.clickToggle();
-  //     this.sound.checkState();
-  //   }
-  //   if (this.collisionWithButton(this.gameOver.try_again_button) &&
-  //     this.mouse.click &&
-  //     !this.mouse.block) {
-  //     this.character.energy = 100;
-  //     this.character.loadImage(this.character.IMAGES_SWIM[0]);
-  //     this.character.animate();
-  //     this.character.x = 150;
-  //     this.character.y = 120;
-  //     this.state = 'running'
-  //     this.statusBar.setPercentage(100);
-  //   }  }
+  cleanUp(){
+    if (this.audioBGMusik) {
+    this.audioBGMusik.pause();
+    this.audioBGMusik.currentTime = 0;
+  }
+
+  // Cursor zurücksetzen
+  document.body.style.cursor = "default";
+  }
+
 }

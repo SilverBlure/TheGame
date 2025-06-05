@@ -1,5 +1,4 @@
 class GameController {
-
   canvas;
   mouse;
   keyboard;
@@ -10,7 +9,6 @@ class GameController {
   firstLoad = true;
   device = null;
   sound = new SoundButton();
-
 
   constructor(canvas, ctx, mouse, keyboard,) {
     this.canvas = canvas;
@@ -25,33 +23,20 @@ class GameController {
   }
 
   loadMenue() {
-        if (this.menue && this.state === "menue") return;
-      this.mouse.block = false;
-      this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
-      this.state = "menue";
-      this.firstLoad = false;
+    if (this.menue && this.state === "menue") return;
+    this.mouse.block = false;
+    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
+    this.state = "menue";
+    this.firstLoad = false;
   }
-
-  // checkOrientationAndStart() {
-  //   if (this.isLandscape()) {   //checkt ob das handy wagerecht ist
-  //     if (this.state === "blocked" || (!this.world && !this.menue)) {
-  //       //this.getDeviceData();
-  //       this.loadMenue();
-  //     }
-  //   } else {
-  //     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  //     this.state = "blocked";
-  //     this.showRotateScreen();
-  //   }
-  // }
 
   isLandscapeMode() {
-  if(window.innerWidth > window.innerHeight){
-    this.landscape = true;
-  }else{
-    this.landscape = false;
+    if (window.innerWidth > window.innerHeight) {
+      this.landscape = true;
+    } else {
+      this.landscape = false;
+    }
   }
-}
 
   getdevice() {
     if (this.isMobileDevice()) return "mobile"
@@ -60,7 +45,7 @@ class GameController {
   isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
- 
+
 
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
@@ -71,9 +56,9 @@ class GameController {
   }
 
   loop() {
-    if(!this.landscape){
+    if (!this.landscape) {
       this.block.classList.remove('d-none');
-    }else{
+    } else {
       this.block.classList.add('d-none');
     }
     if (this.state === "menue" && this.menue) {
@@ -94,7 +79,16 @@ class GameController {
     this.world.endboss.state = null;
   }
 
+  resetGame() {
+    if (this.world) {
+      if (typeof this.world.cleanUp === "function") {
+        this.world.cleanUp();
+      }
+      this.world = null;
+    }
 
+    this.loadWorld(); // oder this.loadMenue(); je nach gewünschtem Zustand
+  }
 
 
 

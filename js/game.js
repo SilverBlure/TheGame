@@ -5,16 +5,24 @@ let game;
 let keyboard = new Keyboard();
 let mouse;
 
+
+/**
+ * start funktion init after side onload
+ */
 function init() {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
   mouse = new Mouse(canvas);
   game = new GameController(canvas, ctx, mouse, keyboard);
 
-  // Touchstart skalieren
+
+
+  /**
+   * add canvas a touchstart event 
+   */
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    //if (game.state === "menue") {
+
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -22,38 +30,41 @@ function init() {
     const touch = e.touches[0];
     const x = (touch.clientX - rect.left) * scaleX;
     const y = (touch.clientY - rect.top) * scaleY;
-    // console.log('coordinaten_x:', x,
-    //             'coordinaten_y:', y
-    // );
 
     if (game.menue.collisionWithButton(game.menue.fullScreen, x, y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
       if (!document.fullscreenElement) {
         canvas.requestFullscreen().catch((err) => { });
       }
       if (document.fullscreenElement) {
-        console.log('Exit')
         document.exitFullscreen().catch((err) => { });
       }
     }
     game?.world?.character?.onAnyInput?.();
     handleTouchDown(x, y);
-
   }
   ), { passive: false };
 
+
+  /**
+   * canvas add touchend event 
+   */
   canvas.addEventListener("touchend", (e) => {
     handleTouchUp();
   });
 
-  // Touchverarbeitung
+  /**
+   * handels touch events on renderd canvas elements
+   * @param {number} x 
+   * @param {number} y 
+   */
   function handleTouchDown(x, y) {
-
     game.menue?.handleTouch(x, y);
-
     if (game.state === "game") {
-      const controller = game.world?.mobileController;
+      if (game.world.collisionWithButton(game.world.sound)) {
+        game.world.sound.clickToggle();
+      }
+      const controller = game.world.mobileController;
       const kb = game.keyboard;
-
       if (controller) {
         if (controller.isTouching(controller.A_BUTTON, x, y)) kb.A = true;
         if (controller.isTouching(controller.PAUSE_BUTTON, x, y)) kb.P = true;
@@ -74,7 +85,9 @@ function init() {
     }
   }
 
-  // Tastatur-Eingaben
+  /**
+   * on keydown set key to true
+   */
   window.addEventListener("keydown", (e) => {
     game?.world?.character?.onAnyInput?.();
     const k = keyboard;
@@ -89,6 +102,9 @@ function init() {
     if (e.keyCode === 80) k.P = true;
   });
 
+  /**
+   * on keyup all keys to false
+   */
   window.addEventListener("keyup", (e) => {
     const k = keyboard;
     if (e.keyCode === 37) k.LEFT = false;
@@ -102,55 +118,63 @@ function init() {
     if (e.keyCode === 80) k.P = false;
   });
 
-  // Maus-Klick
+  /**
+   * add mousedown event to window 
+   */
   window.addEventListener("mousedown", (e) => {
     //if (e.button === 0) mouse.click = true;
-    if (game.state === "menue") {
-      if (game.menue.collisionWithButton(game.menue.fullScreen)) {
-        if (!document.fullscreenElement) {
-          canvas.requestFullscreen();           //<-- öffnet fullscreen  
-        }
-        else if (document.fullscreenElement && game.menue.collisionWithButton(game.menue.fullScreen)) {
-          document.exitFullscreen();      //<-- schließt fullscreen
-        }
+
+    if (game.menue.collisionWithButton(game.menue.fullScreen)) {
+      if (!document.fullscreenElement) {
+        canvas.requestFullscreen();           //<-- öffnet fullscreen  
       }
+      else if (document.fullscreenElement && game.menue.collisionWithButton(game.menue.fullScreen)) {
+        document.exitFullscreen();      //<-- schließt fullscreen
+      }
+
     }
   });
 
+  /**
+   *  add click event to window
+   */
   window.addEventListener('click', (e) => {
     //console.log(e.clientX, e.clientY)
     if (game.state === 'menue') {
       if (game.menue.collisionWithButton(game.menue.sound)) {
         game.menue.sound.clickToggle();
-      } else if (game.menue.collisionWithButton(game.menue.startButton)){
+      } else if (game.menue.collisionWithButton(game.menue.startButton)) {
         game.loadWorld();
       }
-    }else if (game.state === 'game') {
-        if (game.world.collisionWithButton(game.world.sound)) {console.log('clickengeht')
-          game.world.sound.clickToggle();
-        }
+    } else if (game.state === 'game') {
+      if (game.world.collisionWithButton(game.world.sound)) {
+        game.world.sound.clickToggle();
+      }else if(game.world.collisionWithButton(game.world.gameOver.try_again_button)){
+        
+        game.resetGame();
       }
-    
+    }
+
   })
 
 
-
+  /**
+   * add mouseup event 
+   */
   canvas.addEventListener('mouseup', () => mouse.click = false)
 
-  // Mausbewegung skalieren
+  /**
+   * set mouse positon in mouse object
+   */
   canvas.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect();
     mouse.pos_x = (event.clientX - rect.left) * (canvas.width / rect.width);
     mouse.pos_y = (event.clientY - rect.top) * (canvas.height / rect.height);
-    // console.log('MausPosition_X:', mouse.pos_x,
-    //             'MausPosition_Y:', mouse.pos_y,
-    // )
   });
 
-
-
-
-
+  /**
+   * set all keybord chars to false
+   */
   // Eingabe zurücksetzen
   function handleTouchUp() {
     let kb = game.keyboard;

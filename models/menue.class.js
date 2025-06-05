@@ -9,7 +9,7 @@ class Menue {
   fullwindow = false;
   requestAnimationFrameID;
   device;
-  sound;
+  
 
   constructor(canvas, mouse, loadWorld, sound, fullscreen) {
     this.ctx = canvas.getContext("2d");

@@ -122,7 +122,6 @@ class Character extends MovableObject {
     }
 
     animate() {
-
         const interval = setInterval(() => {
             if (!this.isDead() && this.world.state != 'won') {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -192,7 +191,6 @@ class Character extends MovableObject {
                     let sound = new Audio('assets/sounds/GameOver.mp3');
                     sound.play();
                 }
-
                 clearInterval(interval2);
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
@@ -222,7 +220,7 @@ class Character extends MovableObject {
             }
         }, 50);
     }
-
+    
     onAnyInput() {
         this.idleCounter = 0;
         this.idleTrigger = false;

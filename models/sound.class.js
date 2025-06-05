@@ -3,7 +3,7 @@
  */
 class SoundButton extends MovableObject {
 
-    state = true;
+    state = null;
     SOUND_IMAGES = ['GUI/volumeOff.svg',
         'GUI/volumeOn.svg'];
 
@@ -34,7 +34,6 @@ class SoundButton extends MovableObject {
      */
     checkRegister() {
         if (localStorage.getItem('sound')) {
-            console.log('geht');
         }
         else {
             localStorage.setItem('sound', 'true')
@@ -50,8 +49,11 @@ class SoundButton extends MovableObject {
             this.loadImage(this.SOUND_IMAGES[1]);
         } else if (soundState == 'false') {
             this.loadImage(this.SOUND_IMAGES[0]);
+           
         }
     }
+
+
     /**
      * Sound toggle method, calls checkstate method
      */
