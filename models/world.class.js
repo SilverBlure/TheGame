@@ -29,7 +29,7 @@ class World {
   tryAgainImage = new Image();
   intervalIdCollection = [];
   requestAnimationFrameID;
-  bossIntroPlayed = false;
+  bossStart = false;
   endboss;
   audio;
   device;
@@ -109,7 +109,7 @@ class World {
       this.state = 'won'
       setTimeout(() => {
         this.onExit();
-      }, 2000);
+      }, 5000);
     }
   }
 
@@ -252,8 +252,9 @@ class World {
     this.checkCollisionFinSlap();
     this.checkAudio();
     //#######Enemy Intervale#######
-    if (this.frameCounter % 4 == 0) {
+    if (!this.bossStart) {
       this.endbossInterval();
+      
     }
     this.jellyFishInterval();
     this.pufferFishInterval();
@@ -374,18 +375,9 @@ class World {
  * interval an intro from endboss
  */
   endbossInterval() {
-    if (!this.bossIntroPlayed && this.character.x >= 2100) {
-      this.bossIntroPlayed = true;
-      this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
-      setTimeout(() => {
-        this.endboss.y = 0;
-      }, 100);
-      setTimeout(() => {
-        this.endboss.state = 'idle';
-      }, 1300);
-    }
-    if (this.bossIntroPlayed && this.endboss.state == 'idle') {
-      this.endboss.animate();
+    if(this.character.x >= 2100){
+    this.endboss.run();
+    this.bossStart = true;
     }
   }
 

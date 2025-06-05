@@ -6,7 +6,7 @@ class Endboss extends MovableObject {
   energy = 120;
   inMove = false;
   patternIndex;
-  intro = "done";
+  intro = false;
   now = 0;
 
   ENDBOSS_STAY = [
@@ -65,62 +65,114 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_HURT);
   }
 
-  animateIntro() {
-    let i = 0;
-    const interval = setInterval(() => {
-      this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
-      i++;
-      if (i >= this.ENDBOSS_INTRODUCE.length) {
-        clearInterval(interval);
-        this.y = 0;
+  // animateIntro() {
+  //   let i = 0;
+  //   const interval = setInterval(() => {
+  //     this.img = this.imageCache[this.ENDBOSS_INTRODUCE[i]];
+  //     i++;
+  //     if (i >= this.ENDBOSS_INTRODUCE.length) {
+  //       clearInterval(interval);
+  //       this.y = 0;
+  //     }
+  //   }, 120);
+
+ // }
+
+  /*
+  if (!this.bossIntroPlayed && this.character.x >= 2100) {
+        this.bossIntroPlayed = true;
+        this.endboss.playAnimationOnce(this.endboss.ENDBOSS_INTRODUCE);
+        
+        setTimeout(() => {
+          this.endboss.state = 'idle';
+        }, 1300);
       }
-    }, 120);
-    this.intro = "done";
+      if (this.bossIntroPlayed && this.endboss.state == 'idle') {
+        this.endboss.animate();
+      }
+  */
+
+  run() {
+    let interval = setInterval(() => {
+      if (!this.intro) {
+        this.intro = true;
+        this.playAnimationOnce(this.ENDBOSS_INTRODUCE)
+        setTimeout(() => {
+          this.y = 0;
+        }, 100);
+        setTimeout(() => {
+          this.state = 'idle';
+        }, 1300);
+      }
+      this.animate();
+      if(this.isDead()){
+        clearInterval(interval);
+      }
+    }, 200);
   }
 
+  animate() {
+    console.log(this.state);
+    
 
-
-animate() {
-  console.log(this.state);
-  if (this.isDead() && !this.deadPlayed) {
-    this.deadPlayed = true;
+    if (this.isDead()) {
+  if (this.state !== 'dead') {
+    this.state = 'dead';
     this.playAnimationOnce(this.ENDBOSS_DEAD);
   }
-  else if (this.isHurt()) {
-    this.state = 'hurt';
-    this.playAnimationOnce(this.ENDBOSS_HURT, () => {
+} else if (this.isHurt() && this.state !== 'dead') {
+  this.state = 'hurt';
+  this.playAnimationOnce(this.ENDBOSS_HURT);
+  setTimeout(() => {
+    if (this.state === 'hurt') {
       this.state = 'idle';
-  }
-  )
-  } else if (this.state == 'idle') {
-    this.playAnimation(this.ENDBOSS_STAY);
-  }
+    }
+  }, 1600);
+} else if (this.state === 'idle') {
+  this.playAnimation(this.ENDBOSS_STAY);
 }
+    // if (this.isHurt()) {
+    //   this.state = 'hurt';
+    //   this.playAnimationOnce(this.ENDBOSS_HURT);
+    //   setTimeout(() => {
+    //     this.state = 'idle';
+    //   }, 1600)
+    // }
+    // else if (this.isDead() && this.isHurt()) {
+    //   this.state = 'dead';
+    //   this.playAnimationOnce(this.ENDBOSS_DEAD);
+    // }
 
-// 'idle', 'attack', 'hurt', 'dead'
 
-checkBossLive() {
-  if (!this.isAlive) {
-    this.state = "won";
-    setTimeout(() => {
-      this.onExit();
-    }, 3000);
-  }
-}
-
-attackPattern() {
-  if (!this.inMove) {
-    this.patternIndex = this.rollANumber();
-  }
-  if (this.patternIndex >= 0.5) {
-    this.y = -30;
+    // else if (this.state == 'idle') {
+    //   this.playAnimation(this.ENDBOSS_STAY);
+    // }
   }
 
-  //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht
-}
+        // 'idle', 'attack', 'hurt', 'dead'
+
+  // checkBossLive() {
+  //   if (!this.isAlive) {
+  //     this.state = "won";
+  //     setTimeout(() => {
+  //       this.onExit();
+  //     }, 3000);
+  //   }
+  // }
+
+  attackPattern() {
+    if (!this.inMove) {
+      this.patternIndex = this.rollANumber();
+    }
+    if (this.patternIndex >= 0.5) {
+      this.y = -30;
+    }
+
+    //wenn boss ist stehend rolle eine nummer, ist nummer > ,5 boss geht
+  }
 
 
-rollANumber() {
-  return Math.random();
-}
+  rollANumber() {
+    return Math.random();
+  }
 }
