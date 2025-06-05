@@ -12,7 +12,7 @@ class MenueBackground extends DrawableObject {
     constructor(width, height) {
         super();
         this.loadImages(this.MENUE_BACKGROUND);
-        this.loadImage(this.MENUE_BACKGROUND[0]); // <- dieses Bild wird sichtbar verwendet
+        this.loadImage(this.MENUE_BACKGROUND[0]);
         width = this.width;
         height = this.height;
     }

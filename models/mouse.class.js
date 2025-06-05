@@ -4,8 +4,6 @@ class Mouse {
 
     constructor() {
         this.click = false;
-        this.down = false;
-
-        
+        this.down = false;    
     }
 }

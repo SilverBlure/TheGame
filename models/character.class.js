@@ -175,7 +175,7 @@ class Character extends MovableObject {
 
 
             this.world.camera_x = -this.x;
-            if (this.isDead()) {
+            if (this.world.endboss.isDead()) {
                 clearInterval(interval);
             }
         }, 1000 / 60);
@@ -185,7 +185,7 @@ class Character extends MovableObject {
 
         const interval2 = setInterval(() => {
             this.frameCounter++;
-            if (this.isDead()) {
+            if (this.world.endboss.isDead()) {
 
                 if (this.world.sound.state) {
                     let sound = new Audio('assets/sounds/GameOver.mp3');
@@ -200,7 +200,7 @@ class Character extends MovableObject {
 
                     if (this.world.sound.state) {
                         let sound = new Audio('assets/sounds/playerHurt.mp3');
-                        
+
                         sound.play();
                         setTimeout(() => {
                             this.hurthasPlayed = false;
@@ -220,7 +220,7 @@ class Character extends MovableObject {
             }
         }, 50);
     }
-    
+
     onAnyInput() {
         this.idleCounter = 0;
         this.idleTrigger = false;

@@ -24,10 +24,12 @@ class GameController {
 
   loadMenue() {
     if (this.menue && this.state === "menue") return;
+    this.resetGame();
     this.mouse.block = false;
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
     this.state = "menue";
     this.firstLoad = false;
+    this.world = null;
   }
 
   isLandscapeMode() {
@@ -52,7 +54,7 @@ class GameController {
       this.loadMenue()
       , this.sound, this.fullscreen);
     this.state = "game";
-    this.resetBoss();
+    //this.resetBoss();
   }
 
   loop() {
@@ -72,12 +74,7 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
-  resetBoss() {
-    this.world.endboss.y = -300;
-    this.world.endboss.energy = 120;
-    this.world.bossIntroPlayed = false;
-    this.world.endboss.state = null;
-  }
+ 
 
   resetGame() {
     if (this.world) {

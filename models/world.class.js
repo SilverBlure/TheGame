@@ -106,12 +106,23 @@ class World {
    */
   finished() {
     if (this.endboss.isDead()) {
-      this.state = 'won'
       setTimeout(() => {
+        this.level = null;
         this.onExit();
+        this.resetBoss();
       }, 5000);
     }
   }
+
+
+ resetBoss() {
+    this.endboss.y = -300;
+    this.endboss.energy = 120;
+    this.bossIntroPlayed = false;
+    this.endboss.state = null;
+    this.endboss.intro = false;
+  }
+
 
   /**
    * changing gamestate if character dead
@@ -229,7 +240,7 @@ class World {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.addToMap(this.gameOver);
     }
-    if (this.state === "won") {
+    if (this.endboss.isDead()) {
       this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
     }
   }

@@ -113,8 +113,6 @@ class Endboss extends MovableObject {
 
   animate() {
     console.log(this.state);
-    
-
     if (this.isDead()) {
   if (this.state !== 'dead') {
     this.state = 'dead';
@@ -131,22 +129,6 @@ class Endboss extends MovableObject {
 } else if (this.state === 'idle') {
   this.playAnimation(this.ENDBOSS_STAY);
 }
-    // if (this.isHurt()) {
-    //   this.state = 'hurt';
-    //   this.playAnimationOnce(this.ENDBOSS_HURT);
-    //   setTimeout(() => {
-    //     this.state = 'idle';
-    //   }, 1600)
-    // }
-    // else if (this.isDead() && this.isHurt()) {
-    //   this.state = 'dead';
-    //   this.playAnimationOnce(this.ENDBOSS_DEAD);
-    // }
-
-
-    // else if (this.state == 'idle') {
-    //   this.playAnimation(this.ENDBOSS_STAY);
-    // }
   }
 
         // 'idle', 'attack', 'hurt', 'dead'
