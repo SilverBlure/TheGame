@@ -26,7 +26,7 @@ class DrawableObject{
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';
-            if (this instanceof Character){
+            if (this instanceof Character || this instanceof Endboss){
                 let collider = this.getCollider();
                 ctx.rect(collider.x, collider.y, collider.width, collider.height); // set the frame nearer to character
                 ctx.strokeStyle= "red";

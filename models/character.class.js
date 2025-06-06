@@ -9,6 +9,8 @@ class Character extends MovableObject {
     idleTrigger = false;
     hurthasPlayed = false;
     sound;
+    animationStarted = false;
+    intervals = [];
 
 
     IMAGES_SWIM = [
@@ -112,6 +114,10 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    setWorld(world) {
+        this.world = world;
+    }
+
     getCollider() {
         return {
             x: this.otherDirection ? this.x - 0 + 50 : this.x + 50,
@@ -122,6 +128,8 @@ class Character extends MovableObject {
     }
 
     animate() {
+        if (this.animationStarted) return;
+        this.animationStarted = true;
         const interval = setInterval(() => {
             if (!this.isDead() && this.world.state != 'won') {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -176,7 +184,7 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x;
             if (this.world.endboss.isDead()) {
-                clearInterval(interval);
+                this.stopAnimation();
             }
         }, 1000 / 60);
 
@@ -186,12 +194,11 @@ class Character extends MovableObject {
         const interval2 = setInterval(() => {
             this.frameCounter++;
             if (this.world.endboss.isDead()) {
-
                 if (this.world.sound.state) {
                     let sound = new Audio('assets/sounds/GameOver.mp3');
                     sound.play();
+                    this.stopAnimation();
                 }
-                clearInterval(interval2);
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
@@ -219,11 +226,18 @@ class Character extends MovableObject {
                 this.frameCounter = 0;
             }
         }, 50);
+        this.intervals.push(interval, interval2)
     }
 
     onAnyInput() {
         this.idleCounter = 0;
         this.idleTrigger = false;
+    }
+
+    stopAnimation() {
+        this.intervals.forEach(id => clearInterval(id));
+        this.intervals = [];
+        this.animationStarted = false;
     }
 
 }

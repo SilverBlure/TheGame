@@ -48,6 +48,7 @@ class World {
     this.mouse = mouse;
     this.sound = sound;
     this.fullScreen = fullScreen;
+    this.character.setWorld(this);
     this.audioBGMusik = new Audio('assets/sounds/gameBGMusic.wav');
     this.audioBGMusik.loop = 'loop';
     this.audioBGMusik.volume = '0.1';
@@ -93,10 +94,10 @@ class World {
    * set world object in objects
    */
   setWorld() {
-    this.character.world = this;
-    this.level.enemies.forEach((enemy) => {
-      enemy.world = this;
-    });
+    // this.character.world = this;
+     this.level.enemies.forEach((enemy) => {
+       enemy.world = this;
+     });
     this.endboss = this.level.enemies.find((e) => e instanceof Endboss);
   }
 

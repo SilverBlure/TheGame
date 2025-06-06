@@ -31,13 +31,19 @@ class MovableObject extends DrawableObject {
 
   //isColliding(chicken);
   isColliding(character, mo) {
-    let collider = character.getCollider();
+    let collider1, collider2;
+    if(typeof character.getCollider === 'function') 
+      {collider1 = character.getCollider();}
+    if(typeof mo.getCollider === 'function') 
+      {collider2 = mo.getCollider();}else{
+        collider2 = mo;
+      }
     return (
-      collider.x + collider.width > mo.x &&
-      collider.y + collider.height > mo.y &&
-      collider.x < mo.x &&
-      collider.y < mo.y + mo.height
-    );
+    collider1.x < collider2.x + collider2.width &&
+    collider1.x + collider1.width > collider2.x &&
+    collider1.y < collider2.y + collider2.height &&
+    collider1.y + collider1.height > collider2.y
+  );
   }
 
   isCollidingWithTrowable(rect1, rect2) {
