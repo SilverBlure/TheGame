@@ -13,50 +13,50 @@
 //   range = 140;
 //   speed = 5;
 
-  // ENDBOSS_STAY = [
-  //   "assets/2Enemy/3FinalEnemy/2.floating/1.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/2.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/3.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/4.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/5.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/6.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/7.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/8.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/9.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/10.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/11.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/12.png",
-  //   "assets/2Enemy/3FinalEnemy/2.floating/13.png",
-  // ];
+// ENDBOSS_STAY = [
+//   "assets/2Enemy/3FinalEnemy/2.floating/1.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/2.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/3.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/4.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/5.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/6.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/7.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/8.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/9.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/10.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/11.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/12.png",
+//   "assets/2Enemy/3FinalEnemy/2.floating/13.png",
+// ];
 
-  // ENDBOSS_INTRODUCE = [
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/1.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/2.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/3.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/4.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/5.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/6.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/7.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/8.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/9.png",
-  //   "assets/2Enemy/3FinalEnemy/1.Introduce/10.png",
-  // ];
+// ENDBOSS_INTRODUCE = [
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/1.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/2.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/3.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/4.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/5.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/6.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/7.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/8.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/9.png",
+//   "assets/2Enemy/3FinalEnemy/1.Introduce/10.png",
+// ];
 
-  // ENDBOSS_DEAD = [
-  //   "assets/2Enemy/3FinalEnemy/Dead/1.png",
-  //   "assets/2Enemy/3FinalEnemy/Dead/2.png",
-  //   "assets/2Enemy/3FinalEnemy/Dead/3.png",
-  //   "assets/2Enemy/3FinalEnemy/Dead/4.png",
-  //   "assets/2Enemy/3FinalEnemy/Dead/5.png",
-  //   "assets/2Enemy/3FinalEnemy/Dead/6.png",
-  // ];
+// ENDBOSS_DEAD = [
+//   "assets/2Enemy/3FinalEnemy/Dead/1.png",
+//   "assets/2Enemy/3FinalEnemy/Dead/2.png",
+//   "assets/2Enemy/3FinalEnemy/Dead/3.png",
+//   "assets/2Enemy/3FinalEnemy/Dead/4.png",
+//   "assets/2Enemy/3FinalEnemy/Dead/5.png",
+//   "assets/2Enemy/3FinalEnemy/Dead/6.png",
+// ];
 
-  // ENDBOSS_HURT = [
-  //   "assets/2Enemy/3FinalEnemy/Hurt/1.png",
-  //   "assets/2Enemy/3FinalEnemy/Hurt/2.png",
-  //   "assets/2Enemy/3FinalEnemy/Hurt/3.png",
-  //   "assets/2Enemy/3FinalEnemy/Hurt/4.png",
-  // ];
+// ENDBOSS_HURT = [
+//   "assets/2Enemy/3FinalEnemy/Hurt/1.png",
+//   "assets/2Enemy/3FinalEnemy/Hurt/2.png",
+//   "assets/2Enemy/3FinalEnemy/Hurt/3.png",
+//   "assets/2Enemy/3FinalEnemy/Hurt/4.png",
+// ];
 
 //   constructor() {
 //     super();
@@ -171,9 +171,9 @@
 //     this.attackCooldown = false;
 //   }, 3000);
 // }
-  
 
-  
+
+
 
 
 
@@ -210,13 +210,13 @@ class Endboss extends MovableObject {
   ];
 
 
-  ENDBOSS_ATTACK = ['assets/2Enemy/3FinalEnemy/Attack/1.png',
-    'assets/2Enemy/3FinalEnemy/Attack/2.png',
-    'assets/2Enemy/3FinalEnemy/Attack/3.png',
-    'assets/2Enemy/3FinalEnemy/Attack/4.png',
-    'assets/2Enemy/3FinalEnemy/Attack/5.png',
-    'assets/2Enemy/3FinalEnemy/Attack/6.png',
-  ]
+  ENDBOSS_ATTACK = ["assets/2Enemy/3FinalEnemy/Attack/1.png",
+    "assets/2Enemy/3FinalEnemy/Attack/2.png",
+    "assets/2Enemy/3FinalEnemy/Attack/3.png",
+    "assets/2Enemy/3FinalEnemy/Attack/4.png",
+    "assets/2Enemy/3FinalEnemy/Attack/5.png",
+    "assets/2Enemy/3FinalEnemy/Attack/6.png"
+  ];
 
   ENDBOSS_INTRODUCE = [
     "assets/2Enemy/3FinalEnemy/1.Introduce/1.png",
@@ -247,6 +247,14 @@ class Endboss extends MovableObject {
     "assets/2Enemy/3FinalEnemy/Hurt/4.png",
   ];
 
+  STATE = {
+    IDLE : 'idle',
+    ATTACK : 'attack',
+    HURT : 'hurt',
+    Dead : 'dead',
+    INTERRUPT : 'interrupt'
+  };
+
   constructor() {
     super();
     this.loadImage(this.ENDBOSS_STAY[0]);
@@ -254,10 +262,12 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_INTRODUCE);
     this.loadImages(this.ENDBOSS_DEAD);
     this.loadImages(this.ENDBOSS_HURT);
+    this.loadImages(this.ENDBOSS_ATTACK);
   }
 
   run() {
     const interval = setInterval(() => {
+
       if (!this.intro) {
         this.intro = true;
         this.playAnimationOnce(this.ENDBOSS_INTRODUCE);
@@ -266,9 +276,7 @@ class Endboss extends MovableObject {
           this.state = 'idle';
         }, 1000);
       }
-
       this.animate();
-
       if (this.isDead()) {
         clearInterval(interval);
       }
@@ -276,37 +284,43 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    if (this.isDead()) {
-      if (this.state !== 'dead') {
-        this.state = 'dead';
-        this.playAnimationOnce(this.ENDBOSS_DEAD);
-      }
-      return;
+  if (this.isDead()) {
+    if (this.state !== 'dead') {
+      this.state = 'dead';
+      this.playAnimationOnce(this.ENDBOSS_DEAD);
     }
-
-    if (this.isHurt()) {
-      this.state = 'hurt';
-      this.playAnimationOnce(this.ENDBOSS_HURT);
-      setTimeout(() => {
-        if (this.state === 'hurt') this.state = 'idle';
-      }, 1000);
-      return;
-    }
-
-    switch (this.state) {
-      case 'idle':
-        this.playAnimation(this.ENDBOSS_STAY);
-        this.moveToTargetY();
-        this.tryStartAttack();
-        break;
-      case 'attack':
-        this.attackMove();
-        break;
-      case 'return':
-        this.returnToPosition();
-        break;
-    }
+    return;
   }
+
+  if (this.isHurt() && !this.hurtPlaying && this.state !== 'dead') {
+    this.hurtPlaying = true;
+    const previousState = this.state;
+    this.state = 'hurt';
+
+    this.playAnimationOnce(this.ENDBOSS_HURT, () => {
+      this.state = previousState === 'attack' || previousState === 'return' ? 'idle' : previousState;
+      this.hurtPlaying = false;
+    });
+
+    return;
+  }
+
+  switch (this.state) {
+    case 'idle':
+      this.playAnimation(this.ENDBOSS_STAY);
+      this.moveToTargetY();
+      this.tryStartAttack();
+      break;
+    case 'attack':
+      this.attackMove();
+      this.playAnimation(this.ENDBOSS_ATTACK);
+      break;
+    case 'return':
+      this.returnToPosition();
+      break;
+  }
+}
+
 
   moveToTargetY() {
     const diff = this.currentTargetY - this.y;
@@ -319,12 +333,9 @@ class Endboss extends MovableObject {
 
   tryStartAttack() {
     if (this.attackCooldown) return;
-
     this.attackCooldown = true;
-
     setTimeout(() => {
       this.state = 'attack';
-      this.playAnimationOnce(this.ENDBOSS_ATTACK);
       this.attackTargetX = this.x - 360; // Hälfte Canvas
     }, 2000);
   }

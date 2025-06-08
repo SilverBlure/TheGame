@@ -131,7 +131,7 @@ class Character extends MovableObject {
         if (this.animationStarted) return;
         this.animationStarted = true;
         const interval = setInterval(() => {
-            if (!this.isDead() && this.world.state != 'won') {
+            if (!this.isDead() ) {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.x += this.speed;
                     this.otherDirection = false;

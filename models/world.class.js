@@ -266,7 +266,6 @@ class World {
     //#######Enemy Intervale#######
     if (!this.bossStart) {
       this.endbossInterval();
-      
     }
     this.jellyFishInterval();
     this.pufferFishInterval();
