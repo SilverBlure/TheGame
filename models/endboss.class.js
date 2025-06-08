@@ -271,12 +271,20 @@ class Endboss extends MovableObject {
       if (!this.intro) {
         this.intro = true;
         this.playAnimationOnce(this.ENDBOSS_INTRODUCE);
+        
+        console.log("Intro Animation gespielt ! jetzt Timer!");
         setTimeout(() => {
-          this.y = this.base_y;
+          this.y = 0;
+          //this.y = this.base_y;
+          
+
+        }, 100);
+        setTimeout(() => {
           this.state = 'idle';
-        }, 1000);
+        }, 1500);
       }
-      this.animate();
+
+  this.animate();
       if (this.isDead()) {
         clearInterval(interval);
       }
