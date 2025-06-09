@@ -1,4 +1,5 @@
 class World {
+  roundCounter = 0;
   ctx;
   level = level1;
   character = new Character();
@@ -39,6 +40,7 @@ class World {
   frameCounter = 0;
   soundGlasBroke;
   audioBGMusik;
+  flag = false;
 
   constructor(canvas, keyboard, mouse, onExit, sound, fullScreen) {
     this.ctx = canvas.getContext("2d");
@@ -240,8 +242,10 @@ class World {
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       this.addToMap(this.gameOver);
+      this.roundCounter++;
     }
     if (this.endboss.isDead()) {
+      this.roundCounter++;
       this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
     }
   }
@@ -386,9 +390,14 @@ class World {
  * interval an intro from endboss
  */
   endbossInterval() {
+    
     if(this.character.x >= 2100){
     this.endboss.run();
     this.bossStart = true;
+      if (this.endboss.y == 0 && this.roundCounter > 0 && !this.flag && !this.endboss.intro){
+        this.flag = true;
+        this.endboss.state = 'return';
+      }
     }
   }
 

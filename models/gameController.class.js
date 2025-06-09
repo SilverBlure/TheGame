@@ -1,4 +1,6 @@
 class GameController {
+
+  
   canvas;
   mouse;
   keyboard;

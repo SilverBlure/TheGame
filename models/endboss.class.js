@@ -187,7 +187,6 @@ class Endboss extends MovableObject {
   y = -300;
   energy = 120;
   intro = false;
-  base_y = 180;  // Start-Höhe
   idleHeights = [-80, 20, 160]; // oben, mitte, unten
   currentTargetY = 180;
   attackCooldown = false;
@@ -271,11 +270,9 @@ class Endboss extends MovableObject {
       if (!this.intro) {
         this.intro = true;
         this.playAnimationOnce(this.ENDBOSS_INTRODUCE);
-        
-        console.log("Intro Animation gespielt ! jetzt Timer!");
         setTimeout(() => {
-          this.y = 0;
-          //this.y = this.base_y;
+        this.y = 0;
+          
           
 
         }, 100);
@@ -299,6 +296,8 @@ class Endboss extends MovableObject {
     }
     return;
   }
+
+   if (this.attackCooldown && this.state === "hurt") return this.state = 'return';
 
   if (this.isHurt() && !this.hurtPlaying && this.state !== 'dead') {
     this.hurtPlaying = true;
