@@ -1,21 +1,125 @@
+@font-face {
+    font-family: 'luckiest guy';
+    src: url("./../assets/5.Font/LuckiestGuy-Regular.ttf") format('truetype');
+    
+}
+
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    
     margin: 0;
-}
-
-h1{
-    font-family: 'myfont';
-
-}
+    padding: 0;
+    height: 100%;
+    background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;}
 
 canvas{
     background-color: black;
+    display: block;
+    margin : 0;
+    padding: 0;
+    object-fit: fill;
 }
 
-@font-face {
-    font-family: 'myfont';
-    src: url("./../../RawData/Font/DigitalDisco.ttf");
+h1{
+    font-family: 'luckiest guy';
+    color: white;
+    font-size: 64px;
+}
+
+.blockImg{
+    width: 100vw;
+    height: 100vh;
+}
+
+span{
+    color: white;
+    font-family: 'luckiest guy';
+
+}
+
+table{
+    text-align: center ;
+}
+
+.d-none{
+    display: none;
+}
+
+.impressum{
+    color: white;
+    font-family: 'luckiest guy';
+}
+
+.orga{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+}
+.pointer{
+    cursor: pointer;
+}
+.cleanLink{
+    text-decoration: none;
+    color: white;
+}
+h1,h2,h3{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+.centerText{
+    text-align: center;
+}
+.back{
+    font-size: 30mm;
+    font-family: 'luckiest guy';
+}
+.blockBg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.2);
+}
+
+
+
+
+@media (max-width: 750px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 560px;
+        height: 380px;
+    }
+    
+}
+
+@media (max-width: 600px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 450px;
+        height: 300px;
+    }
+    
+}
+@media (max-width: 470px) {
+    h1{
+        text-align: center;
+    }
+    
+    canvas {
+        width: 350px;
+        height: 200px;
+    }
+    
 }
