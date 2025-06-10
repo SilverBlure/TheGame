@@ -114,10 +114,12 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**set world in enemy */
     setWorld(world) {
         this.world = world;
     }
 
+    /**colider of character */
     getCollider() {
         return {
             x: this.otherDirection ? this.x - 0 + 50 : this.x + 50,
@@ -127,11 +129,12 @@ class Character extends MovableObject {
         };
     }
 
+    /**complete character animation  */
     animate() {
         if (this.animationStarted) return;
         this.animationStarted = true;
         const interval = setInterval(() => {
-            if (!this.isDead() ) {
+            if (!this.isDead()) {
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.x += this.speed;
                     this.otherDirection = false;
@@ -149,15 +152,12 @@ class Character extends MovableObject {
 
                 }
                 if (this.world.keyboard.S && this.canAct) {
-                    if(this.world.sound.state)this.sound.play();
+                    if (this.world.sound.state) this.sound.play();
                     this.world.meleeAtk.push(new FinAttack(this.world.character.x,
                         this.world.character.y,
                         this.world.character.width,
                         this.world.character.height));
-                        
                     this.playAnimationOnce(this.FIN_MELEE_HIT);
-                        
-                    
                     this.canAct = false;
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
@@ -174,14 +174,11 @@ class Character extends MovableObject {
                     }, 500);
                 }
             }
-
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
             }
             this.idleCounter++;
-
-
             this.world.camera_x = -this.x;
             if (this.world.endboss.isDead()) {
                 this.stopAnimation();
@@ -193,25 +190,20 @@ class Character extends MovableObject {
 
         const interval2 = setInterval(() => {
             this.frameCounter++;
-            if (this.world.endboss.isDead()) {
-                if (this.world.sound.state) {
-                    this.stopAnimation();
-                }
+            if (this.isDead()) {
+                this.stopAnimation();
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
                 if (!this.hurthasPlayed) {
                     this.hurthasPlayed = true;
-
                     if (this.world.sound.state) {
                         let sound = new Audio('assets/sounds/playerHurt.mp3');
-
                         sound.play();
                         setTimeout(() => {
                             this.hurthasPlayed = false;
                         }, 1000);
                     }
-
                 }
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
@@ -227,11 +219,13 @@ class Character extends MovableObject {
         this.intervals.push(interval, interval2)
     }
 
+    /**resets counter on any imput */
     onAnyInput() {
         this.idleCounter = 0;
         this.idleTrigger = false;
     }
 
+    /**clears all intervals */
     stopAnimation() {
         this.intervals.forEach(id => clearInterval(id));
         this.intervals = [];

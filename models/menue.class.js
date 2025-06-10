@@ -22,7 +22,7 @@ class Menue {
     
   }
 
-
+/**collision detection */
   collisionWithButton(button, x, y) {
     if(x !== undefined && y !== undefined)
     {
@@ -40,6 +40,7 @@ class Menue {
     return false;
   }
 
+  /**hover pointer detection */
   hoverPointer() {
     if (
       this.collisionWithButton(this.startButton) ||
@@ -52,6 +53,7 @@ class Menue {
     }
   }
 
+  /**get mouse/finger detection */
   checkMousePosition() {
     if (
       this.collisionWithButton(this.startButton) &&
@@ -68,7 +70,7 @@ class Menue {
     }
   }
 
-
+  /**draw on canvas funtion */
   draw() {
     this.addToMap(this.menueBG);
     this.addToMap(this.startButton);

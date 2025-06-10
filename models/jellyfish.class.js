@@ -33,11 +33,13 @@ class Jellyfish extends MovableObject {
     this.firstSetup();
   }
 
+  /**animating jellyfish */
   animate() {
     this.floating();
     this.regulator();
   }
 
+  /**regulation of calls from world */
   regulator() {
     this.now++;
     if (this.now >= 30) {
@@ -46,6 +48,8 @@ class Jellyfish extends MovableObject {
     }
   }
 
+
+  /**floating movement */
   floating() {
     if (this.stateDirection === "UP") {
       this.y += this.speed;
@@ -61,6 +65,7 @@ class Jellyfish extends MovableObject {
     }
   }
 
+  /**random start options */
   firstSetup() {
     let randomNum = Math.random();
     if (randomNum > 0.5) {

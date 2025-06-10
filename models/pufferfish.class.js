@@ -35,6 +35,7 @@ class Pufferfish extends MovableObject {
     
   }
 
+  /**pufferfish animation */
   animate() {
     if (!this.isDead()) {
       this.moveLeft();

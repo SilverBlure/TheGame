@@ -21,6 +21,8 @@ class Fullscreen extends DrawableObject {
         this.canvas = canvas;
     }
 
+
+    /**check function for drawing the right image */
     checkMode(state) {
         if (state === "menue") {
             this.img = this.imageCache[this.Menue_FULLSCREEN_IMG[0]];

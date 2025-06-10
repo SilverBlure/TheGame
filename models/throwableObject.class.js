@@ -27,13 +27,14 @@ class ThrowableObject extends MovableObject {
         this.soundcheck();
     }
     
+    /**play sound */
     soundcheck(){
         if(this.world.sound.state){
             this.sound.play();
         }
     }
 
-
+/**throw poison bubble, from player position */
     throw(x, y) {
         this.x = this.direction ? x - 180 : x;
         this.y = y;
@@ -43,9 +44,7 @@ class ThrowableObject extends MovableObject {
         this.amplitude = 20;
         this.frequency = 0.1;
         this.t = 0;
-
         const directionOffset = this.direction ? -10 : 10;
-
         const interval = setInterval(() => {
             this.t++;
             this.x += directionOffset;

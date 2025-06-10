@@ -22,15 +22,12 @@ function init() {
    */
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
-
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
-
     const touch = e.touches[0];
     const x = (touch.clientX - rect.left) * scaleX;
     const y = (touch.clientY - rect.top) * scaleY;
-
     if (game.menue.collisionWithButton(game.menue.fullScreen, x, y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
       if (!document.fullscreenElement) {
         canvas.requestFullscreen().catch((err) => { });
@@ -60,8 +57,10 @@ function init() {
   function handleTouchDown(x, y) {
     game.menue?.handleTouch(x, y);
     if (game.state === "game") {
-      if (game.world.collisionWithButton(game.world.sound)) {
-        game.world.sound.clickToggle();
+      if(game.world.collisionWithButton(game.world.gameOver.try_again_button,x ,y)){
+        game.resetGame();
+      }else if (game.menue.collisionWithButton(game.menue.sound, x, y)) {
+        game.menue.sound.clickToggle();
       }
       const controller = game.world.mobileController;
       const kb = game.keyboard;
@@ -82,8 +81,11 @@ function init() {
           }
         }
       }
+    }else if (game.state === 'menue'){
+      if (game.menue.collisionWithButton(game.menue.sound, x, y)) {
+        game.menue.sound.clickToggle();
     }
-  }
+  }}
 
   /**
    * on keydown set key to true
@@ -126,10 +128,10 @@ function init() {
 
     if (game.menue.collisionWithButton(game.menue.fullScreen)) {
       if (!document.fullscreenElement) {
-        canvas.requestFullscreen();           //<-- öffnet fullscreen  
+        canvas.requestFullscreen();          
       }
       else if (document.fullscreenElement && game.menue.collisionWithButton(game.menue.fullScreen)) {
-        document.exitFullscreen();      //<-- schließt fullscreen
+        document.exitFullscreen(); 
       }
 
     }
@@ -139,7 +141,6 @@ function init() {
    *  add click event to window
    */
   window.addEventListener('click', (e) => {
-    //console.log(e.clientX, e.clientY)
     if (game.state === 'menue') {
       if (game.menue.collisionWithButton(game.menue.sound)) {
         game.menue.sound.clickToggle();
@@ -150,7 +151,6 @@ function init() {
       if (game.world.collisionWithButton(game.world.sound)) {
         game.world.sound.clickToggle();
       }else if(game.world.collisionWithButton(game.world.gameOver.try_again_button)){
-        
         game.resetGame();
       }
     }
@@ -175,7 +175,6 @@ function init() {
   /**
    * set all keybord chars to false
    */
-  // Eingabe zurücksetzen
   function handleTouchUp() {
     let kb = game.keyboard;
     kb.LEFT = false;

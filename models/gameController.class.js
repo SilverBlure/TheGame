@@ -23,16 +23,17 @@ class GameController {
     this.loadMenue();
   }
 
+  /**loading menue */
   loadMenue() {
     if (this.menue && this.state === "menue") return;
-    
     this.mouse.block = false;
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
     this.state = "menue";
     this.firstLoad = false;
-    //this.world = null;
+
   }
 
+  /**check if landscape mode */
   isLandscapeMode() {
     if (window.innerWidth > window.innerHeight) {
       this.landscape = true;
@@ -41,23 +42,26 @@ class GameController {
     }
   }
 
+  /**gets the device desktop or mobile */
   getdevice() {
     if (this.isMobileDevice()) return "mobile"
   }
 
+  /**gets the device desktop or mobile */
   isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
-
+  /**loading World */
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
       this.loadMenue()
       , this.sound, this.fullscreen);
     this.state = "game";
-    
+
   }
 
+  /**game mode loop funktion */
   loop() {
     if (!this.landscape) {
       this.block.classList.remove('d-none');
@@ -75,15 +79,14 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
- 
 
+  /**world reset funtion */
   resetGame() {
     if (this.world) {
       if (typeof this.world.cleanUp === "function") {
         this.world.cleanUp();
       }
     }
-
     this.loadWorld();
   }
 

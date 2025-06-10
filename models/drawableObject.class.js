@@ -9,16 +9,18 @@ class DrawableObject{
     imageCache = {};
     mode = "Game";
     
-
+    /**load images */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
+    /**draw images on canvas */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**draw collider frame on canvas */
     drawFrame(ctx) {
         if(this.mode === 'Dev'){
         if (this instanceof Character || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen
@@ -40,6 +42,7 @@ class DrawableObject{
     }
     }
 
+    /**loading images array */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();

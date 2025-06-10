@@ -22,16 +22,14 @@ canvas
 
     }
 
+    /**draw images on canvas */
     draw(ctx){
         this.title.draw(ctx);
         this.try_again_button.draw(ctx);
     }
 
 
-    restart(){
-        game.world.state = 'game';
-    }
-
+   
 
 
 }

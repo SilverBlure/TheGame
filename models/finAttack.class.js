@@ -24,7 +24,7 @@ constructor(x, y, char_width, char_height) {
     this.height = char_height; // gleiche Höhe wie der Charakter
 }
 
-
+    /**collider of the fin attack */
     getCollider() {
         return {
             x: this.x,
@@ -34,13 +34,7 @@ constructor(x, y, char_width, char_height) {
         };
     }
 
-    drawDebugBox(ctx) {
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 0, 0, 0.6)';  // Rot, halbtransparent
-        ctx.lineWidth = 2;
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.restore();
-    }
+    
     
 
 

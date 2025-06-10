@@ -76,7 +76,9 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_HURT);
     this.loadImages(this.ENDBOSS_ATTACK);
   }
-
+/**
+ * starting endboss interval
+ */
   run() {
     const interval = setInterval(() => {
       if (!this.intro) {
@@ -97,6 +99,7 @@ class Endboss extends MovableObject {
     }, 50);
   }
 
+  /**start animation an state */
   animate() {
     
     if (this.isDead()) {
@@ -141,7 +144,7 @@ class Endboss extends MovableObject {
     }
   }
 
-
+/**going to target on the y achsis */
   moveToTargetY() {
     const diff = this.currentTargetY - this.y;
     if (Math.abs(diff) > 5) {
@@ -151,6 +154,7 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**attack player */
   tryStartAttack() {
     if (this.attackCooldown) return;
     this.attackCooldown = true;
@@ -160,6 +164,7 @@ class Endboss extends MovableObject {
     }, 2000);
   }
 
+  /**attack move */
   attackMove() {
     if (this.x > this.attackTargetX) {
       this.x -= 20;
@@ -168,6 +173,7 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**back to beginin possition */
   returnToPosition() {
     if (this.x < 2550) {
       this.x += 20;
@@ -179,11 +185,13 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**random height  */
   chooseNewHeight() {
     const idx = Math.floor(Math.random() * this.idleHeights.length);
     this.currentTargetY = this.idleHeights[idx];
   }
 
+  /**ebndboss colider */
   getCollider() {
     return {
       x: this.x + 10,
@@ -191,10 +199,6 @@ class Endboss extends MovableObject {
       width: this.width - 40,
       height: this.height - 120
     };
-  }
-
-  homing(){
-    this.x = 2550;
   }
 
 

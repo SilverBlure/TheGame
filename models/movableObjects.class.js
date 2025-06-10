@@ -12,6 +12,7 @@ class MovableObject extends DrawableObject {
   animated = false;
   frameCounter = 0;
 
+  /**gravity force */
   applyGravity() {
     const interval = setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -21,6 +22,7 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**isAboveGround */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -29,7 +31,7 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  //isColliding(chicken);
+  /**is coliding with other colider if is true otherwise with width and hight */
   isColliding(character, mo) {
     let collider1, collider2;
     if(typeof character.getCollider === 'function') 
@@ -46,6 +48,7 @@ class MovableObject extends DrawableObject {
   );
   }
 
+/**isColliding with trowable objects */
   isCollidingWithTrowable(rect1, rect2) {
     return (
       rect1.x < rect2.x + rect2.width &&
@@ -55,10 +58,12 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**move left function */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /**playsAnimation if is in a loop */
   playAnimation(imageArr) {
     let i = this.currentImage % imageArr.length;
     let path = imageArr[i];
@@ -66,6 +71,7 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  /**plays animation once  */
   playAnimationOnce(imageArr) {
     this.animated = true;
     let movementInterval = setInterval(() => {
@@ -79,6 +85,7 @@ class MovableObject extends DrawableObject {
     }, 100);
   }
 
+  /**give a character or npc damage */
   hit(value) {
     this.energy -= value;
     if (this.energy < 0) {
@@ -88,12 +95,13 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /** hurt state of character */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
     timepassed = timepassed / 1000; //Difference in s
     return timepassed < 1.5;
   }
-
+/**dead state of character */
   isDead() {
     return this.energy == 0;
   }

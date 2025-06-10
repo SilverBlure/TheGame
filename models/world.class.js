@@ -117,7 +117,7 @@ class World {
     }
   }
 
-
+/**reseting endboss values */
  resetBoss() {
     this.endboss.y = -300;
     this.endboss.energy = 120;
@@ -197,12 +197,13 @@ class World {
   checkCollisionFinSlap() {
     if (this.meleeAtk.length > 0) {
       this.enemies.forEach((enemy) => {
+        if(enemy instanceof Pufferfish){
         this.meleeAtk.forEach((fin) => {
           if (fin.isColliding(fin, enemy)) {
             enemy.hit(80);
           }
         });
-      });
+      }});
     }
   }
 
@@ -423,14 +424,6 @@ class World {
     }
   }
 
-  cleanUp(){
-    if (this.audioBGMusik) {
-    this.audioBGMusik.pause();
-    this.audioBGMusik.currentTime = 0;
-  }
-
-  // Cursor zurücksetzen
-  document.body.style.cursor = "default";
-  }
+  
 
 }
