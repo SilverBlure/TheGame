@@ -1,6 +1,5 @@
 class GameController {
 
-  
   canvas;
   mouse;
   keyboard;
@@ -26,12 +25,12 @@ class GameController {
 
   loadMenue() {
     if (this.menue && this.state === "menue") return;
-    this.resetGame();
+    
     this.mouse.block = false;
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
     this.state = "menue";
     this.firstLoad = false;
-    this.world = null;
+    //this.world = null;
   }
 
   isLandscapeMode() {
@@ -56,7 +55,7 @@ class GameController {
       this.loadMenue()
       , this.sound, this.fullscreen);
     this.state = "game";
-    //this.resetBoss();
+    
   }
 
   loop() {
@@ -83,10 +82,9 @@ class GameController {
       if (typeof this.world.cleanUp === "function") {
         this.world.cleanUp();
       }
-      this.world = null;
     }
 
-    this.loadWorld(); // oder this.loadMenue(); je nach gewünschtem Zustand
+    this.loadWorld();
   }
 
 

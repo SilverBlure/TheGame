@@ -67,7 +67,7 @@ function init() {
       const kb = game.keyboard;
       if (controller) {
         if (controller.isTouching(controller.A_BUTTON, x, y)) kb.A = true;
-        if (controller.isTouching(controller.PAUSE_BUTTON, x, y)) kb.P = true;
+       
         if (controller.isTouching(controller.MELEE_BUTTON, x, y)) kb.S = true;
 
         if (controller.isTouching(controller.D_PAD, x, y)) {

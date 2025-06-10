@@ -57,8 +57,9 @@ class World {
     this.soundGlasBroke = new Audio("assets/sounds/glassCollection.wav");
     this.soundCoinSound = new Audio("assets/sounds/coinCollection.wav");
     this.pufferfishHurt = new Audio('assets/sounds/pufferfish_1.wav');
-    this.enemyEndbossDead = new Audio('assets/sounds/winning.wav')
+    this.enemyEndbossDead = new Audio('assets/sounds/win.wav')
     this.enemyEndbossHurt = new Audio('assets/sounds/bossHurtSound.mp3');
+    this.gameOverSound = new Audio('assets/sounds/GameOver.mp3');
     this.gameOver = new GameOver(this.canvas);
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
@@ -85,7 +86,7 @@ class World {
 
   /**check audio if play or not */
   checkAudio() {
-    if (this.sound.state == false || this.character.isDead() || this.state == 'won') {
+    if (this.sound.state == false || this.endboss.isDead()) {
       this.audioBGMusik.pause();
     } else if (this.sound.state == true) {
       this.audioBGMusik.play();
@@ -96,7 +97,6 @@ class World {
    * set world object in objects
    */
   setWorld() {
-    // this.character.world = this;
      this.level.enemies.forEach((enemy) => {
        enemy.world = this;
      });
@@ -109,11 +109,11 @@ class World {
    */
   finished() {
     if (this.endboss.isDead()) {
+    
       setTimeout(() => {
-        this.level = null;
         this.onExit();
         this.resetBoss();
-      }, 5000);
+      }, 1500);
     }
   }
 
@@ -122,7 +122,7 @@ class World {
     this.endboss.y = -300;
     this.endboss.energy = 120;
     this.bossIntroPlayed = false;
-    this.endboss.state = null;
+    this.endboss.state = 'intro';
     this.endboss.intro = false;
   }
 
@@ -132,7 +132,8 @@ class World {
    */
   tryAgain() {
     if (this.character.isDead()) {
-      this.state = 'gameOver'
+      if(this.sound.state)this.gameOverSound.play();
+      this.state = 'gameOver';
     }
   }
 
@@ -153,10 +154,10 @@ class World {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
-          this.soundGlasBroke.play();
+          if(this.sound.state)this.soundGlasBroke.play();
           this.poisonBar.addPoison(20);
         } else if (obj instanceof Coin) {
-          this.soundCoinSound.play();
+          if(this.sound.state)this.soundCoinSound.play();
           this.coinBar.addCoin(20);
         }
         return false;
@@ -176,13 +177,13 @@ class World {
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
-            this.pufferfishHurt.play();
+            if(this.sound.state)this.pufferfishHurt.play();
           }
           if (enemy instanceof Endboss) {
-            this.enemyEndbossHurt.play();
+            if(this.sound.state)this.enemyEndbossHurt.play();
           }
           if (this.endboss.isDead() && enemy instanceof Endboss) {
-            this.enemyEndbossDead.play();
+            if(this.sound.state)this.enemyEndbossDead.play();
           }
         }
       });
@@ -261,7 +262,7 @@ class World {
     this.checkCharacterCollectablesCollision();
     this.clearDeadEnemys();
     this.finished();
-    this.tryAgain();
+    if(this.state != "gameOver")this.tryAgain();
     this.checkIfEnemyRunOut();
     this.reSpawnEnemie();
     this.stopProjectile();
@@ -390,14 +391,9 @@ class World {
  * interval an intro from endboss
  */
   endbossInterval() {
-    
     if(this.character.x >= 2100){
     this.endboss.run();
-    this.bossStart = true;
-      if (this.endboss.y == 0 && this.roundCounter > 0 && !this.flag && !this.endboss.intro){
-        this.flag = true;
-        this.endboss.state = 'return';
-      }
+    this.bossStart = true; 
     }
   }
 

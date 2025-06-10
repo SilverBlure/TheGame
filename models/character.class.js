@@ -149,15 +149,15 @@ class Character extends MovableObject {
 
                 }
                 if (this.world.keyboard.S && this.canAct) {
+                    if(this.world.sound.state)this.sound.play();
                     this.world.meleeAtk.push(new FinAttack(this.world.character.x,
                         this.world.character.y,
                         this.world.character.width,
                         this.world.character.height));
+                        
                     this.playAnimationOnce(this.FIN_MELEE_HIT);
-
-                    if (this.world.sound.state) {
-                        this.sound.play();
-                    }
+                        
+                    
                     this.canAct = false;
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
@@ -195,8 +195,6 @@ class Character extends MovableObject {
             this.frameCounter++;
             if (this.world.endboss.isDead()) {
                 if (this.world.sound.state) {
-                    let sound = new Audio('assets/sounds/GameOver.mp3');
-                    sound.play();
                     this.stopAnimation();
                 }
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);

@@ -1,6 +1,6 @@
 class MobileController extends DrawableObject{
 
-PAUSE_BUTTON;
+
 D_PAD;
 A_BUTTON;
 MELEE_BUTTON;
@@ -10,12 +10,7 @@ MELEE_BUTTON;
         super();
 
         this.canvas = canvas;
-        this.PAUSE_BUTTON = new DrawableObject();
-        this.PAUSE_BUTTON.loadImage('GUI/Pause.png');
-        this.PAUSE_BUTTON.width = 80;
-        this.PAUSE_BUTTON.height = 80;
-        this.PAUSE_BUTTON.x = 550;
-        this.PAUSE_BUTTON.y = 10;
+       
 
         this.D_PAD = new DrawableObject();
         this.D_PAD.loadImage('GUI/D_pad.png');
@@ -41,7 +36,7 @@ MELEE_BUTTON;
 
 
     draw(ctx) {
-        this.PAUSE_BUTTON.draw(ctx);
+        
         this.A_BUTTON.draw(ctx);
         this.D_PAD.draw(ctx);
         this.MELEE_BUTTON.draw(ctx);
