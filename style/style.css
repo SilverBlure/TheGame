@@ -166,8 +166,22 @@ h1,h2,h3{
     font-family: 'Courier New', Courier, monospace;
     color: white;
 }
+
+.divImpressum{
+    background-color: #1b1464;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 60vw;
+    border-radius: 86px;
+}
 .centerText{
-    text-align: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+
+    
 }
 .back{
     font-size: 30mm;
