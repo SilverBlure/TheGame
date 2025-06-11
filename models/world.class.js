@@ -69,7 +69,8 @@ class World {
     this.onExit = onExit;
     this.tryAgainImage = new Image();
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
-    this.checkDevice()
+    this.checkDevice();
+    
   }
 
   /**set device state if is mobile*/
@@ -225,7 +226,7 @@ class World {
     this.addObjectsToMap(this.backgroundObjects);
     //--------Space for FixObjects---------//
     this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.sound);
+    
     this.addToMap(this.statusBar);
     this.addToMap(this.poisonBar);
     this.addToMap(this.coinBar);
@@ -240,11 +241,8 @@ class World {
     if (this.device === "mobile") {
       this.addToMap(this.mobileController);
     }
-    if (this.state === "gameOver") {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (this.state === "gameOver" && !this.gameOver.flag) {
       this.addToMap(this.gameOver);
-      this.roundCounter++;
     }
     if (this.endboss.isDead()) {
       this.roundCounter++;
@@ -256,6 +254,7 @@ class World {
    * update function calls more checks
    */
   update() {
+    
     this.frameCounter++
     //#######CollisionsAbfragen######
     this.checkCharacterEnemyCollision();
@@ -279,6 +278,8 @@ class World {
       this.frameCounter = 0;
     }
   }
+
+  
 
   /**
    * interval von pufferfish objects
@@ -414,16 +415,5 @@ class World {
     }
     return false;
   }
-
-  /**set mouse to pointer  */
-  hoverPointer() {
-    if (this.collisionWithButton(this.sound)) {
-      document.body.style.cursor = "pointer";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }
-
-  
 
 }

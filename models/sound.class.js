@@ -2,27 +2,24 @@
  * @class Represent a SoundObject extends Mo for rendering button
  */
 class SoundButton extends MovableObject {
-   
+
 
     state = null;
 
     SOUND_IMAGES = ['GUI/volumeOff.svg',
         'GUI/volumeOn.svg'];
 
-        soundCache={};
+    soundCache = {};
 
     /**
      * @constuctor creates new Soundbutton obj
      */
     constructor() {
         super();
-        this.loadImages(this.SOUND_IMAGES);
-        this.x = 620;
-        this.y = 20;
-        this.width = 80;
-        this.height = 80;
+        this.soundImg = document.getElementById('sound');
         this.startSequence();
-    }  
+
+    }
 
 
     /**
@@ -40,22 +37,28 @@ class SoundButton extends MovableObject {
         if (!localStorage.getItem('sound')) {
             localStorage.setItem('sound', 'false')
         }
-        
+
     }
-
-
-
 
     /**
      * Checks the state, and set the icon
      */
     checkState() {
+
         let soundState = localStorage.getItem('sound');
+        console.log(typeof soundState);
         if (soundState == 'true') {
-            this.loadImage(this.SOUND_IMAGES[1]);
+            console.log('toggle')
+            this.soundImg.innerHTML = '';
+            this.soundImg.innerHTML = `
+                <img id="soundImg" class="soundImg" src="GUI/volumeOn.svg">`
+
         } else if (soundState == 'false') {
-            this.loadImage(this.SOUND_IMAGES[0]);
-           
+            console.log('toggle')
+            this.soundImg.innerHTML = '';
+            this.soundImg.innerHTML = `
+                <img id="soundImg" class="soundImg" src="GUI/volumeOff.svg">`
+
         }
     }
 
@@ -64,7 +67,9 @@ class SoundButton extends MovableObject {
      * Sound toggle method, calls checkstate method
      */
     clickToggle() {
+
         let soundState = localStorage.getItem('sound');
+        console.log(soundState);
         if (soundState == 'true') {
             localStorage.setItem('sound', false);
             this.state = false;
@@ -74,5 +79,9 @@ class SoundButton extends MovableObject {
         }
         this.checkState();
     }
+
+
+
+
 
 }

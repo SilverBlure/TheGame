@@ -33,11 +33,16 @@ class GameController {
 
   }
 
+  clear(){
+    document.getElementById('menue').innerHTML= '';
+  }
+
   /**check if landscape mode */
   isLandscapeMode() {
     if (window.innerWidth > window.innerHeight) {
       this.landscape = true;
     } else {
+      this.clear()
       this.landscape = false;
     }
   }
@@ -55,8 +60,8 @@ class GameController {
   /**loading World */
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
-      this.loadMenue()
-      , this.sound, this.fullscreen);
+    this.loadMenue()
+    , this.sound, this.fullscreen);
     this.state = "game";
 
   }

@@ -48,11 +48,17 @@
     <div class="orga">
         <h1 class="impressum" id="headline">Sharky the Game</h1>
 
-        <canvas id="canvas" width="720px" height="480px"></canvas>
+        <div class="canvas-container">
+            <canvas id="canvas" width="720px" height="480px"></canvas>
+            <div id="menue" class="buttons "></div>
+            <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton">
+                <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">
+            </button>
+        </div>
+       
 
         <footer class="impressum">
-            <a class="pointer cleanLink"
-                href="./impressum.html">Impressum</a><!--  hier kommt ein link zu einer index page-->
+            <a class="pointer cleanLink" href="./impressum.html">Impressum</a>
 
         </footer>
     </div>

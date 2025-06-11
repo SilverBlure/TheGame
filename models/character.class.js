@@ -194,7 +194,7 @@ class Character extends MovableObject {
                 this.stopAnimation();
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
             } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT_POISON);
+                this.playAnimationOnce(this.IMAGES_HURT_POISON);
                 if (!this.hurthasPlayed) {
                     this.hurthasPlayed = true;
                     if (this.world.sound.state) {

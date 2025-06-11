@@ -9,7 +9,7 @@ class Menue {
   fullwindow = false;
   requestAnimationFrameID;
   device;
-  
+
 
   constructor(canvas, mouse, loadWorld, sound, fullscreen) {
     this.ctx = canvas.getContext("2d");
@@ -18,70 +18,56 @@ class Menue {
     this.canvas = canvas;
     this.sound = sound;
     this.fullScreen = fullscreen;
+    this.doc = document.getElementById('menue');
     this.draw();
-    
+    this.active = false;
+    this.renderElements();
+
   }
 
-/**collision detection */
-  collisionWithButton(button, x, y) {
-    if(x !== undefined && y !== undefined)
-    {
-      this.mouse.pos_x = x;
-      this.mouse.pos_y = y;
-    }
-    if (
-      this.mouse.pos_x > button.x &&
-      this.mouse.pos_x < button.x + button.width &&
-      this.mouse.pos_y > button.y &&
-      this.mouse.pos_y < button.y + button.height
-    ) {
-      return true;
-    }
-    return false;
-  }
 
-  /**hover pointer detection */
-  hoverPointer() {
-    if (
-      this.collisionWithButton(this.startButton) ||
-      this.collisionWithButton(this.fullScreen) ||
-      this.collisionWithButton(this.sound)
-    ) {
-      document.body.style.cursor = "pointer";
-    } else {
-      document.body.style.cursor = "default";
-    }
-  }
 
-  /**get mouse/finger detection */
-  checkMousePosition() {
-    if (
-      this.collisionWithButton(this.startButton) &&
-      this.mouse.click &&
-      !this.mouse.block
-    ) {
-      this.mouse.block = true;
-      this.onStart();
-    }
-    if (this.collisionWithButton(this.sound) &&
-      this.mouse.click &&
-      !this.mouse.block) {
-      this.sound.clickToggle();
-    }
-  }
+
+  // /**get mouse/finger detection */
+  // checkMousePosition() {
+  //   if (
+  //     this.collisionWithButton(this.startButton) &&
+  //     this.mouse.click &&
+  //     !this.mouse.block
+  //   ) {
+  //     this.mouse.block = true;
+  //     this.onStart();
+  //   }
+  //   if (this.collisionWithButton(this.sound) &&
+  //     this.mouse.click &&
+  //     !this.mouse.block) {
+  //     this.sound.clickToggle();
+  //   }
+  // }
 
   /**draw on canvas funtion */
   draw() {
+
     this.addToMap(this.menueBG);
-    this.addToMap(this.startButton);
-    this.fullScreen.checkMode('menue');
-    this.addToMap(this.fullScreen);
-    this.addToMap(this.sound);
-    this.checkMousePosition();
-    this.hoverPointer();
-    this.sound.checkState();
+    if (!this.active) {
+      this.active = true;
+    }
+
+    // // this.addToMap(this.startButton);
+    // this.fullScreen.checkMode('menue');
+    // // this.addToMap(this.fullScreen);
+    // this.checkMousePosition();
+    // this.hoverPointer();
   }
 
+
+  renderElements() {
+    this.doc.innerHTML = ` 
+        <div class="buttons">
+        <button  class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
+        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen</button>
+        </div>`;
+  }
 
   handleTouch(x, y) {
     this.mouse.pos_x = x;
@@ -89,7 +75,6 @@ class Menue {
     if (this.collisionWithButton(this.startButton)) {
       this.onStart();
     }
-    
   }
 
 

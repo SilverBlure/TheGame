@@ -15,7 +15,8 @@ function init() {
   mouse = new Mouse(canvas);
   game = new GameController(canvas, ctx, mouse, keyboard);
 
-
+// let doc = document.getElementById('canvas');
+// doc.innerHTML +=
 
   /**
    * add canvas a touchstart event 
@@ -57,11 +58,7 @@ function init() {
   function handleTouchDown(x, y) {
     game.menue?.handleTouch(x, y);
     if (game.state === "game") {
-      if(game.world.collisionWithButton(game.world.gameOver.try_again_button,x ,y)){
-        game.resetGame();
-      }else if (game.menue.collisionWithButton(game.menue.sound, x, y)) {
-        game.menue.sound.clickToggle();
-      }
+      
       const controller = game.world.mobileController;
       const kb = game.keyboard;
       if (controller) {
@@ -81,11 +78,7 @@ function init() {
           }
         }
       }
-    }else if (game.state === 'menue'){
-      if (game.menue.collisionWithButton(game.menue.sound, x, y)) {
-        game.menue.sound.clickToggle();
-    }
-  }}
+    }}
 
   /**
    * on keydown set key to true
@@ -120,48 +113,12 @@ function init() {
     if (e.keyCode === 80) k.P = false;
   });
 
-  /**
-   * add mousedown event to window 
-   */
-  window.addEventListener("mousedown", (e) => {
-    //if (e.button === 0) mouse.click = true;
-
-    if (game.menue.collisionWithButton(game.menue.fullScreen)) {
-      if (!document.fullscreenElement) {
-        canvas.requestFullscreen();          
-      }
-      else if (document.fullscreenElement && game.menue.collisionWithButton(game.menue.fullScreen)) {
-        document.exitFullscreen(); 
-      }
-
-    }
-  });
-
-  /**
-   *  add click event to window
-   */
-  window.addEventListener('click', (e) => {
-    if (game.state === 'menue') {
-      if (game.menue.collisionWithButton(game.menue.sound)) {
-        game.menue.sound.clickToggle();
-      } else if (game.menue.collisionWithButton(game.menue.startButton)) {
-        game.loadWorld();
-      }
-    } else if (game.state === 'game') {
-      if (game.world.collisionWithButton(game.world.sound)) {
-        game.world.sound.clickToggle();
-      }else if(game.world.collisionWithButton(game.world.gameOver.try_again_button)){
-        game.resetGame();
-      }
-    }
-
-  })
+  
 
 
-  /**
-   * add mouseup event 
-   */
-  canvas.addEventListener('mouseup', () => mouse.click = false)
+
+
+
 
   /**
    * set mouse positon in mouse object
