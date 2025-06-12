@@ -191,7 +191,7 @@ class Endboss extends MovableObject {
     this.currentTargetY = this.idleHeights[idx];
   }
 
-  /**ebndboss colider */
+  /**endboss collider */
   getCollider() {
     return {
       x: this.x + 10,

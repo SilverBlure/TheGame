@@ -19,31 +19,13 @@ class Menue {
     this.sound = sound;
     this.fullScreen = fullscreen;
     this.doc = document.getElementById('menue');
+    this.renderElements();
     this.draw();
     this.active = false;
-    this.renderElements();
+    
 
   }
 
-
-
-
-  // /**get mouse/finger detection */
-  // checkMousePosition() {
-  //   if (
-  //     this.collisionWithButton(this.startButton) &&
-  //     this.mouse.click &&
-  //     !this.mouse.block
-  //   ) {
-  //     this.mouse.block = true;
-  //     this.onStart();
-  //   }
-  //   if (this.collisionWithButton(this.sound) &&
-  //     this.mouse.click &&
-  //     !this.mouse.block) {
-  //     this.sound.clickToggle();
-  //   }
-  // }
 
   /**draw on canvas funtion */
   draw() {
@@ -52,12 +34,6 @@ class Menue {
     if (!this.active) {
       this.active = true;
     }
-
-    // // this.addToMap(this.startButton);
-    // this.fullScreen.checkMode('menue');
-    // // this.addToMap(this.fullScreen);
-    // this.checkMousePosition();
-    // this.hoverPointer();
   }
 
 
