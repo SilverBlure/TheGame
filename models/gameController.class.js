@@ -19,6 +19,7 @@ class GameController {
     this.block = document.getElementById('dialogBlock');
     this.device = this.getdevice();
     this.fullscreen = new Fullscreen(canvas);
+    this.doc = document.getElementById('menue');
     this.loop();
     this.loadMenue();
   }
@@ -27,24 +28,16 @@ class GameController {
   loadMenue() {
     if (this.menue && this.state === "menue") return;
     this.mouse.block = false;
-    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen)
     this.state = "menue";
+    this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
     this.firstLoad = false;
-
   }
 
-  clear(){
-    document.getElementById('menue').innerHTML= '';
-  }
+
 
   /**check if landscape mode */
   isLandscapeMode() {
-    if (window.innerWidth > window.innerHeight) {
-      this.landscape = true;
-    } else {
-      this.clear()
-      this.landscape = false;
-    }
+    return window.innerWidth > window.innerHeight
   }
 
   /**gets the device desktop or mobile */
@@ -63,27 +56,40 @@ class GameController {
     this.loadMenue()
     , this.sound, this.fullscreen);
     this.state = "game";
-
+    this.clear();
   }
 
   /**game mode loop funktion */
   loop() {
-    if (!this.landscape) {
-      this.block.classList.remove('d-none');
-    } else {
-      this.block.classList.add('d-none');
-    }
     if (this.state === "menue" && this.menue) {
       this.menue.draw();
     } else if (this.state === "game" && this.world) {
       this.world.loop();
-    } else if (this.state === "blocked") {
-      this.showRotateScreen();
     }
-    this.isLandscapeMode();
+    this.checkLandscape();
+    this.checkButtons();
     requestAnimationFrame(() => this.loop());
   }
 
+
+  checkButtons() {
+    if (this.state === 'menue') {
+      this.clear()
+      this.renderMenueButtons();
+    }else if(this.state === 'game'){
+      this.clear
+      this.renderGameFullscreenBTN();
+    }
+  }
+
+
+  checkLandscape() {
+    if (this.isLandscapeMode()) {
+      this.block.classList.add('d-none');
+    } else {
+      this.block.classList.remove('d-none');
+    }
+  }
 
   /**world reset funtion */
   resetGame() {
@@ -95,6 +101,27 @@ class GameController {
     this.loadWorld();
   }
 
+
+  clear() {
+    this.doc.innerHTML = '';
+  }
+
+
+  renderMenueButtons() {
+    this.doc.innerHTML = ` 
+        <div class="buttons index">
+        <button  class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
+        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen</button>
+        </div>`;
+  }
+
+  renderGameFullscreenBTN() {
+    this.doc.innerHTML = ` 
+        <div class="buttons index">
+        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen Im Game</button>
+        </div>`;
+  
+  }
 
 
 }

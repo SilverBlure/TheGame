@@ -46,15 +46,12 @@ class SoundButton extends MovableObject {
     checkState() {
 
         let soundState = localStorage.getItem('sound');
-        console.log(typeof soundState);
         if (soundState == 'true') {
-            console.log('toggle')
             this.soundImg.innerHTML = '';
             this.soundImg.innerHTML = `
                 <img id="soundImg" class="soundImg" src="GUI/volumeOn.svg">`
 
         } else if (soundState == 'false') {
-            console.log('toggle')
             this.soundImg.innerHTML = '';
             this.soundImg.innerHTML = `
                 <img id="soundImg" class="soundImg" src="GUI/volumeOff.svg">`

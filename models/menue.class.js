@@ -8,42 +8,26 @@ class Menue {
   originalHeight;
   fullwindow = false;
   requestAnimationFrameID;
-  device;
+  state;
 
 
-  constructor(canvas, mouse, loadWorld, sound, fullscreen) {
+  constructor(canvas, mouse, loadWorld, sound, fullscreen, state) {
     this.ctx = canvas.getContext("2d");
     this.mouse = mouse;
     this.onStart = loadWorld;
     this.canvas = canvas;
     this.sound = sound;
     this.fullScreen = fullscreen;
-    this.doc = document.getElementById('menue');
-    this.renderElements();
+    this.state = state;
     this.draw();
-    this.active = false;
-    
-
   }
 
 
   /**draw on canvas funtion */
   draw() {
-
     this.addToMap(this.menueBG);
-    if (!this.active) {
-      this.active = true;
-    }
   }
 
-
-  renderElements() {
-    this.doc.innerHTML = ` 
-        <div class="buttons">
-        <button  class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
-        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen</button>
-        </div>`;
-  }
 
   handleTouch(x, y) {
     this.mouse.pos_x = x;
