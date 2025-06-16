@@ -14,6 +14,7 @@ function init() {
   ctx = canvas.getContext("2d");
   mouse = new Mouse(canvas);
   game = new GameController(canvas, ctx, mouse, keyboard);
+  content = document.getElementById('content');
 
 
 
@@ -143,4 +144,16 @@ function init() {
     kb.Escape = false;
     kb.P = false;
   }
+}
+
+function toggleFullscreen(elem) {
+  if (!document.fullscreenElement) {
+    elem.requestFullscreen(); 
+  } else {
+    document.exitFullscreen(); 
+  }
+}
+
+function toggleInfo(){
+  document.getElementById('help').classList.toggle('d-none');
 }

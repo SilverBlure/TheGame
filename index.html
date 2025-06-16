@@ -46,17 +46,51 @@
 
     </dialogBg>
     <div class="orga">
-        <h1 class="impressum" id="headline">Sharky the Game</h1>
 
-        <div class="canvas-container">
+        <h1 class="headLine" id="headline">Sharky the Game</h1>
+        <div id="content" class="canvas-container">
             <canvas id="canvas" width="720px" height="480px"></canvas>
-            <div id="menue" class="buttons "></div>
+            <div id="buttons" class="buttons ">
+                <button class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
+                <button class="fullscreenButton" id="button" onclick="toggleFullscreen(content);">FullScreen</button>
+            </div>
             <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton">
                 <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">
             </button>
         </div>
-       
+        <div>
+            <img class="help" src="./GUI/info.svg" onclick="toggleInfo()">
+        </div>
 
+        <div id="help" class="d-none">
+            <table>
+                <tr>
+                    <td><img class="tableImages" src="./images/keycap_arrowBotns.png"></td>
+                    <td>
+                        <p>With the arrow keys u can steer Sharky</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img class="tableImages" src="./images/keycap_esc.png"></td>
+                    <td>
+                        <p>With the esc Button u can disable <br> the fullscreen mode</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img class="tableImages" src="./images/keycap_a.png"></td>
+                    <td>
+                        <p>With the a butten sharky shots a poison bubble <br> (use it wisley cuz is the only fear of
+                            the boss)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img class="tableImages" src="./images/keycap_s.png"></td>
+                    <td>
+                        <p>With the s sharky attacks with the tail whip!></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <footer class="impressum">
             <a class="pointer cleanLink" href="./impressum.html">Impressum</a>
 

@@ -16,9 +16,11 @@ body{
 canvas{
     position: absolute;
     background-color: black;
-    margin : 0;
-    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
     object-fit: fill;
+
 }
 
 .buttons{
@@ -29,6 +31,8 @@ canvas{
     justify-content: space-around;
     align-items: center; 
 }
+
+
 
 
 .inGameFullscreenBtn{
@@ -47,6 +51,10 @@ canvas{
     width: 224px;
     font-size: 7mm;
     font-family: 'luckiest guy';
+}
+
+.hide{
+        visibility: hidden;
 }
 
 
@@ -128,9 +136,43 @@ table{
     justify-content: center;
 }
 
+.help{
+    width: 64px;
+    height: 64px;
+}
+
+p{
+    size: 56px;
+    color: white;
+    font-family: 'luckiest guy';
+}
+
+table{
+    background-color: #1b1464;
+    border-radius: 56px;
+    border: 2px solid white;
+}
+
+td{
+    text-align: center
+}
+
+.tableImages{
+    height: 126px;
+    border-radius: 76px;
+}
+
+.headLine{
+    color: white;
+    font-family: 'luckiest guy';
+    font-size: 76px;
+}
+
+
 .impressum{
     color: white;
     font-family: 'luckiest guy';
+    font-size: 50px;
 }
 
 .soundButton {

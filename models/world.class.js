@@ -87,10 +87,28 @@ class World {
 
   /**check audio if play or not */
   checkAudio() {
+
+
+
+
+
     if (this.sound.state == false || this.endboss.isDead()) {
       this.audioBGMusik.pause();
     } else if (this.sound.state == true) {
       this.audioBGMusik.play();
+      
+      this.audioBGMusik.addEventListener('timeupdate', function(){
+    var buffer = .60
+    if(this.currentTime > this.duration - buffer){
+        this.currentTime = 0
+        console.log(this.currentTime)
+        this.play()
+    }
+});
+      
+      
+      
+      
     }
   }
 
@@ -237,12 +255,13 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
     this.fullScreen.checkMode('game');
-    this.addToMap(this.fullScreen);
+    //this.addToMap(this.fullScreen);
     if (this.device === "mobile") {
       this.addToMap(this.mobileController);
     }
     if (this.state === "gameOver" && !this.gameOver.flag) {
       this.addToMap(this.gameOver);
+      console.log('true')
     }
     if (this.endboss.isDead()) {
       this.roundCounter++;
@@ -416,4 +435,8 @@ class World {
     return false;
   }
 
+
+
+
+  
 }

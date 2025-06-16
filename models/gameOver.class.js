@@ -21,7 +21,7 @@ class GameOver extends DrawableObject {
         // this.try_again_button.x = this.canvas.width / 2 - this.try_again_button.width /2 ;
 
 
-        this.doc = document.getElementById('menue');
+        this.doc = document.getElementById('buttons');
     }
 
     /**draw images on canvas */

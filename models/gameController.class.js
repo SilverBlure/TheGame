@@ -19,7 +19,7 @@ class GameController {
     this.block = document.getElementById('dialogBlock');
     this.device = this.getdevice();
     this.fullscreen = new Fullscreen(canvas);
-    this.doc = document.getElementById('menue');
+    this.buttons = document.getElementById('buttons');
     this.activ = true;
     this.loop();
     this.loadMenue();
@@ -31,7 +31,7 @@ class GameController {
     this.mouse.block = false;
     this.state = "menue";
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
-    this.activ  = true;
+    this.activ = true;
   }
 
 
@@ -57,11 +57,11 @@ class GameController {
   /**loading World */
   loadWorld() {
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
-    this.loadMenue()
-    , this.sound, this.fullscreen);
+      this.loadMenue()
+      , this.sound, this.fullscreen);
     this.state = "game";
-    this.clear();
-    this.activ  = true;
+    this.addHideButton()
+    this.activ = true;
   }
 
 
@@ -79,17 +79,14 @@ class GameController {
 
 
   checkButtons() {
-    if (this.state === 'menue' && this.activ ) {
-      this.clear()
-      this.renderMenueButtons();
+    if (this.state === 'menue' && this.activ) {
       this.activ = false;
-      console.log('test')
-    }else if(this.state === 'game' && this.activ) {
+    } else if (this.state === 'game' && this.activ) {
       this.clear
       this.renderGameFullscreenBTN();
       this.activ = false;
     }
-    
+
   }
 
 
@@ -114,25 +111,17 @@ class GameController {
   }
 
 
-  clear() {
-    this.doc.innerHTML = '';
+  addHideButton() {
+    this.buttons.classList.toggle('hide');
   }
 
-
-  renderMenueButtons() {
-    this.doc.innerHTML = ` 
-        <div class="buttons index">
-        <button  class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
-        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen</button>
-        </div>`;
-  }
 
   renderGameFullscreenBTN() {
-    this.doc.innerHTML = ` 
+    this.buttons.innerHTML = ` 
         <div class="buttons index">
         <button class="fullscreenButton inGameFullscreenBtn" id="button" onclick="canvas.requestFullscreen()">FullScreen Im Game</button>
         </div>`;
-  
+
   }
 
 
