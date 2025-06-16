@@ -20,6 +20,7 @@ class GameController {
     this.device = this.getdevice();
     this.fullscreen = new Fullscreen(canvas);
     this.doc = document.getElementById('menue');
+    this.activ = true;
     this.loop();
     this.loadMenue();
   }
@@ -30,7 +31,7 @@ class GameController {
     this.mouse.block = false;
     this.state = "menue";
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
-    this.firstLoad = false;
+    this.activ  = true;
   }
 
 
@@ -40,15 +41,18 @@ class GameController {
     return window.innerWidth > window.innerHeight
   }
 
+
   /**gets the device desktop or mobile */
   getdevice() {
     if (this.isMobileDevice()) return "mobile"
   }
 
+
   /**gets the device desktop or mobile */
   isMobileDevice() {
     return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
+
 
   /**loading World */
   loadWorld() {
@@ -57,7 +61,9 @@ class GameController {
     , this.sound, this.fullscreen);
     this.state = "game";
     this.clear();
+    this.activ  = true;
   }
+
 
   /**game mode loop funktion */
   loop() {
@@ -73,14 +79,19 @@ class GameController {
 
 
   checkButtons() {
-    if (this.state === 'menue') {
+    if (this.state === 'menue' && this.activ ) {
       this.clear()
       this.renderMenueButtons();
-    }else if(this.state === 'game'){
+      this.activ = false;
+      console.log('test')
+    }else if(this.state === 'game' && this.activ) {
       this.clear
       this.renderGameFullscreenBTN();
+      this.activ = false;
     }
+    
   }
+
 
 
   checkLandscape() {
@@ -90,6 +101,7 @@ class GameController {
       this.block.classList.remove('d-none');
     }
   }
+
 
   /**world reset funtion */
   resetGame() {
@@ -118,7 +130,7 @@ class GameController {
   renderGameFullscreenBTN() {
     this.doc.innerHTML = ` 
         <div class="buttons index">
-        <button class="fullscreenButton" id="button" onclick="canvas.requestFullscreen()">FullScreen Im Game</button>
+        <button class="fullscreenButton inGameFullscreenBtn" id="button" onclick="canvas.requestFullscreen()">FullScreen Im Game</button>
         </div>`;
   
   }

@@ -22,14 +22,19 @@ canvas{
 }
 
 .buttons{
-    height: 200px;
-    width: 360px;
+    height: 480px;
+    width: 720px;
     position: absolute;
-    display:flex;
+    display: flex;
     justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    top: 40px;
+    align-items: center; 
+}
+
+
+.inGameFullscreenBtn{
+    right: 20px;
+    position: absolute;
+    bottom: 20px;
 }
 
 .startButton{
@@ -80,7 +85,7 @@ canvas{
 }
 
 .index{
-    z-index: 100;
+    z-index: 150;
 }
 
 h1{
@@ -97,7 +102,6 @@ h1{
 span{
     color: white;
     font-family: 'luckiest guy';
-
 }
 
 table{
