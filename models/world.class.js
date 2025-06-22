@@ -37,6 +37,7 @@ class World {
   state = null;
   now = 0;
   sound;
+  buttons = document.getElementById('buttons');
   frameCounter = 0;
   soundGlasBroke;
   audioBGMusik;
@@ -87,11 +88,6 @@ class World {
 
   /**check audio if play or not */
   checkAudio() {
-
-
-
-
-
     if (this.sound.state == false || this.endboss.isDead()) {
       this.audioBGMusik.pause();
     } else if (this.sound.state == true) {
@@ -101,7 +97,6 @@ class World {
     var buffer = .60
     if(this.currentTime > this.duration - buffer){
         this.currentTime = 0
-        console.log(this.currentTime)
         this.play()
     }
 });
@@ -257,11 +252,11 @@ class World {
     this.fullScreen.checkMode('game');
     //this.addToMap(this.fullScreen);
     if (this.device === "mobile") {
+      
       this.addToMap(this.mobileController);
     }
-    if (this.state === "gameOver" && !this.gameOver.flag) {
+    if (this.state === "gameOver") {
       this.addToMap(this.gameOver);
-      console.log('true')
     }
     if (this.endboss.isDead()) {
       this.roundCounter++;

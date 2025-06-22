@@ -1,19 +1,20 @@
 @font-face {
     font-family: 'luckiest guy';
     src: url("./../assets/5.Font/LuckiestGuy-Regular.ttf") format('truetype');
-    
+
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     height: 100%;
     background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
     background-repeat: no-repeat;
-    background-attachment: fixed; 
-    background-size: 100% 100%;}
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
 
-canvas{
+canvas {
     position: absolute;
     background-color: black;
     width: 100%;
@@ -23,29 +24,81 @@ canvas{
 
 }
 
-.buttons{
-    height: 480px;
-    width: 720px;
-    position: absolute;
+.buttons {
+    z-index: 100;
     display: flex;
     justify-content: space-around;
-    align-items: center; 
+    align-items: center;
 }
 
+.overflow {
+    overflow: hidden;
+}
 
+.infoBlock {
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
 
+.imageClose:hover {
+    cursor: pointer;
+}
 
-.inGameFullscreenBtn{
+.imageClose:focus-visible {
+    border: 4px solid white;
+}
+
+.close {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: flex-start;
+    
+
+}
+
+.positionBottomRight {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.fullscreenButtonGame {
+    height: 54px;
+    width: 54px;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+}
+
+.containerClose {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 24px;
+
+}
+
+.containerTable {
+    height: 0;
+}
+
+.inGameFullscreenBtn {
     right: 20px;
     position: absolute;
     bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+    cursor: pointer;
 }
 
-.startButton{
+.startButton {
     color: black;
     background-color: blueviolet;
     border-style: solid;
-    border-width:4mm;
+    border-width: 4mm;
     border-radius: 48px;
     height: 93px;
     width: 224px;
@@ -53,38 +106,71 @@ canvas{
     font-family: 'luckiest guy';
 }
 
-.hide{
-        visibility: hidden;
+.marTo24 {
+    margin-top: 24px;
+}
+
+.tryAgain {
+    z-index: 100;
+    margin-top: 126px;
+}
+
+.positionTryAgainBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.hide {
+    visibility: hidden;
 }
 
 
-.startButton:focus-visible{
-    border-width:6mm; 
+.aside {
+
+    justify-content: center;
+    display: flex;
+
 }
 
-.soundImg:focus-visible{
+.startButton:focus-visible {
+    border-width: 6mm;
+}
+
+.soundImg:focus-visible {
     width: 68px;
     height: 68px;
- 
+
 }
 
-.startButton:hover{
+.cleanButton{
+    background-color: rgba(0, 0, 0, 0.0);
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+.startButton:hover {
     cursor: pointer;
 }
 
-.fullscreenButton:focus-visible{
-    border-width:6mm; 
+.fullscreenButton:focus-visible {
+    border-width: 6mm;
 }
 
-.fullscreenButton:hover{
+.cleanButton:focus-visible {
+    border-width: 8px;
+}
+
+.fullscreenButton:hover {
     cursor: pointer;
 }
 
-.fullscreenButton{
+.fullscreenButton {
     color: black;
     background-color: yellow;
     border-style: solid;
-    border-width:4mm;
+    border-width: 4mm;
     border-radius: 48px;
     height: 93px;
     width: 224px;
@@ -92,43 +178,44 @@ canvas{
     font-family: 'luckiest guy';
 }
 
-.index{
+.index {
     z-index: 150;
 }
 
-h1{
+h1 {
     font-family: 'luckiest guy';
     color: white;
     font-size: 64px;
+    margin: 0;
 }
 
-.blockImg{
+.blockImg {
     width: 100vw;
     height: 100vh;
 }
 
-span{
+span {
     color: white;
     font-family: 'luckiest guy';
 }
 
-table{
-    text-align: center ;
+table {
+    text-align: center;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.soundButton:hover{
+.soundButton:hover {
     cursor: pointer;
 }
 
-.buttons:hover{
+.buttons:hover {
     cursor: pointer;
 }
 
-.canvas-container{
+.canvas-container {
     position: relative;
     width: 720px;
     height: 480px;
@@ -136,84 +223,109 @@ table{
     justify-content: center;
 }
 
-.help{
+.help {
     width: 64px;
     height: 64px;
 }
 
-p{
-    size: 56px;
+p {
+    font-size: 16px;
     color: white;
     font-family: 'luckiest guy';
 }
 
-table{
+table {
     background-color: #1b1464;
-    border-radius: 56px;
+    border-radius: 28px;
     border: 2px solid white;
 }
 
-td{
+td {
     text-align: center
 }
 
-.tableImages{
+.tableImages {
     height: 126px;
     border-radius: 76px;
 }
 
-.headLine{
+.headLine {
     color: white;
     font-family: 'luckiest guy';
     font-size: 76px;
 }
 
+.buttonInformation:hover {
+    cursor: pointer;
+}
 
-.impressum{
+.buttonInformation {
+    background-color: rgb(0 0 0 / 0%);
+    border-style: none;
+    width: 78px;
+    height: 78px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+
+    flex-direction: column;
+    display: flex;
+}
+
+
+.impressum {
     color: white;
     font-family: 'luckiest guy';
     font-size: 50px;
 }
 
 .soundButton {
-    width: 64px;
-    height: 64px;
-    position: absolute;
-    top: 20px;
-    right: 30px;
+    width: 78px;
+    height: 78px;
     background-color: rgb(0 0 0 / 0%);
-    border: solid white 4px;
-    border-radius: 50px;
-    padding-inline: 0;
-    padding-block: 0;
+    border-style: none;
+
+
 }
 
-.soundImg{
+.soundImg {
     height: 50px;
     width: 50px;
-      
+
 }
 
-.orga{
+.orga {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 100vh;
 }
-.pointer{
+
+.pointer {
     cursor: pointer;
 }
-.cleanLink{
+
+.cleanLink {
     text-decoration: none;
     color: white;
 }
-h1,h2,h3{
+
+h1,
+h2,
+h3 {
     font-family: 'Courier New', Courier, monospace;
     color: white;
+    margin-left: 0px;
 }
 
-.divImpressum{
+.divImpressum {
     background-color: #1b1464;
     display: flex;
     align-items: center;
@@ -221,62 +333,124 @@ h1,h2,h3{
     flex-direction: column;
     width: 60vw;
     border-radius: 86px;
+    border: 2px solid white;
 }
-.centerText{
+
+.impressumContent {
+    margin-left: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.centerText {
     margin: 0;
     display: flex;
     justify-content: center;
 
-    
+
 }
-.back{
+
+.back {
     font-size: 30mm;
     font-family: 'luckiest guy';
 }
-.blockBg{
+
+.blockBg {
     z-index: 150;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0,0,0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
+
+.blockPortrait {
+    z-index: 250;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 
 
 
-@media (max-width: 750px) {
-    h1{
+@media(max-width:850px) {
+    h1 {
         text-align: center;
     }
-    
-    canvas {
+
+    .canvas-container {
         width: 560px;
         height: 380px;
     }
-    
+
 }
 
-@media (max-width: 600px) {
-    h1{
+@media(max-width:700px) {
+    h1 {
         text-align: center;
     }
-    
-    canvas {
+
+    .canvas-container {
         width: 450px;
         height: 300px;
     }
-    
+
 }
-@media (max-width: 470px) {
-    h1{
+
+@media(max-width:570px) {
+    h1 {
         text-align: center;
     }
-    
-    canvas {
+
+    .canvas-container {
         width: 350px;
         height: 200px;
     }
-    
+
+}
+
+@media(max-width:880px) {
+    .impressum {
+        font-size: 38px;
+    }
+}
+
+@media(max-width: 710px) {
+    .impressum {
+        font-size: 24px;
+    }
+}
+
+@media(max-width:770px) {
+    .tableImages {
+        height: 58px;
+        border-radius: 40px;
+    }
+
+    table {
+        background-color: #1b1464;
+        border-radius: 28px;
+        border: 2px solid white;
+    }
+
+    .close {
+        align-items: flex-start;
+        
+        background-color: #1b1464;
+    }
+}
+
+@media(max-width:680px) {
+    .back {
+        font-size: 12mm;
+    }
+
+    p {
+        font-size: 12px;
+    }
 }

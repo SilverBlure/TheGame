@@ -1,7 +1,6 @@
 class GameOver extends DrawableObject {
 
     title;
-
     canvas
 
     constructor(canvas) {
@@ -27,19 +26,23 @@ class GameOver extends DrawableObject {
     /**draw images on canvas */
     draw(ctx) {
 
-        if (!this.flag) {
-            this.flag = true;
+        
+            
             ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             this.title.draw(ctx);
+            if (!this.flag) {
+                this.flag = true;
             this.try_again_button();
         }
     }
 
     try_again_button() {
-        this.doc.innerHTML = ` <div class="buttons">
-        <button  class="startButton" id="button" onclick="game.resetGame()">Try Again</button>
-        </div>`;
+        this.doc.classList.remove('buttons');
+        this.doc.classList.add("positionTryAgainBtn");
+        this.doc.innerHTML = `<div class="tryAgain">
+                                <button  class="startButton" id="button" onclick="game.resetGame()">Try Again</button>
+                            </div>`;
     }
 
 

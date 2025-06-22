@@ -29,16 +29,9 @@ function init() {
     const touch = e.touches[0];
     const x = (touch.clientX - rect.left) * scaleX;
     const y = (touch.clientY - rect.top) * scaleY;
-    // if (game.menue.collisionWithButton(game.menue.fullScreen, x, y) || game.world?.collisionWithButton(game.world.fullScreen, x, y)) {
-    //   if (!document.fullscreenElement) {
-    //     canvas.requestFullscreen().catch((err) => { });
-    //   }
-    //   if (document.fullscreenElement) {
-    //     document.exitFullscreen().catch((err) => { });
-    //   }
-    // }
+    
     game?.world?.character?.onAnyInput?.();
-    handleTouchDown(x, y);  //wird benötigt wegen touch imput in der mobilen 
+    handleTouchDown(x, y);
   }
   ), { passive: false };
 

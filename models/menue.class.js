@@ -9,6 +9,8 @@ class Menue {
   fullwindow = false;
   requestAnimationFrameID;
   state;
+  buttons = document.getElementById('buttons');
+
 
 
   constructor(canvas, mouse, loadWorld, sound, fullscreen, state) {
@@ -20,12 +22,26 @@ class Menue {
     this.fullScreen = fullscreen;
     this.state = state;
     this.draw();
+    this.active = false;
   }
 
 
   /**draw on canvas funtion */
   draw() {
     this.addToMap(this.menueBG);
+    if (!this.active) {
+      this.active = true;
+      this.drawMenueButtons();
+
+    }
+  }
+
+
+  drawMenueButtons() {
+    this.buttons.innerHTML = `
+    <button class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
+    <button class="fullscreenButton" id="button" onclick="toggleFullscreen(content);">FullScreen</button>
+    `;
   }
 
 
@@ -58,6 +74,21 @@ class Menue {
     }
   }
 
-
+/**check if colliding mouse with button pos */
+  collisionWithButton(button, x, y) {
+    if (x !== undefined && y !== undefined) {
+      this.mouse.pos_x = x;
+      this.mouse.pos_y = y;
+    }
+    if (
+      this.mouse.pos_x > button.x &&
+      this.mouse.pos_x < button.x + button.width &&
+      this.mouse.pos_y > button.y &&
+      this.mouse.pos_y < button.y + button.height
+    ) {
+      return true;
+    }
+    return false;
+  }
 
 }
