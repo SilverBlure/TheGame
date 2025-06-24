@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
   lastKeyPressed = 0;
   animated = false;
   frameCounter = 0;
+  state = null;
 
   /**gravity force */
   applyGravity() {

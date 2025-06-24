@@ -11,6 +11,7 @@ class Character extends MovableObject {
     sound;
     animationStarted = false;
     intervals = [];
+    state = 'idle';
 
 
     IMAGES_SWIM = [
@@ -110,6 +111,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
+        
         this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
     }
@@ -152,26 +154,11 @@ class Character extends MovableObject {
 
                 }
                 if (this.world.keyboard.S && this.canAct) {
-                    if (this.world.sound.state) this.sound.play();
-                    this.world.meleeAtk.push(new FinAttack(this.world.character.x,
-                        this.world.character.y,
-                        this.world.character.width,
-                        this.world.character.height));
-                    this.playAnimationOnce(this.FIN_MELEE_HIT);
-                    this.canAct = false;
-                    setTimeout(() => {
-                        this.world.meleeAtk.pop();
-                        this.canAct = true;
-                    }, 300);
+                    this.state = 'finAttack';
                 }
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
-                    this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
-                    this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
-                    this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection, this.world));
-                    this.canAct = false;
-                    setTimeout(() => {
-                        this.canAct = true;
-                    }, 500);
+                    this.state = 'bubble';
+                    
                 }
             }
             if (this.idleCounter >= 600) {
@@ -196,42 +183,14 @@ class Character extends MovableObject {
 
 
             } else if (this.isHurt()) {
-                this.playAnimationOnce(this.IMAGES_HURT_POISON);
-                if (!this.hurthasPlayed) {
-                    this.hurthasPlayed = true;
-                    if (this.world.sound.state) {
-                        let sound = new Audio('assets/sounds/playerHurt.mp3');
-                        sound.play();
-                        setTimeout(() => {
-                            this.hurthasPlayed = false;
-                        }, 1000);
-                    }
-                }
-            
-
-            } else if(this.state ='attack1'){
-
-
-                //grund status idle wenn grundstatus attack oder attack2 ist soll danach wieder zu idle gewechstelt werden
-
-
-
-            }else if ('attack2'){
+                this.state = 'hurt';            
 
             }
-            
-            
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
-                this.playAnimation(this.IMAGES_SWIM);
-
-
-            } else if (this.idleTrigger) {
+            else if (this.idleTrigger) {
                 if (this.frameCounter % 3 == 0) {
                     this.playAnimation(this.IMAGES_IDLE_SLEEP);
                 }
             }
-
-
             if (this.frameCounter > 10000) {
                 this.frameCounter = 0;
             }
@@ -243,16 +202,39 @@ class Character extends MovableObject {
 
         switch(this.state){
             case 'idle':
-                //placeholder
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
+                this.playAnimation(this.IMAGES_SWIM);
+            }
                 break;
             case 'bubble':
-                //placeholder
+                this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+                    this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
+                    this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection, this.world));
+                    this.canAct = false;
+                    setTimeout(() => {
+                        this.canAct = true;
+                    }, 500);
+                    this.state = 'idle';
                 break;
             case 'finAttack':
-                //placeholder
+                if (this.world.sound.state) this.sound.play();
+                    this.world.meleeAtk.push(new FinAttack(this.world.character.x,
+                        this.world.character.y,
+                        this.world.character.width,
+                        this.world.character.height));
+                    this.playAnimationOnce(this.FIN_MELEE_HIT);
+                    this.canAct = false;
+                    setTimeout(() => {
+                        this.world.meleeAtk.pop();
+                        this.canAct = true;
+                    }, 300);
+                    this.state = 'idle';
                 break;
             case 'hurt':
-                //placeholder
+                setTimeout(()=>{
+                this.playAnimationOnce(this.IMAGES_HURT_POISON);
+                },1500);
+                this.state = 'idle';
                 break;
             case 'dead':
                 //placeholder
