@@ -35,6 +35,16 @@ class Pufferfish extends MovableObject {
     
   }
 
+  getCollider(){
+    return {
+      x: this.x +5,
+      y:  this.y,
+      width: this.width -10,
+      height: this.height -25,
+    }
+  }
+
+
   /**pufferfish animation */
   animate() {
     if (!this.isDead()) {

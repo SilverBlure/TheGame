@@ -162,7 +162,7 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.world.meleeAtk.pop();
                         this.canAct = true;
-                    }, 1500);
+                    }, 300);
                 }
                 if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
                     this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
@@ -186,13 +186,15 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
 
-
-
         const interval2 = setInterval(() => {
             this.frameCounter++;
+
+
             if (this.isDead()) {
                 this.stopAnimation();
                 this.playAnimationOnce(this.IMAGES_DEAD_POISON);
+
+
             } else if (this.isHurt()) {
                 this.playAnimationOnce(this.IMAGES_HURT_POISON);
                 if (!this.hurthasPlayed) {
@@ -205,18 +207,56 @@ class Character extends MovableObject {
                         }, 1000);
                     }
                 }
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
+            
+
+            } else if(this.state ='attack1'){
+
+
+                //grund status idle wenn grundstatus attack oder attack2 ist soll danach wieder zu idle gewechstelt werden
+
+
+
+            }else if ('attack2'){
+
+            }
+            
+            
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
+
+
             } else if (this.idleTrigger) {
                 if (this.frameCounter % 3 == 0) {
                     this.playAnimation(this.IMAGES_IDLE_SLEEP);
                 }
             }
+
+
             if (this.frameCounter > 10000) {
                 this.frameCounter = 0;
             }
         }, 50);
         this.intervals.push(interval, interval2)
+
+
+
+
+        switch(this.state){
+            case 'idle':
+                //placeholder
+                break;
+            case 'bubble':
+                //placeholder
+                break;
+            case 'finAttack':
+                //placeholder
+                break;
+            case 'hurt':
+                //placeholder
+                break;
+            case 'dead':
+                //placeholder
+        }
     }
 
     /**resets counter on any imput */

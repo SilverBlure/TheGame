@@ -71,7 +71,7 @@ class World {
     this.tryAgainImage = new Image();
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
     this.checkDevice();
-    
+
   }
 
   /**set device state if is mobile*/
@@ -92,18 +92,14 @@ class World {
       this.audioBGMusik.pause();
     } else if (this.sound.state == true) {
       this.audioBGMusik.play();
-      
-      this.audioBGMusik.addEventListener('timeupdate', function(){
-    var buffer = .60
-    if(this.currentTime > this.duration - buffer){
-        this.currentTime = 0
-        this.play()
-    }
-});
-      
-      
-      
-      
+
+      this.audioBGMusik.addEventListener('timeupdate', function () {
+        var buffer = .60
+        if (this.currentTime > this.duration - buffer) {
+          this.currentTime = 0
+          this.play()
+        }
+      });
     }
   }
 
@@ -111,9 +107,9 @@ class World {
    * set world object in objects
    */
   setWorld() {
-     this.level.enemies.forEach((enemy) => {
-       enemy.world = this;
-     });
+    this.level.enemies.forEach((enemy) => {
+      enemy.world = this;
+    });
     this.endboss = this.level.enemies.find((e) => e instanceof Endboss);
   }
 
@@ -123,7 +119,7 @@ class World {
    */
   finished() {
     if (this.endboss.isDead()) {
-    
+
       setTimeout(() => {
         this.onExit();
         this.resetBoss();
@@ -131,8 +127,8 @@ class World {
     }
   }
 
-/**reseting endboss values */
- resetBoss() {
+  /**reseting endboss values */
+  resetBoss() {
     this.endboss.y = -300;
     this.endboss.energy = 120;
     this.bossIntroPlayed = false;
@@ -146,7 +142,7 @@ class World {
    */
   tryAgain() {
     if (this.character.isDead()) {
-      if(this.sound.state)this.gameOverSound.play();
+      if (this.sound.state) this.gameOverSound.play();
       this.state = 'gameOver';
     }
   }
@@ -168,10 +164,10 @@ class World {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
-          if(this.sound.state)this.soundGlasBroke.play();
+          if (this.sound.state) this.soundGlasBroke.play();
           this.poisonBar.addPoison(20);
         } else if (obj instanceof Coin) {
-          if(this.sound.state)this.soundCoinSound.play();
+          if (this.sound.state) this.soundCoinSound.play();
           this.coinBar.addCoin(20);
         }
         return false;
@@ -191,13 +187,13 @@ class World {
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
-            if(this.sound.state)this.pufferfishHurt.play();
+            if (this.sound.state) this.pufferfishHurt.play();
           }
           if (enemy instanceof Endboss) {
-            if(this.sound.state)this.enemyEndbossHurt.play();
+            if (this.sound.state) this.enemyEndbossHurt.play();
           }
           if (this.endboss.isDead() && enemy instanceof Endboss) {
-            if(this.sound.state)this.enemyEndbossDead.play();
+            if (this.sound.state) this.enemyEndbossDead.play();
           }
         }
       });
@@ -211,13 +207,14 @@ class World {
   checkCollisionFinSlap() {
     if (this.meleeAtk.length > 0) {
       this.enemies.forEach((enemy) => {
-        if(enemy instanceof Pufferfish){
-        this.meleeAtk.forEach((fin) => {
-          if (fin.isColliding(fin, enemy)) {
-            enemy.hit(80);
-          }
-        });
-      }});
+        if (enemy instanceof Pufferfish) {
+          this.meleeAtk.forEach((fin) => {
+            if (fin.isColliding(fin, enemy)) {
+              enemy.hit(80);
+            }
+          });
+        }
+      });
     }
   }
 
@@ -239,7 +236,7 @@ class World {
     this.addObjectsToMap(this.backgroundObjects);
     //--------Space for FixObjects---------//
     this.ctx.translate(-this.camera_x, 0);
-    
+
     this.addToMap(this.statusBar);
     this.addToMap(this.poisonBar);
     this.addToMap(this.coinBar);
@@ -248,11 +245,12 @@ class World {
     this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.meleeAtk);
     this.ctx.translate(-this.camera_x, 0);
     this.fullScreen.checkMode('game');
     //this.addToMap(this.fullScreen);
     if (this.device === "mobile") {
-      
+
       this.addToMap(this.mobileController);
     }
     if (this.state === "gameOver") {
@@ -268,7 +266,7 @@ class World {
    * update function calls more checks
    */
   update() {
-    
+
     this.frameCounter++
     //#######CollisionsAbfragen######
     this.checkCharacterEnemyCollision();
@@ -276,7 +274,7 @@ class World {
     this.checkCharacterCollectablesCollision();
     this.clearDeadEnemys();
     this.finished();
-    if(this.state != "gameOver")this.tryAgain();
+    if (this.state != "gameOver") this.tryAgain();
     this.checkIfEnemyRunOut();
     this.reSpawnEnemie();
     this.stopProjectile();
@@ -293,7 +291,7 @@ class World {
     }
   }
 
-  
+
 
   /**
    * interval von pufferfish objects
@@ -345,10 +343,10 @@ class World {
     this.now++;
   }
 
-/**
- * renders objects to map
- * @param {object} objects 
- */
+  /**
+   * renders objects to map
+   * @param {object} objects 
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       if (o !== null) {
@@ -357,10 +355,10 @@ class World {
     });
   }
 
-/**
- * renders object to map
- * @param {objects} mo 
- */
+  /**
+   * renders object to map
+   * @param {objects} mo 
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -372,10 +370,10 @@ class World {
     }
   }
 
-/**
- * flip image to moving side 
- * @param {object} mo 
- */
+  /**
+   * flip image to moving side 
+   * @param {object} mo 
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -383,10 +381,10 @@ class World {
     mo.x = mo.x * -1;
   }
 
-/**
- * set mo back in movin position
- * @param {objects} mo 
- */
+  /**
+   * set mo back in movin position
+   * @param {objects} mo 
+   */
   flipImageBack(mo) {
     this.ctx.restore();
     mo.x = mo.x * -1;
@@ -403,17 +401,17 @@ class World {
     });
   }
 
-/**
- * interval an intro from endboss
- */
+  /**
+   * interval an intro from endboss
+   */
   endbossInterval() {
-    if(this.character.x >= 2100){
-    this.endboss.run();
-    this.bossStart = true; 
+    if (this.character.x >= 2100) {
+      this.endboss.run();
+      this.bossStart = true;
     }
   }
 
-/**check if colliding mouse with button pos */
+  /**check if colliding mouse with button pos */
   collisionWithButton(button, x, y) {
     if (x !== undefined && y !== undefined) {
       this.mouse.pos_x = x;
@@ -433,5 +431,5 @@ class World {
 
 
 
-  
+
 }
