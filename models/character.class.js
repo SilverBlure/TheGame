@@ -11,7 +11,8 @@ class Character extends MovableObject {
     sound;
     animationStarted = false;
     intervals = [];
-    state = 'idle';
+    state = null;
+     world;
 
 
     IMAGES_SWIM = [
@@ -111,7 +112,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
-        
         this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
     }
@@ -133,34 +133,19 @@ class Character extends MovableObject {
 
     /**complete character animation  */
     animate() {
+        //if(this.state == null){
+        //     this.state = 'idle';
+        // }
         if (this.animationStarted) return;
         this.animationStarted = true;
         const interval = setInterval(() => {
             if (!this.isDead()) {
-                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                    this.x += this.speed;
-                    this.otherDirection = false;
+                if (this.movement() && this.state === 'idle'){
+                    this.playAnimation(this.IMAGES_SWIM),
                 }
-                if (this.world.keyboard.LEFT && this.x > 0) {
-                    this.x -= this.speed;
-                    this.otherDirection = true;
 
-                }
-                if (this.world.keyboard.UP && this.y > -70) {
-                    this.y -= this.speed;
-                }
-                if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
-                    this.y += this.speed;
-
-                }
-                if (this.world.keyboard.S && this.canAct) {
-                    this.state = 'finAttack';
-                }
-                if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
-                    this.state = 'bubble';
-                    
-                }
             }
+
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
@@ -183,7 +168,7 @@ class Character extends MovableObject {
 
 
             } else if (this.isHurt()) {
-                this.state = 'hurt';            
+                         this.state = 'hurt';
 
             }
             else if (this.idleTrigger) {
@@ -200,13 +185,11 @@ class Character extends MovableObject {
 
 
 
-        switch(this.state){
-            case 'idle':
+        
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIM);
             }
-                break;
-            case 'bubble':
+            
                 this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
                     this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection, this.world));
@@ -215,8 +198,7 @@ class Character extends MovableObject {
                         this.canAct = true;
                     }, 500);
                     this.state = 'idle';
-                break;
-            case 'finAttack':
+              
                 if (this.world.sound.state) this.sound.play();
                     this.world.meleeAtk.push(new FinAttack(this.world.character.x,
                         this.world.character.y,
@@ -229,17 +211,15 @@ class Character extends MovableObject {
                         this.canAct = true;
                     }, 300);
                     this.state = 'idle';
-                break;
-            case 'hurt':
+             
                 setTimeout(()=>{
                 this.playAnimationOnce(this.IMAGES_HURT_POISON);
                 },1500);
                 this.state = 'idle';
-                break;
-            case 'dead':
+          
                 //placeholder
         }
-    }
+    
 
     /**resets counter on any imput */
     onAnyInput() {
@@ -252,6 +232,27 @@ class Character extends MovableObject {
         this.intervals.forEach(id => clearInterval(id));
         this.intervals = [];
         this.animationStarted = false;
+    }
+
+    movement(){
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.x += this.speed;
+                    this.otherDirection = false;
+                }
+                if (this.world.keyboard.LEFT && this.x > 0) {
+                    this.x -= this.speed;
+                    this.otherDirection = true;
+
+                }
+                if (this.world.keyboard.UP && this.y > -70) {
+                    this.y -= this.speed;
+                }
+                if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
+                    this.y += this.speed;
+
+                
+                
+    }
     }
 
 }
