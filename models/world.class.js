@@ -2,7 +2,6 @@ class World {
   roundCounter = 0;
   ctx;
   level = level1;
-  character = new Character();
   enemies = level1.enemies;
   lights = level1.lights;
   backgroundObjects = level1.backgroundObjects;
@@ -48,7 +47,8 @@ class World {
     this.canvas = canvas;
     this.mobileController = new MobileController(this.canvas);
     this.keyboard = keyboard;
-    
+    this.character = new Character(this);
+
     this.mouse = mouse;
     this.sound = sound;
     this.fullScreen = fullScreen;
@@ -65,7 +65,7 @@ class World {
     this.gameOver = new GameOver(this.canvas);
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
-    this.setWorld();
+    // this.setWorld();
     this.loop();
     this.state = "running";
     this.onExit = onExit;
