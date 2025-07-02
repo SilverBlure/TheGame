@@ -103,7 +103,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Fin slap/8.png',
     ]
 
-    constructor() {
+    constructor(world) {
         super();
         this.loadImage('assets/1.Sharkie/3.Swim/1.png');
         this.loadImages(this.IMAGES_SWIM);
@@ -112,14 +112,15 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
+        this.world = world;
         this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
     }
 
     /**set world in enemy */
-    setWorld(world) {
-        this.world = world;
-    }
+    // setWorld(world) {
+    //     this.world = world;
+    // }
 
     /**colider of character */
     getCollider() {
@@ -140,9 +141,12 @@ class Character extends MovableObject {
         this.animationStarted = true;
         const interval = setInterval(() => {
             if (!this.isDead()) {
-                if (this.movement() && this.state === 'idle'){
-                    this.playAnimation(this.IMAGES_SWIM),
+
+                if (this.movement() && this.state === 'idle')
+                    {
+                    this.playAnimation(this.IMAGES_SWIM)
                 }
+
 
             }
 
@@ -192,14 +196,14 @@ class Character extends MovableObject {
             
                 this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
                     this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
-                    this.world.throwableObjects.push(new ThrowableObject(this.world.character.x, this.world.character.y, this.otherDirection, this.world));
+                    this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
                     this.canAct = false;
                     setTimeout(() => {
                         this.canAct = true;
                     }, 500);
                     this.state = 'idle';
               
-                if (this.world.sound.state) this.sound.play();
+                //if (this.world.sound.state) this.sound.play();
                     this.world.meleeAtk.push(new FinAttack(this.world.character.x,
                         this.world.character.y,
                         this.world.character.width,
