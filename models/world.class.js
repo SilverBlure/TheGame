@@ -2,6 +2,7 @@ class World {
   roundCounter = 0;
   ctx;
   level = level1;
+  
   enemies = level1.enemies;
   lights = level1.lights;
   backgroundObjects = level1.backgroundObjects;
@@ -21,6 +22,7 @@ class World {
   camera_x = 0;
   keyboard;
   mouse;
+  character = new Character();
   statusBar = new StatusBar();
   poisonBar = new PoisonBar();
   coinBar = new CoinBar();
@@ -47,8 +49,7 @@ class World {
     this.canvas = canvas;
     this.mobileController = new MobileController(this.canvas);
     this.keyboard = keyboard;
-    this.character = new Character(this);
-
+  
     this.mouse = mouse;
     this.sound = sound;
     this.fullScreen = fullScreen;
@@ -65,7 +66,7 @@ class World {
     this.gameOver = new GameOver(this.canvas);
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
-    // this.setWorld();
+    this.setWorld();
     this.loop();
     this.state = "running";
     this.onExit = onExit;
@@ -112,6 +113,7 @@ class World {
       enemy.world = this;
     });
     this.endboss = this.level.enemies.find((e) => e instanceof Endboss);
+    this.character.world = this;
   }
 
 

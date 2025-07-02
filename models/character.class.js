@@ -12,7 +12,9 @@ class Character extends MovableObject {
     animationStarted = false;
     intervals = [];
     state = null;
-     world;
+    world;
+    currentFrame = 0;
+    loopIntervalID = null;
 
 
     IMAGES_SWIM = [
@@ -103,7 +105,7 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Fin slap/8.png',
     ]
 
-    constructor(world) {
+    constructor() {
         super();
         this.loadImage('assets/1.Sharkie/3.Swim/1.png');
         this.loadImages(this.IMAGES_SWIM);
@@ -112,15 +114,26 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
-        this.world = world;
+        this.setStates();
         this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
     }
 
+
+    setStates() {
+        this.stateImages = {
+            idle: this.IMAGES_SWIM,
+            hurt: this.IMAGES_HURT_POISON,
+            dead: this.IMAGES_DEAD_POISON,
+            finAttack: this.FIN_MELEE_HIT,
+            bubble: this.IMAGES_ATTACK_BUBBLE_ANIMATION
+        };
+    }
+
     /**set world in enemy */
-    // setWorld(world) {
-    //     this.world = world;
-    // }
+    setWorld(world) {
+        this.world = world;
+    }
 
     /**colider of character */
     getCollider() {
@@ -134,41 +147,59 @@ class Character extends MovableObject {
 
     /**complete character animation  */
     animate() {
-        //if(this.state == null){
-        //     this.state = 'idle';
-        // }
-        if (this.animationStarted) return;
-        this.animationStarted = true;
-        const interval = setInterval(() => {
-            if (!this.isDead()) {
-                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                    this.x += this.speed;
-                    this.otherDirection = false;
-                }
-                if (this.world.keyboard.LEFT && this.x > 0) {
-                    this.x -= this.speed;
-                    this.otherDirection = true;
 
-                }
-                if (this.world.keyboard.UP && this.y > -70) {
-                    this.y -= this.speed;
-                }
-                if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
-                    this.y += this.speed;
 
-                }
-                if (this.world.keyboard.S && this.canAct) {
-                    this.state = 'finAttack';
-                }
-                if (this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0) {
-                    this.state = 'bubble';
-                    
-                }
+        if (this.loopIntervalID) return;
+
+        this.loopIntervalID = setInterval(() => {
+
+            if (this.isDead()) {
+                this.playAnimation(this.stateImages.dead);
+                this.currentFrame ++;
+                return;
             }
+
+            if (this.state == 'finAttack' || this.state == 'bubble') {
+
+                const arr = this.stateImages[this.state];
+                this.playAnimation(arr);
+
+                if (this.currentFrame % arr.length === arr.length - 1) {
+                    this.state = 'idle';
+                    this.canAct = true;
+                }else{
+                    this.currentFrame ++;
+                }
+                return;
+            }
+
+            if (this.isHurt()) {
+                this.playAnimation(this.stateImages.hurt)
+                this.currentFrame ++;
+            }
+
+            else {
+                this.handleMovementInputs();
+                this.playAnimation(this.stateImages.idle);
+                if(this.world.keyboard.S && this.canAct){
+                    this.state = 'finAttack';
+                    this.canAct = false;
+                    this.currentFrame = 0;
+                }
+                if(this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0){
+                    this.state = 'bubble';
+                    this.canAct = false;
+                    this.currentFrame = 0;
+                }
+                this.currentFrame ++;
+            }
+        
+
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
             }
+
             this.idleCounter++;
             this.world.camera_x = -this.x;
             if (this.world.endboss.isDead()) {
@@ -176,68 +207,48 @@ class Character extends MovableObject {
             }
         }, 1000 / 60);
 
-
-        const interval2 = setInterval(() => {
-            this.frameCounter++;
+    }
 
 
-            if (this.isDead()) {
-                this.stopAnimation();
-                this.playAnimationOnce(this.IMAGES_DEAD_POISON);
+    handleMovementInputs() {
+        this.goRight();
+        this.goLeft();
+        this.goUp();
+        this.goDown();
+    }
 
 
-            } else if (this.isHurt()) {
-                         this.state = 'hurt';
-
-            }
-            else if (this.idleTrigger) {
-                if (this.frameCounter % 3 == 0) {
-                    this.playAnimation(this.IMAGES_IDLE_SLEEP);
-                }
-            }
-            if (this.frameCounter > 10000) {
-                this.frameCounter = 0;
-            }
-        }, 50);
-        this.intervals.push(interval, interval2)
-
-
-
-
-        
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
-                this.playAnimation(this.IMAGES_SWIM);
-            }
-            
-                this.playAnimationOnce(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
-                    this.world.poisonBar.setPercentage(this.world.poisonBar.percentage - 10);
-                    this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
-                    this.canAct = false;
-                    setTimeout(() => {
-                        this.canAct = true;
-                    }, 500);
-                    this.state = 'idle';
-              
-                //if (this.world.sound.state) this.sound.play();
-                    this.world.meleeAtk.push(new FinAttack(this.world.character.x,
-                        this.world.character.y,
-                        this.world.character.width,
-                        this.world.character.height));
-                    this.playAnimationOnce(this.FIN_MELEE_HIT);
-                    this.canAct = false;
-                    setTimeout(() => {
-                        this.world.meleeAtk.pop();
-                        this.canAct = true;
-                    }, 300);
-                    this.state = 'idle';
-             
-                setTimeout(()=>{
-                this.playAnimationOnce(this.IMAGES_HURT_POISON);
-                },1500);
-                this.state = 'idle';
-          
-                //placeholder
+    goRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.x += this.speed;
+            this.otherDirection = false;
+            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
         }
+    }
+
+    goLeft() {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.x -= this.speed;
+            this.otherDirection = true;
+            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
+        }
+    }
+    goUp() {
+        if (this.world.keyboard.UP && this.y > -70) {
+            this.y -= this.speed;
+            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
+
+
+        }
+    }
+    
+    goDown() {
+        if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
+            this.y += this.speed;
+            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
+        }
+    }
+
     
 
     /**resets counter on any imput */
