@@ -48,6 +48,7 @@ class World {
     this.canvas = canvas;
     this.mobileController = new MobileController(this.canvas);
     this.keyboard = keyboard;
+    
     this.mouse = mouse;
     this.sound = sound;
     this.fullScreen = fullScreen;
