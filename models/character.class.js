@@ -171,47 +171,24 @@ class Character extends MovableObject {
         if (this.loopIntervalID) return;
 
         this.loopIntervalID = setInterval(() => {
-
+            console.log(this.state)
+            
+            if(!this.isHurt()){
+                this.state = 'idle';
+                this.playAnimation(this.stateImages.idle);
+            }else{
+                this.state = 'hurt';
+                this.playAnimation(this.stateImages.hurt)
+            }
             
             this.bubble();
             
-            this.swim();
-            // if (this.state == 'finAttack' || this.state == 'bubble') {
+            
+            this.move();
 
-            //     const arr = this.stateImages[this.state];
-            //     this.playAnimation(arr);
+            this.stateBahavor();
+            
 
-            //     if (this.currentFrame % arr.length === arr.length - 1) {
-            //         this.state = 'idle';
-            //         this.canAct = true;
-            //         this.currentFrame = 0;
-            //     }else{
-            //         this.currentFrame ++;
-            //     }
-            //     return;
-            // }
-
-            // if (this.isHurt()) {
-            //     this.playAnimation(this.stateImages.hurt)
-            //     this.currentFrame ++;
-            // }
-
-            // else {
-            //     this.handleMovementInputs();
-            //     // this.playAnimation(this.stateImages.idle);
-            //     if(this.world.keyboard.S && this.canAct){
-            //         this.state = 'finAttack';
-            //         this.canAct = false;
-            //         this.currentFrame = 0;
-            //     }
-            //     if(this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0){
-            //         this.state = 'bubble';
-            //         this.canAct = false;
-            //         this.currentFrame = 0;
-            //     }
-            //     this.currentFrame ++;
-            // }
-        
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
@@ -226,6 +203,23 @@ class Character extends MovableObject {
 
     }
 
+    stateBahavor(){
+        if(this.state == 'hurt'){
+            this.playAnimation(this.stateImages.hurt);
+        }
+        if(this.state == 'idle'){
+            this.playAnimation(this.stateImages.idle);
+        }
+        if(this.state == 'swim'){
+            this.playAnimation(this.stateImages.swim);
+        }
+        if(this.state == 'bubble')
+            this.playAnimationOnce(this.stateImages.bubble); ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
+        if(this.state == 'finAttack'){
+            this.playAnimation(this.stateImages.finAttack); ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
+        }
+        
+    }
 
     handleMovementInputs() {
         this.goRight();
@@ -235,29 +229,29 @@ class Character extends MovableObject {
     }
 
 
-swim(){
-    this.playAnimation(this.stateImages.idle);
-    if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP){
-       this.state = 'swim';
-        if(this.state == "hurt")
-        {  
-            this.handleMovementInputs();
-            this.playAnimation(this.IMAGES_HURT_SHOCK);
-        }
 
-        if(this.state == 'finAttack'){
-            this.playAnimation(this.FIN_MELEE_HIT);
-        }
-        if(this.state =='swim'){
-            this.handleMovementInputs();
-            this.playAnimation(this.stateImages.swim)
-        }
-    }
+move(){
+    
+    if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP){
+     if(this.state == 'hurt')this.handleMovementInputs();   
+    if(this.state == 'idle'){
+        this.state = 'swim';
+        this.handleMovementInputs();
+    }}
+    
  }
 
+
+
 bubble(){
-    if(this.world.keyboard.A ){
-        this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+    if(this.world.keyboard.A){
+        this.state = 'bubble';
+    }
+}
+
+melee(){
+    if(this.world.keyboard.S){
+        this.state = 'finAttack';
     }
 }
 
