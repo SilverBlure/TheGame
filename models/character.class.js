@@ -11,7 +11,7 @@ class Character extends MovableObject {
     sound;
     animationStarted = false;
     intervals = [];
-    state = null;
+    state = "idle";
     world;
     currentFrame = 0;
     loopIntervalID = null;
@@ -25,6 +25,23 @@ class Character extends MovableObject {
         'assets/1.Sharkie/3.Swim/5.png',
         'assets/1.Sharkie/3.Swim/6.png',
     ];
+
+    IMAGES_IDLE = [
+        'assets/1.Sharkie/1.IDLE/1.png',
+        'assets/1.Sharkie/1.IDLE/2.png',
+        'assets/1.Sharkie/1.IDLE/3.png',
+        'assets/1.Sharkie/1.IDLE/4.png',
+        'assets/1.Sharkie/1.IDLE/5.png',
+        'assets/1.Sharkie/1.IDLE/6.png',
+        'assets/1.Sharkie/1.IDLE/7.png',
+        'assets/1.Sharkie/1.IDLE/8.png',
+        'assets/1.Sharkie/1.IDLE/9.png',
+        'assets/1.Sharkie/1.IDLE/10.png',
+        'assets/1.Sharkie/1.IDLE/11.png',
+        'assets/1.Sharkie/1.IDLE/12.png',
+        'assets/1.Sharkie/1.IDLE/13.png',
+        'assets/1.Sharkie/1.IDLE/14.png'
+    ]
 
     IMAGES_IDLE_SLEEP = ['assets/1.Sharkie/2.Long_IDLE/i1.png',
         'assets/1.Sharkie/2.Long_IDLE/I2.png',
@@ -114,6 +131,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
         this.loadImages(this.FIN_MELEE_HIT);
         this.loadImages(this.IMAGES_IDLE_SLEEP);
+        this.loadImages(this.IMAGES_IDLE);
         this.setStates();
         this.sound = new Audio('assets/sounds/characterWhip.wav');
         this.animate();
@@ -122,7 +140,8 @@ class Character extends MovableObject {
 
     setStates() {
         this.stateImages = {
-            idle: this.IMAGES_SWIM,
+            swim: this.IMAGES_SWIM,
+            idle: this.IMAGES_IDLE,
             hurt: this.IMAGES_HURT_POISON,
             dead: this.IMAGES_DEAD_POISON,
             finAttack: this.FIN_MELEE_HIT,
@@ -153,48 +172,46 @@ class Character extends MovableObject {
 
         this.loopIntervalID = setInterval(() => {
 
-            if (this.isDead()) {
-                this.playAnimation(this.stateImages.dead);
-                this.currentFrame ++;
-                return;
-            }
+            
+            this.bubble();
+            
+            this.swim();
+            // if (this.state == 'finAttack' || this.state == 'bubble') {
 
-            if (this.state == 'finAttack' || this.state == 'bubble') {
+            //     const arr = this.stateImages[this.state];
+            //     this.playAnimation(arr);
 
-                const arr = this.stateImages[this.state];
-                this.playAnimation(arr);
+            //     if (this.currentFrame % arr.length === arr.length - 1) {
+            //         this.state = 'idle';
+            //         this.canAct = true;
+            //         this.currentFrame = 0;
+            //     }else{
+            //         this.currentFrame ++;
+            //     }
+            //     return;
+            // }
 
-                if (this.currentFrame % arr.length === arr.length - 1) {
-                    this.state = 'idle';
-                    this.canAct = true;
-                }else{
-                    this.currentFrame ++;
-                }
-                return;
-            }
+            // if (this.isHurt()) {
+            //     this.playAnimation(this.stateImages.hurt)
+            //     this.currentFrame ++;
+            // }
 
-            if (this.isHurt()) {
-                this.playAnimation(this.stateImages.hurt)
-                this.currentFrame ++;
-            }
-
-            else {
-                this.handleMovementInputs();
-                this.playAnimation(this.stateImages.idle);
-                if(this.world.keyboard.S && this.canAct){
-                    this.state = 'finAttack';
-                    this.canAct = false;
-                    this.currentFrame = 0;
-                }
-                if(this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0){
-                    this.state = 'bubble';
-                    this.canAct = false;
-                    this.currentFrame = 0;
-                }
-                this.currentFrame ++;
-            }
+            // else {
+            //     this.handleMovementInputs();
+            //     // this.playAnimation(this.stateImages.idle);
+            //     if(this.world.keyboard.S && this.canAct){
+            //         this.state = 'finAttack';
+            //         this.canAct = false;
+            //         this.currentFrame = 0;
+            //     }
+            //     if(this.world.keyboard.A && this.canAct && this.world.poisonBar.percentage > 0){
+            //         this.state = 'bubble';
+            //         this.canAct = false;
+            //         this.currentFrame = 0;
+            //     }
+            //     this.currentFrame ++;
+            // }
         
-
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
@@ -205,7 +222,7 @@ class Character extends MovableObject {
             if (this.world.endboss.isDead()) {
                 this.stopAnimation();
             }
-        }, 1000 / 60);
+        }, 50);
 
     }
 
@@ -218,11 +235,37 @@ class Character extends MovableObject {
     }
 
 
+swim(){
+    this.playAnimation(this.stateImages.idle);
+    if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP){
+       this.state = 'swim';
+        if(this.state == "hurt")
+        {  
+            this.handleMovementInputs();
+            this.playAnimation(this.IMAGES_HURT_SHOCK);
+        }
+
+        if(this.state == 'finAttack'){
+            this.playAnimation(this.FIN_MELEE_HIT);
+        }
+        if(this.state =='swim'){
+            this.handleMovementInputs();
+            this.playAnimation(this.stateImages.swim)
+        }
+    }
+ }
+
+bubble(){
+    if(this.world.keyboard.A ){
+        this.playAnimation(this.IMAGES_ATTACK_BUBBLE_ANIMATION);
+    }
+}
+
     goRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.x += this.speed;
             this.otherDirection = false;
-            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
+            
         }
     }
 
@@ -230,22 +273,18 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.x -= this.speed;
             this.otherDirection = true;
-            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
         }
     }
+
     goUp() {
         if (this.world.keyboard.UP && this.y > -70) {
             this.y -= this.speed;
-            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
-
-
         }
     }
-    
+
     goDown() {
         if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
             this.y += this.speed;
-            if (this.state == "idle") this.playAnimation(this.IMAGES_SWIM);
         }
     }
 
