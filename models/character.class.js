@@ -172,17 +172,9 @@ class Character extends MovableObject {
 
         this.loopIntervalID = setInterval(() => {
             console.log(this.state)
-            
-            if(!this.isHurt()){
-                this.state = 'idle';
-                this.playAnimation(this.stateImages.idle);
-            }else{
-                this.state = 'hurt';
-                this.playAnimation(this.stateImages.hurt)
-            }
+            this.hurt();
             
             this.bubble();
-            
             
             this.move();
 
@@ -200,8 +192,10 @@ class Character extends MovableObject {
                 this.stopAnimation();
             }
         }, 50);
-
     }
+
+
+    //die ticks sind noch falsch und die bewegungen werden falsch ausgeführt, warum wird der state auf idle zurrück gesetzt
 
     stateBahavor(){
         if(this.state == 'hurt'){
@@ -214,11 +208,12 @@ class Character extends MovableObject {
             this.playAnimation(this.stateImages.swim);
         }
         if(this.state == 'bubble')
-            this.playAnimationOnce(this.stateImages.bubble); ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
+            if(!this.animated){
+            //this.playAnimation(this.stateImages.bubble);
+        } ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
         if(this.state == 'finAttack'){
-            this.playAnimation(this.stateImages.finAttack); ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
+            this.playAnimationOnce(this.stateImages.finAttack); ///hier muss nachgebessert werden wie schaffe ich es die animation nur einmal abzuspielen
         }
-        
     }
 
     handleMovementInputs() {
@@ -228,7 +223,13 @@ class Character extends MovableObject {
         this.goDown();
     }
 
-
+hurt(){
+    if(!this.isHurt()){
+                this.state = 'idle';
+            }else{
+                this.state = 'hurt';
+            }
+        }
 
 move(){
     
@@ -238,7 +239,6 @@ move(){
         this.state = 'swim';
         this.handleMovementInputs();
     }}
-    
  }
 
 
@@ -246,6 +246,9 @@ move(){
 bubble(){
     if(this.world.keyboard.A){
         this.state = 'bubble';
+        if(!this.animated){
+        //this.playAnimationOnce(this.stateImages.bubble);
+        }
     }
 }
 
@@ -258,8 +261,7 @@ melee(){
     goRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.x += this.speed;
-            this.otherDirection = false;
-            
+            this.otherDirection = false; 
         }
     }
 
@@ -281,8 +283,6 @@ melee(){
             this.y += this.speed;
         }
     }
-
-    
 
     /**resets counter on any imput */
     onAnyInput() {
