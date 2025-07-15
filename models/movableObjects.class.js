@@ -78,7 +78,7 @@ class MovableObject extends DrawableObject {
     let movementInterval = setInterval(() => {
       let i = this.currentImage % imageArr.length;
       this.loadImage(imageArr[i]);
-      console.log(i);
+      //console.log(i);
       this.currentImage++;
       if (i == imageArr.length - 1) {
         this.animated = false;

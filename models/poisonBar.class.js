@@ -50,4 +50,6 @@ class PoisonBar extends DrawableObject {
             return 0;
         }
     }
+
+    
 }

@@ -20,7 +20,7 @@ class ThrowableObject extends MovableObject {
         this.direction = direction;
         this.height = 60;
         this.width = 50;
-        this.throw(this.x + 180, this.y + 70);
+        this.throw(this.x + 190, this.y + 80);
         this.oldX = this.x + 180;
         this.world = world;
         this.sound = new Audio('assets/sounds/BubbleShot.wav');
@@ -36,7 +36,7 @@ class ThrowableObject extends MovableObject {
 
 /**throw poison bubble, from player position */
     throw(x, y) {
-        this.x = this.direction ? x - 180 : x;
+        this.x = x
         this.y = y;
         this.speedY = 30;
         this.x + this.speedY;
