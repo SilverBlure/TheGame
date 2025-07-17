@@ -122,7 +122,6 @@ class World {
    */
   finished() {
     if (this.endboss.isDead()) {
-
       setTimeout(() => {
         this.onExit();
         this.resetBoss();
@@ -234,6 +233,10 @@ class World {
    * draw function draws objects on canvas
    */
   draw() {
+    if(this.meleeAtk.length >= 1){
+            console.log(this.world)
+    }
+    
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjects);

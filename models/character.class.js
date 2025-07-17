@@ -250,7 +250,7 @@ bubble(){
         setTimeout(()=>{
             this.addBubble();
             this.action = false;
-        },800)
+        }, 800)
         
     }
     }}
@@ -264,8 +264,9 @@ melee(){
         if(!this.animated){
         this.playAnimationOnce(this.stateImages.finAttack);
         setTimeout(()=>{
+            this.addMelee();
             this.action = false;
-        },800)
+        }, 800)
         }
     }
     }
