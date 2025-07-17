@@ -116,7 +116,7 @@ class Endboss extends MovableObject {
       this.hurtPlaying = true;
       const previousState = this.state;
       this.state = 'hurt';
-
+      this.currentImage = 0;
       this.playAnimationOnce(this.ENDBOSS_HURT, () => {
         this.state = previousState === 'attack' || previousState === 'return' ? 'idle' : previousState;
         this.hurtPlaying = false;

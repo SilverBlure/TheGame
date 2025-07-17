@@ -232,11 +232,7 @@ class World {
   /**
    * draw function draws objects on canvas
    */
-  draw() {
-    if(this.meleeAtk.length >= 1){
-            console.log(this.world)
-    }
-    
+  draw() {    
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjects);
@@ -254,7 +250,6 @@ class World {
     this.addObjectsToMap(this.meleeAtk);
     this.ctx.translate(-this.camera_x, 0);
     this.fullScreen.checkMode('game');
-    //this.addToMap(this.fullScreen);
     if (this.device === "mobile") {
 
       this.addToMap(this.mobileController);

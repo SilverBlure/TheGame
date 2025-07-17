@@ -15,6 +15,7 @@ class Character extends MovableObject {
     world;
     currentFrame = 0;
     loopIntervalID = null;
+    animation = 0;
 
 
     IMAGES_SWIM = [
@@ -168,20 +169,23 @@ class Character extends MovableObject {
     /**complete character animation  */
     animate() {
 
-
         if (this.loopIntervalID) return;
 
         this.loopIntervalID = setInterval(() => {
-            console.log(this.state)
-            this.move();
-            this.hurt();
-            if(!this.action){
-            this.bubble();
-            this.melee(); 
-            this.idle();
-            this.stateBahavor();
+            if (this.animation >= 3) {
+                this.dead();
+                this.move();
+                this.hurt();
+
+                if (!this.action) {
+                    this.bubble();
+                    this.melee();
+                    this.idle();
+                    this.stateBahavor();
+                    this.animation = 0;
+                }
             }
-            
+
             if (this.idleCounter >= 600) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
@@ -192,20 +196,19 @@ class Character extends MovableObject {
             if (this.world.endboss.isDead()) {
                 this.stopAnimation();
             }
-        }, 50);
+            this.animation++;
+        }, 1000 / 60);
     }
 
 
-    //die ticks sind noch falsch und die bewegungen werden falsch ausgeführt, warum wird der state auf idle zurrück gesetzt
-
-    stateBahavor(){
-        if(this.state == 'hurt'){
+    stateBahavor() {
+        if (this.state == 'hurt') {
             this.playAnimation(this.stateImages.hurt);
         }
-        if(this.state == 'idle'){
+        if (this.state == 'idle') {
             this.playAnimation(this.stateImages.idle);
         }
-        if(this.state == 'swim'){
+        if (this.state == 'swim') {
             this.playAnimation(this.stateImages.swim);
         }
     }
@@ -217,65 +220,75 @@ class Character extends MovableObject {
         this.goDown();
     }
 
-hurt(){
-    if(this.isHurt()){
-                this.state = 'hurt';
+    hurt() {
+        if (this.isHurt()) {
+            this.state = 'hurt';
+        }
+    }
+
+    idle() {
+        if (this.isHurt()) {
+            this.state = 'hurt';
+        } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.DOWN && !this.world.keyboard.UP && !this.world.keyboard.A && !this.world.keyboard.S && !this.action) {
+            this.state = 'idle';
+        }
+    }
+
+    move() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
+            this.state = 'swim';
+            this.handleMovementInputs();
+        }
+    }
+
+dead(){
+        if(this.isDead()){
+            this.action = 'true';
+            if(!this.animated){
+            this.playAnimationOnce(this.stateImages.dead);
+            clearInterval(this.loopIntervalID);
             }
         }
-
-idle(){
-    if(!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.DOWN && !this.world.keyboard.UP && !this.world.keyboard.A && !this.world.keyboard.S && !this.action){
-    this.state = 'idle'
     }
-}
 
-move(){
-    if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP){
-        this.state = 'swim';
-        this.handleMovementInputs();
-    }
-    }
- 
-
-
-
-bubble(){
-    if(this.world.keyboard.A && !this.action){
-        if(this.world.poisonBar.percentage > 10){
-        this.action = true;
-        this.state = 'bubble';
-        this.currentImage = 0;
-        if(!this.animated){
-        this.playAnimationOnce(this.stateImages.bubble);
-        setTimeout(()=>{
-            this.addBubble();
-            this.action = false;
-        }, 800)
-        
-    }
-    }}
-}
-
-melee(){
-    if(this.world.keyboard.S){
-        this.action = true;
-        this.state = 'finAttack';
-        this.currentImage = 0;
-        if(!this.animated){
-        this.playAnimationOnce(this.stateImages.finAttack);
-        setTimeout(()=>{
-            this.addMelee();
-            this.action = false;
-        }, 800)
+    bubble() {
+        if (this.world.keyboard.A && !this.action) {
+            if (this.world.poisonBar.percentage > 10) {
+                this.action = true;
+                this.state = 'bubble';
+                this.currentImage = 0;
+                if (!this.animated) {
+                    this.playAnimationOnce(this.stateImages.bubble);
+                    setTimeout(() => {
+                        this.addBubble();
+                        this.action = false;
+                    }, 800)
+                }
+            }
         }
     }
+
+
+    melee() {
+        if (this.world.keyboard.S) {
+            this.action = true;
+            this.state = 'finAttack';
+            this.currentImage = 0;
+            if (!this.animated) {
+                this.playAnimationOnce(this.stateImages.finAttack);
+                setTimeout(() => {
+                    this.addMelee();
+                    this.action = false;
+                }, 800)
+            }
+        }
     }
 
 
     goRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.x += this.speed;
-            this.otherDirection = false; 
+            this.otherDirection = false;
         }
     }
 
@@ -304,14 +317,20 @@ melee(){
         this.idleTrigger = false;
     }
 
-addBubble(){
-    
-    this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
-}
+    addBubble() {
+        this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
+    }
 
-addMelee(){
-    this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height));
-}
+    addMelee() {
+        this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height));
+        setTimeout(() => {
+            this.removeMelee();
+        }, 500)
+    }
+
+    removeMelee() {
+        this.world.meleeAtk = [];
+    }
 
     /**clears all intervals */
     stopAnimation() {

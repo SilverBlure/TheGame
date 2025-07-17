@@ -7,7 +7,7 @@ class DrawableObject{
     width = 100;
     currentImage = 0;
     imageCache = {};
-    mode = "Dev";
+    mode = 'game';
     
     /**load images */
     loadImage(path) {
@@ -23,12 +23,12 @@ class DrawableObject{
     /**draw collider frame on canvas */
     drawFrame(ctx) {
         if(this.mode === 'Dev'){
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen
+        if (this instanceof Character || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen || this instanceof Jellyfish
         ) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';
             ctx.strokeStyle = 'blue';
-            if (this instanceof Character || this instanceof Endboss || this instanceof Pufferfish || this instanceof FinAttack){
+            if (this instanceof Character || this instanceof Endboss || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Jellyfish){
                 let collider = this.getCollider();
                 ctx.rect(collider.x, collider.y, collider.width, collider.height); // set the frame nearer to character
                 ctx.strokeStyle= "red";

@@ -33,6 +33,17 @@ class Jellyfish extends MovableObject {
     this.firstSetup();
   }
 
+  getCollider(){
+    return {
+      x: this.x,
+      y: this.y + 10,
+      width: this.width,
+      height: this.height -15,
+    } 
+  }
+
+
+
   /**animating jellyfish */
   animate() {
     this.floating();

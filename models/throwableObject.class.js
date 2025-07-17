@@ -36,6 +36,7 @@ class ThrowableObject extends MovableObject {
 
 /**throw poison bubble, from player position */
     throw(x, y) {
+        this.soundcheck();
         this.x = x
         this.y = y;
         this.speedY = 30;

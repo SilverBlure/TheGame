@@ -12,13 +12,11 @@ constructor(x, y, char_width, char_height) {
     this.loadImage('assets/3.Background/Mesa de trabajo 1.png');
     this.pos_x = x;
     this.pos_y = y;
-    
     this.x = x + char_width;  // Position direkt rechts vom Charakter
     this.y = y;              // Gleiche y-Position wie der Charakter
     this.width = 100;         // Länge der Hitbox nach rechts
     this.height = char_height; // gleiche Höhe wie der Charakter
-    console.log('finAttack');
-   
+    
 }
 
     /**collider of the fin attack */
