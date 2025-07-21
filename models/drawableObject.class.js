@@ -34,7 +34,7 @@ class DrawableObject{
                 ctx.strokeStyle= "red";
                 ctx.lineWidth = "4";
                 ctx.stroke();
-            }else {
+            } else {
             ctx.rect(this.x, this.y, this.width, this.height); // set the frame arround the image, for better colider
         }
             ctx.stroke();

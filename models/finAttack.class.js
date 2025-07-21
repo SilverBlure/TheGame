@@ -9,7 +9,7 @@ char_height;
 
 constructor(x, y, char_width, char_height) {
     super();
-    this.loadImage('assets/3.Background/Mesa de trabajo 1.png');
+    this.loadImage('assets/6.Botones/leerbild.png');
     this.pos_x = x;
     this.pos_y = y;
     this.x = x + char_width;  // Position direkt rechts vom Charakter
@@ -28,11 +28,6 @@ constructor(x, y, char_width, char_height) {
             height: 50,
         };
     }
-
-    
-    
-
-
 
     
 }

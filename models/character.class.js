@@ -174,10 +174,11 @@ class Character extends MovableObject {
         this.loopIntervalID = setInterval(() => {
             if (this.animation >= 3) {
                 this.dead();
-                this.move();
+                
                 this.hurt();
 
                 if (!this.action) {
+                    this.move();
                     this.bubble();
                     this.melee();
                     this.idle();
