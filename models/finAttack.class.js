@@ -7,7 +7,7 @@ pos_y;
 char_with;
 char_height;
 
-constructor(x, y, char_width, char_height) {
+constructor(x, y, char_width, char_height, ) {
     super();
     this.loadImage('assets/6.Botones/leerbild.png');
     this.pos_x = x;
@@ -16,7 +16,6 @@ constructor(x, y, char_width, char_height) {
     this.y = y;              // Gleiche y-Position wie der Charakter
     this.width = 100;         // Länge der Hitbox nach rechts
     this.height = char_height; // gleiche Höhe wie der Charakter
-    
 }
 
     /**collider of the fin attack */

@@ -135,7 +135,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.setStates();
         this.action = false;
-        this.sound = new Audio('assets/sounds/characterWhip.wav');
+        this.sound = new Audio('assets/sounds/characterWhip.mp3');
         this.animate();
     }
 
@@ -292,10 +292,14 @@ class Character extends MovableObject {
             this.action = true;
             this.state = 'finAttack';
             this.currentImage = 0;
+            if(this.world.sound.state){
+                        this.sound.play();
+                    }
             if (!this.animated) {
                 this.playAnimationOnce(this.stateImages.finAttack);
                 setTimeout(() => {
                     this.addMelee();
+                    
                     this.action = false;
                 }, 800)
             }
@@ -343,7 +347,7 @@ class Character extends MovableObject {
     }
 /**add the Melee attack to the Screen */
     addMelee() {
-        this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height));
+        this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height, this.world));
         setTimeout(() => {
             this.removeMelee();
         }, 500)

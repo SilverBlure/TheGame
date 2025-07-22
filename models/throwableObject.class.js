@@ -24,19 +24,16 @@ class ThrowableObject extends MovableObject {
         this.oldX = this.x + 180;
         this.world = world;
         this.sound = new Audio('assets/sounds/BubbleShot.wav');
-        this.soundcheck();
+        if (this.world.sound.state){
+        this.sound.play();
+        }
+        
     }
     
-    /**play sound */
-    soundcheck(){
-        if(this.world.sound.state){
-            this.sound.play();
-        }
-    }
-
+    
 /**throw poison bubble, from player position */
     throw(x, y) {
-        this.soundcheck();
+        
         this.x = x
         this.y = y;
         this.speedY = 30;

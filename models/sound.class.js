@@ -4,7 +4,7 @@
 class SoundButton extends MovableObject {
 
 
-    state = null;
+    state = 'false';
 
     SOUND_IMAGES = ['GUI/volumeOff.svg',
         'GUI/volumeOn.svg'];
