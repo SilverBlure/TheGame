@@ -181,7 +181,6 @@ this.intro = true;
       this.x = 2550;
       this.attackCooldown = false;
       this.chooseNewHeight();
-      console.log('newheight');
       this.state = 'stay';
     }
   }
