@@ -65,7 +65,7 @@ class Endboss extends MovableObject {
     "assets/2Enemy/3FinalEnemy/Hurt/4.png",
   ];
 
-  
+
 
   constructor() {
     super();
@@ -75,21 +75,31 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_DEAD);
     this.loadImages(this.ENDBOSS_HURT);
     this.loadImages(this.ENDBOSS_ATTACK);
+    this.setStates();
+    this.action = false;
+    this.time = new Date().getTime();
+    
   }
-/**
- * starting endboss interval
- */
+
+/**setImages with token */
+  setStates() {
+    this.stateImages = {
+      hurt: this.ENDBOSS_HURT,
+      dead: this.ENDBOSS_DEAD,
+      intro: this.ENDBOSS_INTRODUCE,
+      attack: this.ENDBOSS_ATTACK,
+      stay: this.ENDBOSS_STAY,
+    }
+  }
+
+  /**
+   * starting endboss interval
+   */
   run() {
     const interval = setInterval(() => {
+
       if (!this.intro) {
-        this.intro = true;
-        this.playAnimationOnce(this.ENDBOSS_INTRODUCE);
-        setTimeout(() => {
-          this.y = 0;
-        }, 100);
-        setTimeout(() => {
-          this.state = 'idle';
-        }, 1500);
+        this.introduction();
       }
 
       this.animate();
@@ -99,52 +109,84 @@ class Endboss extends MovableObject {
     }, 50);
   }
 
-  /**start animation an state */
+  /**animate function  */
   animate() {
+    this.dead();
+    this.hurt();
+    this.stateBahavor();
+  }
+
+/**state switch */
+  stateBahavor() {
+    if (this.state == 'hurt') {
+      this.playAnimation(this.stateImages.hurt);
+    }
+    if (this.state == 'stay') {
+      this.playAnimation(this.stateImages.stay);
+      this.moveToTargetY();
+      this.tryStartAttack();
+    }
     
-    if (this.isDead()) {
-      if (this.state !== 'dead') {
-        this.state = 'dead';
-        this.playAnimationOnce(this.ENDBOSS_DEAD);
-      }
-      return;
+    if (this.state == 'attack') {
+       this.playAnimation(this.stateImages.attack);
+       this.attackMove();
     }
-
-    if (this.attackCooldown && this.state === "hurt") return this.state = 'return';
-
-    if (this.isHurt() && !this.hurtPlaying && this.state !== 'dead') {
-      this.hurtPlaying = true;
-      const previousState = this.state;
-      this.state = 'hurt';
-      this.currentImage = 0;
-      this.playAnimationOnce(this.ENDBOSS_HURT, () => {
-        this.state = previousState === 'attack' || previousState === 'return' ? 'idle' : previousState;
-        this.hurtPlaying = false;
-      });
-
-      return;
-    }
-
-    switch (this.state) {
-      case 'idle':
-        this.playAnimation(this.ENDBOSS_STAY);
-        this.moveToTargetY();
-        this.tryStartAttack();
-        break;
-      case 'attack':
-        this.attackMove();
-        this.playAnimation(this.ENDBOSS_ATTACK);
-        break;
-      case 'return':
+    if (this.state == 'return') {
+      this.playAnimation(this.stateImages.stay)
         this.returnToPosition();
-        break;
-      case 'homing':
-        this.homing();
-        break;
     }
   }
 
-/**going to target on the y achsis */
+  /**moves the Endboss to the gebinning position */
+  introduction(){
+this.intro = true;
+        this.playAnimationOnce(this.ENDBOSS_INTRODUCE);
+        setTimeout(() => {
+          this.y = 0;
+        }, 100);
+        setTimeout(() => {
+          this.animationeDone = true;
+          this.state = 'stay';
+        }, 1500);
+      }
+
+  
+
+/**dead shifter */
+  dead() {
+    if (this.isDead()) {
+      this.action = 'true';
+      if (!this.animated) {
+        this.playAnimationOnce(this.stateImages.dead);
+        clearInterval(this.loopIntervalID);
+      }
+    }
+  }
+/**hurt shifter */
+  hurt() {
+    if (this.isHurt()) {
+      this.state = 'hurt';
+      setTimeout(() => {
+          this.state = 'return';
+      }, 1600);
+    } 
+  }
+
+
+  /**back to beginin possition */
+   returnToPosition(){
+    if (this.x < 2550) {
+      this.x += 20;
+    } else {
+      this.x = 2550;
+      this.attackCooldown = false;
+      this.chooseNewHeight();
+      console.log('newheight');
+      this.state = 'stay';
+    }
+  }
+
+  /**going to target on the y achsis */
   moveToTargetY() {
     const diff = this.currentTargetY - this.y;
     if (Math.abs(diff) > 5) {
@@ -173,18 +215,6 @@ class Endboss extends MovableObject {
     }
   }
 
-  /**back to beginin possition */
-  returnToPosition() {
-    if (this.x < 2550) {
-      this.x += 20;
-    } else {
-      this.x = 2550;
-      this.attackCooldown = false;
-      this.chooseNewHeight();
-      this.state = 'idle';
-    }
-  }
-
   /**random height  */
   chooseNewHeight() {
     const idx = Math.floor(Math.random() * this.idleHeights.length);
@@ -195,10 +225,10 @@ class Endboss extends MovableObject {
   getCollider() {
     return {
       x: this.x + 10,
-      y: this.y + 100,
+      y: this.y + 140,
       width: this.width - 40,
-      height: this.height - 120
-    };
+      height: this.height - 190
+    }
   }
 
 

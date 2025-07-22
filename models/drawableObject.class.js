@@ -7,7 +7,7 @@ class DrawableObject{
     width = 100;
     currentImage = 0;
     imageCache = {};
-    mode = 'game';
+    mode = 'Game';
     
     /**load images */
     loadImage(path) {
@@ -23,7 +23,7 @@ class DrawableObject{
     /**draw collider frame on canvas */
     drawFrame(ctx) {
         if(this.mode === 'Dev'){
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen || this instanceof Jellyfish
+        if (this instanceof Character || this instanceof Pufferfish || this instanceof ThrowableObject|| this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen || this instanceof Jellyfish
         ) { //asks if it is a Instance of Character, Enemie or Endboss
             ctx.beginPath();
             ctx.lineWidth = '4';

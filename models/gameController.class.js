@@ -161,7 +161,6 @@ checkButtons() {
   }
 
 
-
   informationTemplate() {
     this.toggleOverflow();
     return ` <div id="help" class="infoBlock">
@@ -191,8 +190,8 @@ checkButtons() {
             </table>
           </div>
           <div class="containerClose">
-          <button class="cleanButton">
-            <h1 onclick="game.toggleDialogBg(), game.toggleOverflow()" class="close">  Back </h1>
+          <button class="cleanButton" onclick="game.toggleDialogBg(), game.toggleOverflow()"                        >
+            <h1  class="close">  Back </h1>
             </button>
             </div>
         </div>`;

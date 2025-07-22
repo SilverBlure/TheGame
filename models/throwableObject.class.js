@@ -56,5 +56,17 @@ class ThrowableObject extends MovableObject {
             };
         }, 50);
     }
+    
+
+
+getCollider() {
+    return {
+      x: this.x ,
+      y: this.y ,
+      width: this.width ,
+      height: this.height
+    }
+  }
+
 
 }

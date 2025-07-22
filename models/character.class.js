@@ -139,7 +139,7 @@ class Character extends MovableObject {
         this.animate();
     }
 
-
+/**setImages with token */
     setStates() {
         this.stateImages = {
             swim: this.IMAGES_SWIM,
@@ -147,7 +147,8 @@ class Character extends MovableObject {
             hurt: this.IMAGES_HURT_POISON,
             dead: this.IMAGES_DEAD_POISON,
             finAttack: this.FIN_MELEE_HIT,
-            bubble: this.IMAGES_ATTACK_BUBBLE_ANIMATION
+            bubble: this.IMAGES_ATTACK_BUBBLE_ANIMATION,
+            sleep: this.IMAGES_IDLE_SLEEP,
         };
     }
 
@@ -174,7 +175,6 @@ class Character extends MovableObject {
         this.loopIntervalID = setInterval(() => {
             if (this.animation >= 3) {
                 this.dead();
-                
                 this.hurt();
 
                 if (!this.action) {
@@ -182,6 +182,7 @@ class Character extends MovableObject {
                     this.bubble();
                     this.melee();
                     this.idle();
+
                     this.stateBahavor();
                     this.animation = 0;
                 }
@@ -201,7 +202,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
-
+    /**State Switch */
     stateBahavor() {
         if (this.state == 'hurt') {
             this.playAnimation(this.stateImages.hurt);
@@ -212,8 +213,12 @@ class Character extends MovableObject {
         if (this.state == 'swim') {
             this.playAnimation(this.stateImages.swim);
         }
+        if (this.state == 'sleep') {
+            this.playAnimation(this.stateImages.sleep);
+        }
     }
 
+    /**Movement Handler */
     handleMovementInputs() {
         this.goRight();
         this.goLeft();
@@ -221,37 +226,49 @@ class Character extends MovableObject {
         this.goDown();
     }
 
+    /**Hurt shifter */
     hurt() {
         if (this.isHurt()) {
             this.state = 'hurt';
         }
     }
 
+    /**IDLE Shifter  */
     idle() {
         if (this.isHurt()) {
             this.state = 'hurt';
+        } else if (this.idleTrigger) {
+
+            this.sleep();
+
         } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.DOWN && !this.world.keyboard.UP && !this.world.keyboard.A && !this.world.keyboard.S && !this.action) {
             this.state = 'idle';
         }
     }
-
+    /**movement switch with keyboard inputs */
     move() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
             this.state = 'swim';
             this.handleMovementInputs();
         }
     }
-
-dead(){
-        if(this.isDead()){
+    /**dead shifter */
+    dead() {
+        if (this.isDead()) {
             this.action = 'true';
-            if(!this.animated){
-            this.playAnimationOnce(this.stateImages.dead);
-            clearInterval(this.loopIntervalID);
+            if (!this.animated) {
+                this.playAnimationOnce(this.stateImages.dead);
+                clearInterval(this.loopIntervalID);
             }
         }
     }
+    /**sleep shifter */
+    sleep() {
+        this.state = 'sleep';
+    }
 
+
+/**Bubble attack */
     bubble() {
         if (this.world.keyboard.A && !this.action) {
             if (this.world.poisonBar.percentage > 10) {
@@ -269,7 +286,7 @@ dead(){
         }
     }
 
-
+/**Melee attack */
     melee() {
         if (this.world.keyboard.S) {
             this.action = true;
@@ -285,13 +302,14 @@ dead(){
         }
     }
 
-
+/**function for going Right */
     goRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.x += this.speed;
             this.otherDirection = false;
         }
     }
+/**function for going Left */
 
     goLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
@@ -299,12 +317,14 @@ dead(){
             this.otherDirection = true;
         }
     }
+/**function for going Up */
 
     goUp() {
         if (this.world.keyboard.UP && this.y > -70) {
             this.y -= this.speed;
         }
     }
+/**function for going Down */
 
     goDown() {
         if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
@@ -317,11 +337,11 @@ dead(){
         this.idleCounter = 0;
         this.idleTrigger = false;
     }
-
+/**add a Bubble to the Screen */
     addBubble() {
         this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
     }
-
+/**add the Melee attack to the Screen */
     addMelee() {
         this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height));
         setTimeout(() => {
@@ -329,6 +349,7 @@ dead(){
         }, 500)
     }
 
+    /**removes the Melee attack in the world array */
     removeMelee() {
         this.world.meleeAtk = [];
     }

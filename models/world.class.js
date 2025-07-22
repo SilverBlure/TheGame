@@ -122,6 +122,7 @@ class World {
    */
   finished() {
     if (this.endboss.isDead()) {
+      
       setTimeout(() => {
         this.onExit();
         this.resetBoss();
@@ -131,6 +132,7 @@ class World {
 
   /**reseting endboss values */
   resetBoss() {
+    this.endboss.x = 2550;
     this.endboss.y = -300;
     this.endboss.energy = 120;
     this.bossIntroPlayed = false;
@@ -144,6 +146,7 @@ class World {
    */
   tryAgain() {
     if (this.character.isDead()) {
+      
       if (this.sound.state) this.gameOverSound.play();
       this.state = 'gameOver';
     }
@@ -185,7 +188,7 @@ class World {
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
       let hit = false;
       this.enemies.forEach((enemy) => {
-        if (this.character.isCollidingWithTrowable(projectile, enemy)) {
+        if (this.character.isColliding(projectile, enemy)) {
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
@@ -255,6 +258,7 @@ class World {
       this.addToMap(this.mobileController);
     }
     if (this.state === "gameOver") {
+      this.audioBGMusik.pause();
       this.addToMap(this.gameOver);
     }
     if (this.endboss.isDead()) {
@@ -291,8 +295,6 @@ class World {
       this.frameCounter = 0;
     }
   }
-
-
 
   /**
    * interval von pufferfish objects

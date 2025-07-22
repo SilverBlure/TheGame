@@ -32,11 +32,10 @@ class Menue {
     if (!this.active) {
       this.active = true;
       this.drawMenueButtons();
-
     }
   }
 
-
+/**draw the Menue Buttons */
   drawMenueButtons() {
     this.buttons.innerHTML = `
     <button class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>

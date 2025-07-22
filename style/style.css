@@ -21,6 +21,7 @@ canvas {
     height: 100%;
     display: block;
     object-fit: fill;
+    z-index: -10;
 
 }
 
@@ -62,8 +63,8 @@ canvas {
 
 .positionBottomRight {
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
 }
 
 .fullscreenButtonGame {
