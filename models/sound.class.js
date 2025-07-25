@@ -66,7 +66,6 @@ class SoundButton extends MovableObject {
     clickToggle() {
 
         let soundState = localStorage.getItem('sound');
-        console.log(soundState);
         if (soundState == 'true') {
             localStorage.setItem('sound', false);
             this.state = false;

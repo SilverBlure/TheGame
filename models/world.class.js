@@ -1,11 +1,6 @@
 class World {
   roundCounter = 0;
   ctx;
-  level = level1;
-  
-  enemies = level1.enemies;
-  lights = level1.lights;
-  backgroundObjects = level1.backgroundObjects;
   collectable = [
     new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 100, 320),
     new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 400, 320),
@@ -44,12 +39,16 @@ class World {
   audioBGMusik;
   flag = false;
 
-  constructor(canvas, keyboard, mouse, onExit, sound, fullScreen) {
+  constructor(canvas, keyboard, mouse, onExit, sound, fullScreen, level) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.mobileController = new MobileController(this.canvas);
     this.keyboard = keyboard;
-  
+   this.level = level;
+   this.enemies = level.enemies;
+
+  this.lights = level.lights;
+  this.backgroundObjects = level.backgroundObjects;
     this.mouse = mouse;
     this.sound = sound;
     this.fullScreen = fullScreen;
@@ -63,7 +62,7 @@ class World {
     this.enemyEndbossDead = new Audio('assets/sounds/win.wav')
     this.enemyEndbossHurt = new Audio('assets/sounds/bossHurtSound.mp3');
     this.gameOverSound = new Audio('assets/sounds/GameOver.mp3');
-    this.gameOver = new GameOver(this.canvas);
+    this.gameOver = new GameOver(this.canvas, this);
     this.win = new Image();
     this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
     this.setWorld();

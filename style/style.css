@@ -82,9 +82,6 @@ canvas {
 
 }
 
-.containerTable {
-    height: 0;
-}
 
 .inGameFullscreenBtn {
     right: 20px;
@@ -333,7 +330,7 @@ h3 {
     justify-content: center;
     flex-direction: column;
     width: 60vw;
-    border-radius: 86px;
+    border-radius: 36px;
     border: 2px solid white;
 }
 
@@ -346,8 +343,8 @@ h3 {
     margin: 0;
     display: flex;
     justify-content: center;
-
-
+    align-items: center;
+    height: 100vh;
 }
 
 .back {

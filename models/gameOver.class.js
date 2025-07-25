@@ -3,7 +3,7 @@ class GameOver extends DrawableObject {
     title;
     canvas
 
-    constructor(canvas) {
+    constructor(canvas , world) {
         super();
         this.canvas = canvas;
         this.title = new DrawableObject();
@@ -13,21 +13,12 @@ class GameOver extends DrawableObject {
         this.title.height = 180;
         this.title.x = (this.canvas.width / 2) - (this.title.width / 2);
         this.flag = false;
-
-        // this.try_again_button.y = 300;
-        // this.try_again_button.width = 160;
-        // this.try_again_button.heigth = 80;
-        // this.try_again_button.x = this.canvas.width / 2 - this.try_again_button.width /2 ;
-
-
+        this.world = world;
         this.doc = document.getElementById('buttons');
     }
 
     /**draw images on canvas */
     draw(ctx) {
-
-        
-            
             ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             this.title.draw(ctx);

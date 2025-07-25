@@ -103,7 +103,7 @@ class Endboss extends MovableObject {
       }
 
       this.animate();
-      if (this.isDead()) {
+      if (this.isDead() || this.world.character.isDead()) {
         clearInterval(interval);
       }
     }, 50);

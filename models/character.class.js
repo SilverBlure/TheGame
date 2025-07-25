@@ -16,6 +16,7 @@ class Character extends MovableObject {
     currentFrame = 0;
     loopIntervalID = null;
     animation = 0;
+    coolDown = false;
 
 
     IMAGES_SWIM = [
@@ -188,7 +189,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.idleCounter >= 600) {
+            if (this.idleCounter >= 2000) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
             }
@@ -270,9 +271,11 @@ class Character extends MovableObject {
 
 /**Bubble attack */
     bubble() {
-        if (this.world.keyboard.A && !this.action) {
+        if (this.world.keyboard.A && !this.action && !this.coolDown) {
             if (this.world.poisonBar.percentage > 10) {
+                this.world.poisonBar.decreasePoisonBar(10)
                 this.action = true;
+                this.coolDown = true;
                 this.state = 'bubble';
                 this.currentImage = 0;
                 if (!this.animated) {
@@ -280,10 +283,19 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.addBubble();
                         this.action = false;
+                        
                     }, 800)
                 }
-            }
+            } 
+            setTimeout(()=>{
+            this.coolDown = false;
+            console.log('Bubble is Ready!')
+
+        },2000)
         }
+
+       
+
     }
 
 /**Melee attack */
@@ -308,7 +320,7 @@ class Character extends MovableObject {
 
 /**function for going Right */
     goRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.x < 2700) {
             this.x += this.speed;
             this.otherDirection = false;
         }

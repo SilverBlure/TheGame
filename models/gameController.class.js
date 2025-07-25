@@ -30,10 +30,10 @@ class GameController {
 
 
 
-  checkLoop(){
-    setInterval(()=>{
-    this.checkLandscape(); 
-    },1000)
+  checkLoop() {
+    setInterval(() => {
+      this.checkLandscape();
+    }, 1000)
   }
 
   /**loading menue */
@@ -46,9 +46,9 @@ class GameController {
     this.resetCss();
   }
 
-resetCss(){
-  this.buttons.classList.replace('?','buttons');
-}
+  resetCss() {
+    this.buttons.classList.replace('?', 'buttons');
+  }
 
   showinformation() {
     this.dialogBG.classList.remove('d-none');
@@ -76,9 +76,10 @@ resetCss(){
 
   /**loading World */
   loadWorld() {
+    const level = createLevel1();
     this.world = new World(this.canvas, this.keyboard, this.mouse, () =>
       this.loadMenue()
-      , this.sound, this.fullscreen);
+      , this.sound, this.fullscreen, level);
     this.state = "game";
     this.addHideButton()
     this.activ = true;
@@ -97,7 +98,7 @@ resetCss(){
   }
 
 
-  
+
   checkLandscape() {
     if (this.isLandscapeMode()) {
       this.block.innerHTML = this.changeFormatTemplate();
@@ -109,7 +110,7 @@ resetCss(){
 
 
 
-checkButtons() {
+  checkButtons() {
     if (this.state === 'menue' && this.activ) {
       this.activ = false;
     } else if (this.state === 'game' && this.activ) {
@@ -122,6 +123,7 @@ checkButtons() {
 
   /**world reset funtion */
   resetGame() {
+    
     if (this.world) {
       if (typeof this.world.cleanUp === "function") {
         this.world.cleanUp();
@@ -148,13 +150,13 @@ checkButtons() {
 
   }
 
- toggleDialogBg(){
-  this.dialogBG.classList.toggle('d-none');
- }
+  toggleDialogBg() {
+    this.dialogBG.classList.toggle('d-none');
+  }
 
- toggleOverflow(){
-  document.getElementById('body').classList.toggle('overflow');
- }
+  toggleOverflow() {
+    document.getElementById('body').classList.toggle('overflow');
+  }
 
   changeFormatTemplate() {
     return `<img class="blockImg" src="./GUI/Please_Landscape.png">`
@@ -163,7 +165,7 @@ checkButtons() {
 
   informationTemplate() {
     this.toggleOverflow();
-    return ` <div id="help" class="infoBlock">
+    return ` <div id="help" class="infoBlock" onclick="game.toggleDialogBg(), game.toggleOverflow()">
           <div class="containerTable">
             <table>
                 <tr>
@@ -189,13 +191,41 @@ checkButtons() {
                 </tr>
             </table>
           </div>
-          <div class="containerClose">
-          <button class="cleanButton" onclick="game.toggleDialogBg(), game.toggleOverflow()"                        >
-            <h1  class="close">  Back </h1>
-            </button>
-            </div>
         </div>`;
   }
 
+  impressumTemplate() {
+    this.toggleDialogBg();
+    document.getElementById('dialogBlock').innerHTML = `<div class="centerText" onclick="game.toggleDialogBg(), game.toggleOverflow()">
+        <div class="divImpressum">
+            <h1 class="impressum" headline id="headline">Sharky the Game</h1>
+
+            <h2>Impressum</h2><br>
+
+            <h3>Angaben gemäß § 5 TMG und § 55 Abs. 2 RStV:</h3>
+
+            <p class="impressumContent">Nicolai Oesterle<br>
+                Logauweg 117<br>
+                89075 Ulm<br>
+                Deutschland<br>
+                <br>
+                E-Mail: oesterle.ni@Schaefferchen.org<br>
+                <br>
+                Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
+                Nicolai Oesterle<br>
+                Logauweg 117<br>
+                89075 Ulm<br>
+                <br>
+                Haftungsausschluss:<br>
+                Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung für die Inhalte externer
+                Links.<br>Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich.<br>
+                <br>
+                Hinweis zu Spenden:<br>
+                Diese Seite wird auf freiwilliger Basis betrieben. <br>Zur Unterstützung meiner Arbeit nehme ich Spenden
+                entgegen. <br>Spenden stellen keine Gegenleistung dar und begründen kein Vertragsverhältnis.
+            </p></span>
+        </div>
+    </div>`
+  }
 
 }

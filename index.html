@@ -22,7 +22,6 @@
     <script src="./models/menue.class.js"></script>
     <script src="./models/startGame.class.js"></script>
     <script src="./models/coin.class.js"></script>
-    
     <script src="./models/pufferfish.class.js"></script>
     <script src="./models/jellyfish.class.js"></script>
     <script src="./models/light.class.js"></script>
@@ -43,6 +42,7 @@
 
 <body id="body" onload="init()">
     <portraitBlock class="blockPortrait d-none" id="portraitBlock"></portraitBlock>
+    
     <dialogBG class="blockBg d-none" id="dialogBlock"></dialogBg>
         
     <div class="orga">
@@ -71,7 +71,7 @@
         </div>
 
         <footer class="impressum marTo24">
-            <a class="pointer cleanLink" href="./impressum.html">Impressum</a>
+            <a class="pointer cleanLink" onclick="game.impressumTemplate()">Impressum</a>
 
         </footer>
     </div>

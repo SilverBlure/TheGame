@@ -1,8 +1,9 @@
-const level1 = new Level(
+function createLevel1(){
+return new Level(
     [
-        new Pufferfish(this),
-        new Pufferfish(this),
-        new Pufferfish(this),
+        new Pufferfish(),
+        new Pufferfish(),
+        new Pufferfish(),
         new Jellyfish(),
         new Jellyfish(),
         new Jellyfish(),
@@ -41,4 +42,4 @@ const level1 = new Level(
     new Background('assets/3.Background/Layers/4.Fondo 2/D1.png',720*4,0),
     new Background('assets/3.Background/Layers/3.Fondo 1/D1.png',720*4,0),
     new Background('assets/3.Background/Layers/2. Floor/D1.png',720*4,0), 
-]);
+])};
