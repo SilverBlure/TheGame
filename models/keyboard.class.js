@@ -11,10 +11,4 @@ class Keyboard {
     P = false; //keycode 
 
 
-
-
-
-
-
-
 }
