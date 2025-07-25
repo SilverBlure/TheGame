@@ -17,7 +17,7 @@ class SoundButton extends MovableObject {
     constructor() {
         super();
         this.soundImg = document.getElementById('sound');
-        this.startSequence();
+        this.init();
 
     }
 
@@ -25,9 +25,10 @@ class SoundButton extends MovableObject {
     /**
      * Method to check sound from local storage, and set
      */
-    startSequence() {
+    init() {
         this.checkRegister();
-        this.checkState();
+        this.checkImgState();
+        this.setState();
     }
 
     /**
@@ -40,10 +41,16 @@ class SoundButton extends MovableObject {
 
     }
 
+    setState() {
+        this.state = localStorage.getItem('sound');
+
+
+    }
+
     /**
      * Checks the state, and set the icon
      */
-    checkState() {
+    checkImgState() {
 
         let soundState = localStorage.getItem('sound');
         if (soundState == 'true') {
@@ -67,16 +74,25 @@ class SoundButton extends MovableObject {
 
         let soundState = localStorage.getItem('sound');
         if (soundState == 'true') {
-            localStorage.setItem('sound', false);
-            this.state = false;
+            localStorage.setItem('sound', 'false');
+            this.state = 'false';
         } else if (soundState == 'false') {
-            localStorage.setItem('sound', true);
-            this.state = true;
+            localStorage.setItem('sound', 'true');
+            this.state = 'true';
         }
-        this.checkState();
+        this.checkGameState();
+        this.checkImgState();
     }
 
-
+    checkGameState() {
+        if (this.state == 'true') {
+            if (game.state == 'game') {
+                game.world.audioBGMusik.play();
+            }
+        } else if (this.state = 'false'){
+            game.world.audioBGMusik.pause();
+        }
+    }
 
 
 

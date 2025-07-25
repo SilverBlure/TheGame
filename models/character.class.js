@@ -304,7 +304,7 @@ class Character extends MovableObject {
             this.action = true;
             this.state = 'finAttack';
             this.currentImage = 0;
-            if(this.world.sound.state){
+            if(this.world.sound.state == 'true'){
                         this.sound.play();
                     }
             if (!this.animated) {

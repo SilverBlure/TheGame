@@ -46,11 +46,11 @@ class World {
     this.keyboard = keyboard;
    this.level = level;
    this.enemies = level.enemies;
-
   this.lights = level.lights;
   this.backgroundObjects = level.backgroundObjects;
     this.mouse = mouse;
     this.sound = sound;
+
     this.fullScreen = fullScreen;
     this.character.setWorld(this);
     this.audioBGMusik = new Audio('assets/sounds/gameBGMusic.wav');
@@ -72,6 +72,7 @@ class World {
     this.tryAgainImage = new Image();
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
     this.checkDevice();
+    this.checkAudio();
 
   }
 
@@ -89,11 +90,9 @@ class World {
 
   /**check audio if play or not */
   checkAudio() {
-    if (this.sound.state == false || this.endboss.isDead()) {
-      this.audioBGMusik.pause();
-    } else if (this.sound.state == true) {
+    if (this.sound.state == 'true') {
+      console.log('Play BgSound')
       this.audioBGMusik.play();
-
       this.audioBGMusik.addEventListener('timeupdate', function () {
         var buffer = .60
         if (this.currentTime > this.duration - buffer) {
@@ -146,7 +145,7 @@ class World {
   tryAgain() {
     if (this.character.isDead()) {
       
-      if (this.sound.state) this.gameOverSound.play();
+      if (this.sound.state == 'true') this.gameOverSound.play();
       this.state = 'gameOver';
     }
   }
@@ -168,10 +167,10 @@ class World {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
-          if (this.sound.state) this.soundGlasBroke.play();
+          if (this.sound.state == 'true') this.soundGlasBroke.play();
           this.poisonBar.addPoison(20);
         } else if (obj instanceof Coin) {
-          if (this.sound.state) this.soundCoinSound.play();
+          if (this.sound.state == 'true') this.soundCoinSound.play();
           this.coinBar.addCoin(20);
         }
         return false;
@@ -191,13 +190,13 @@ class World {
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
-            if (this.sound.state) this.pufferfishHurt.play();
+            if (this.sound.state == 'true') this.pufferfishHurt.play();
           }
           if (enemy instanceof Endboss) {
-            if (this.sound.state) this.enemyEndbossHurt.play();
+            if (this.sound.state == 'true') this.enemyEndbossHurt.play();
           }
           if (this.endboss.isDead() && enemy instanceof Endboss) {
-            if (this.sound.state) this.enemyEndbossDead.play();
+            if (this.sound.state == 'true') this.enemyEndbossDead.play();
           }
         }
       });
@@ -283,7 +282,6 @@ class World {
     this.reSpawnEnemie();
     this.stopProjectile();
     this.checkCollisionFinSlap();
-    this.checkAudio();
     //#######Enemy Intervale#######
     if (!this.bossStart) {
       this.endbossInterval();

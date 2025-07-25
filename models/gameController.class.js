@@ -9,7 +9,7 @@ class GameController {
   state = "menue";
   firstLoad = true;
   device = null;
-  sound = new SoundButton();
+  sound = new SoundButton(this);
   switched = null;
 
   constructor(canvas, ctx, mouse, keyboard,) {
