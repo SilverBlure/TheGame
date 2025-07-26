@@ -7,6 +7,13 @@ pos_y;
 char_with;
 char_height;
 
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {number} char_width 
+ * @param {number} char_height 
+ */
 constructor(x, y, char_width, char_height, ) {
     super();
     this.loadImage('assets/6.Botones/leerbild.png');

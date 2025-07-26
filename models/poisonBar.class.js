@@ -21,19 +21,30 @@ class PoisonBar extends DrawableObject {
         this.percentage = 1;
         
     }
-    /**set Percentage vor right image */
+
+    /**
+     * set Persentage 
+     * @param {number} percentage 
+     */   
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.poisonBar[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
-    /**decreases the value of poison  */
+
+    /**
+     * decreases the PoisonBar
+     * @param {number} value 
+     */
     decreasePoisonBar(value){
         this.percentage = this.percentage - value;
         this.setPercentage(this.percentage);
     }
 
-    /**incraese poison */
+    /**
+     * addPoison 
+     * @param {number} amount 
+     */
     addPoison(amount){
         this.percentage = Math.min(100, this.percentage + amount);
         this.setPercentage(this.percentage);

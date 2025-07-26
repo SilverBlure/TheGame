@@ -32,7 +32,12 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  /**is coliding with other colider if is true otherwise with width and hight */
+  /**
+   * is coliding with other colider if is true otherwise with width and hight
+   * @param {object} character 
+   * @param {object} mo 
+   * @returns 
+   */
   isColliding(character, mo) {
     let collider1, collider2;
     if(typeof character.getCollider === 'function') 
@@ -55,7 +60,10 @@ class MovableObject extends DrawableObject {
     this.x -= this.speed;
   }
 
-  /**playsAnimation if is in a loop */
+  /**
+   * playsAnimation if is in a loop
+   * @param {array} imageArr 
+   */
   playAnimation(imageArr) {
     let i = this.currentImage % imageArr.length;
     let path = imageArr[i];
@@ -63,7 +71,10 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
-  /**plays animation once  */
+  /**
+   * plays animation once
+   * @param {Array} imageArr 
+   */
   playAnimationOnce(imageArr) {
     this.animated = true;
     let movementInterval = setInterval(() => {
@@ -78,7 +89,10 @@ class MovableObject extends DrawableObject {
     }, 100);
   }
 
-  /**give a character or npc damage */
+  /**
+   * give a character or npc damage
+   * @param {number} value 
+   */
   hit(value) {
     this.energy -= value;
     if (this.energy < 0) {

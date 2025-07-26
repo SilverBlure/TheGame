@@ -12,6 +12,11 @@ class Fullscreen extends DrawableObject {
     World_FULLSCREEN_IMG = ['GUI/ClosefullscreenInGame.svg',
         'GUI/ClosefullscreenInGame.svg']
 
+
+    /**
+     * 
+     * @param {object} canvas 
+     */
     constructor(canvas) {
         super();
         this.loadImages(this.Menue_FULLSCREEN_IMG);
@@ -26,7 +31,7 @@ class Fullscreen extends DrawableObject {
     checkMode(state) {
         if (state === "menue") {
             this.img = this.imageCache[this.Menue_FULLSCREEN_IMG[0]];
-           this.height = 80;
+            this.height = 80;
             this.width = 200;
             this.x = canvas.width / 2 - this.width / 2;
             this.y = 200;
@@ -43,7 +48,7 @@ class Fullscreen extends DrawableObject {
         }
     }
 
-    
+
 
 
 

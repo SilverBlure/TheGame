@@ -1,22 +1,7 @@
 class World {
   roundCounter = 0;
   ctx;
-  collectable = [
-    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 100, 320),
-    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 400, 320),
-    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 700, 320),
-    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 1200, 320),
-    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 2100, 320),
-    new Coin("assets/4.Marcadores/1.Coins/1.png", 100, 320),
-    new Coin("assets/4.Marcadores/1.Coins/1.png", 550, 320),
-    new Coin("assets/4.Marcadores/1.Coins/1.png", 300, 320),
-    new Coin("assets/4.Marcadores/1.Coins/1.png", 2200, 320),
-    new Coin("assets/4.Marcadores/1.Coins/1.png", 850, 320),
-  ];
-  world;
   camera_x = 0;
-  keyboard;
-  mouse;
   character = new Character();
   statusBar = new StatusBar();
   poisonBar = new PoisonBar();
@@ -27,30 +12,36 @@ class World {
   intervalIdCollection = [];
   requestAnimationFrameID;
   bossStart = false;
-  endboss;
-  audio;
-  device;
   state = null;
   now = 0;
   sound;
   buttons = document.getElementById('buttons');
   frameCounter = 0;
-  soundGlasBroke;
   audioBGMusik;
   flag = false;
-
+  
+  /**
+   * @constuctor
+   * @param {object} canvas 
+   * @param {object} keyboard 
+   * @param {object} mouse 
+   * @param {function} onExit 
+   * @param {object} sound 
+   * @param {object} fullScreen 
+   * @param {object} level 
+   */
   constructor(canvas, keyboard, mouse, onExit, sound, fullScreen, level) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.mobileController = new MobileController(this.canvas);
     this.keyboard = keyboard;
-   this.level = level;
-   this.enemies = level.enemies;
-  this.lights = level.lights;
-  this.backgroundObjects = level.backgroundObjects;
+    this.level = level;
+    this.enemies = level.enemies;
+    this.lights = level.lights;
+    this.backgroundObjects = level.backgroundObjects;
     this.mouse = mouse;
     this.sound = sound;
-
+    this.collectable = level.collectable;
     this.fullScreen = fullScreen;
     this.character.setWorld(this);
     this.audioBGMusik = new Audio('assets/sounds/gameBGMusic.wav');
@@ -73,7 +64,6 @@ class World {
     this.tryAgainImage.src = "assets/6.Botones/Try again/Recurso 15.png";
     this.checkDevice();
     this.checkAudio();
-
   }
 
   /**set device state if is mobile*/
@@ -114,13 +104,11 @@ class World {
     this.character.world = this;
   }
 
-
   /**
    * calls exit function, change gamestate
    */
   finished() {
     if (this.endboss.isDead()) {
-      
       setTimeout(() => {
         this.onExit();
         this.resetBoss();
@@ -138,13 +126,11 @@ class World {
     this.endboss.intro = false;
   }
 
-
   /**
    * changing gamestate if character dead
    */
   tryAgain() {
     if (this.character.isDead()) {
-      
       if (this.sound.state == 'true') this.gameOverSound.play();
       this.state = 'gameOver';
     }
@@ -233,13 +219,11 @@ class World {
   /**
    * draw function draws objects on canvas
    */
-  draw() {    
+  draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.backgroundObjects);
-    //--------Space for FixObjects---------//
     this.ctx.translate(-this.camera_x, 0);
-
     this.addToMap(this.statusBar);
     this.addToMap(this.poisonBar);
     this.addToMap(this.coinBar);
@@ -252,7 +236,6 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
     this.fullScreen.checkMode('game');
     if (this.device === "mobile") {
-
       this.addToMap(this.mobileController);
     }
     if (this.state === "gameOver") {
@@ -269,9 +252,7 @@ class World {
    * update function calls more checks
    */
   update() {
-
     this.frameCounter++
-    //#######CollisionsAbfragen######
     this.checkCharacterEnemyCollision();
     this.checkProjectileEnemyCollision();
     this.checkCharacterCollectablesCollision();
@@ -282,7 +263,6 @@ class World {
     this.reSpawnEnemie();
     this.stopProjectile();
     this.checkCollisionFinSlap();
-    //#######Enemy Intervale#######
     if (!this.bossStart) {
       this.endbossInterval();
     }
@@ -410,26 +390,5 @@ class World {
       this.bossStart = true;
     }
   }
-
-  /**check if colliding mouse with button pos */
-  collisionWithButton(button, x, y) {
-    if (x !== undefined && y !== undefined) {
-      this.mouse.pos_x = x;
-      this.mouse.pos_y = y;
-    }
-    if (
-      this.mouse.pos_x > button.x &&
-      this.mouse.pos_x < button.x + button.width &&
-      this.mouse.pos_y > button.y &&
-      this.mouse.pos_y < button.y + button.height
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-
-
-
 
 }

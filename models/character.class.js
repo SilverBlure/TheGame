@@ -123,7 +123,8 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Fin slap/7.png',
         'assets/1.Sharkie/4.Attack/Fin slap/8.png',
     ]
-
+    
+/**constructor */
     constructor() {
         super();
         this.loadImage('assets/1.Sharkie/3.Swim/1.png');

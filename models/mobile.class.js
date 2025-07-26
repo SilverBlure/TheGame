@@ -4,7 +4,10 @@ D_PAD;
 A_BUTTON;
 MELEE_BUTTON;
 
-
+    /**
+     * 
+     * @param {object} canvas 
+     */
     constructor(canvas){
         super();
 

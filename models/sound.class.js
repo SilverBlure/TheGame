@@ -12,7 +12,7 @@ class SoundButton extends MovableObject {
     soundCache = {};
 
     /**
-     * @constuctor creates new Soundbutton obj
+     * @constuctor 
      */
     constructor() {
         super();

@@ -42,4 +42,20 @@ return new Level(
     new Background('assets/3.Background/Layers/4.Fondo 2/D1.png',720*4,0),
     new Background('assets/3.Background/Layers/3.Fondo 1/D1.png',720*4,0),
     new Background('assets/3.Background/Layers/2. Floor/D1.png',720*4,0), 
-])};
+],[
+
+   
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 100, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 400, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 700, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkRight.png", 1200, 320),
+    new PoisonBottle("assets/4.Marcadores/Posión/DarkLeft.png", 2100, 320),
+    
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 100, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 550, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 300, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 2200, 320),
+    new Coin("assets/4.Marcadores/1.Coins/1.png", 850, 320),
+  
+    ])
+};

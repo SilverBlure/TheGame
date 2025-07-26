@@ -12,7 +12,15 @@ class Menue {
   buttons = document.getElementById('buttons');
 
 
-
+/**
+ * 
+ * @param {object} canvas 
+ * @param {object} mouse 
+ * @param {func} loadWorld 
+ * @param {object} sound 
+ * @param {object} fullscreen 
+ * @param {object} state 
+ */
   constructor(canvas, mouse, loadWorld, sound, fullscreen, state) {
     this.ctx = canvas.getContext("2d");
     this.mouse = mouse;
@@ -43,7 +51,11 @@ class Menue {
     `;
   }
 
-
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ */
   handleTouch(x, y) {
     this.mouse.pos_x = x;
     this.mouse.pos_y = y;
@@ -52,7 +64,10 @@ class Menue {
     }
   }
 
-
+/**
+ * 
+ * @param {object} objects 
+ */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       if (o !== null) {
@@ -61,6 +76,10 @@ class Menue {
     });
   }
 
+  /**
+   * 
+   * @param {object} mo 
+   */
   addToMap(mo) {
     // invert images
     if (mo.otherDirection) {
@@ -73,7 +92,13 @@ class Menue {
     }
   }
 
-/**check if colliding mouse with button pos */
+/**
+ * 
+ * @param {object} button 
+ * @param {number} x 
+ * @param {number} y 
+ * @returns 
+ */
   collisionWithButton(button, x, y) {
     if (x !== undefined && y !== undefined) {
       this.mouse.pos_x = x;

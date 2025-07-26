@@ -3,6 +3,12 @@ class Light extends MovableObject {
 height= 500;
 width = 400;
 
+/**
+ * 
+ * @param {string} path 
+ * @param {number} x 
+ * @param {number} y 
+ */
     constructor(path, x, y) {
         super().loadImage(path, x, y);
         this.x = x;

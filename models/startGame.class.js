@@ -9,7 +9,11 @@ y = 50;
         'assets/6.Botones/Start/3.png',
         'assets/6.Botones/Start/4.png',
     ]
-
+/**
+ * 
+ * @param {number} width 
+ * @param {number} height 
+ */
     constructor(width, height){
         super();
         this.loadImages(this.STARTGAME_IMG);

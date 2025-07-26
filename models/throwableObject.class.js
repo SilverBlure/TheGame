@@ -9,7 +9,13 @@ class ThrowableObject extends MovableObject {
     t;
     frequency;
 
-
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {boolean} direction 
+ * @param {object} world 
+ */
     constructor(x, y, direction, world) {
         super();
         this.loadImage('assets/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png');
@@ -31,9 +37,12 @@ class ThrowableObject extends MovableObject {
     }
     
     
-/**throw poison bubble, from player position */
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ */
     throw(x, y) {
-        
         this.x = x
         this.y = y;
         this.speedY = 30;
@@ -54,8 +63,6 @@ class ThrowableObject extends MovableObject {
         }, 50);
     }
     
-
-
 getCollider() {
     return {
       x: this.x ,

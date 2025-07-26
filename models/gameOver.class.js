@@ -3,6 +3,11 @@ class GameOver extends DrawableObject {
     title;
     canvas
 
+    /**
+     * 
+     * @param {object} canvas 
+     * @param {object} world 
+     */
     constructor(canvas , world) {
         super();
         this.canvas = canvas;
@@ -17,7 +22,10 @@ class GameOver extends DrawableObject {
         this.doc = document.getElementById('buttons');
     }
 
-    /**draw images on canvas */
+    /**
+     * draw images on canvas
+     * @param {object} ctx 
+     */
     draw(ctx) {
             ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);

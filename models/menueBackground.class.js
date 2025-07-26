@@ -9,6 +9,11 @@ class MenueBackground extends DrawableObject {
     MENUE_BACKGROUND = ['assets/3.Background/Mesa de trabajo 1.png',
     ]
 
+    /**
+     * 
+     * @param {number} width 
+     * @param {number} height 
+     */
     constructor(width, height) {
         super();
         this.loadImages(this.MENUE_BACKGROUND);

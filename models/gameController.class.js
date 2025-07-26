@@ -11,7 +11,13 @@ class GameController {
   device = null;
   sound = new SoundButton(this);
   switched = null;
-
+/**
+ * @constructor
+ * @param {object} canvas 
+ * @param {object} ctx 
+ * @param {object} mouse 
+ * @param {object} keyboard 
+ */
   constructor(canvas, ctx, mouse, keyboard,) {
     this.canvas = canvas;
     this.ctx = ctx;
