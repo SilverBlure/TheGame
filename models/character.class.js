@@ -123,8 +123,8 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Fin slap/7.png',
         'assets/1.Sharkie/4.Attack/Fin slap/8.png',
     ]
-    
-/**constructor */
+
+    /**constructor */
     constructor() {
         super();
         this.loadImage('assets/1.Sharkie/3.Swim/1.png');
@@ -141,7 +141,7 @@ class Character extends MovableObject {
         this.animate();
     }
 
-/**setImages with token */
+    /**setImages with token */
     setStates() {
         this.stateImages = {
             swim: this.IMAGES_SWIM,
@@ -196,7 +196,10 @@ class Character extends MovableObject {
             }
 
             this.idleCounter++;
-            this.world.camera_x = -this.x;
+            if (this.x < 2200) {
+                this.world.camera_x = -this.x;
+
+            }
             if (this.world.endboss.isDead()) {
                 this.stopAnimation();
             }
@@ -270,7 +273,7 @@ class Character extends MovableObject {
     }
 
 
-/**Bubble attack */
+    /**Bubble attack */
     bubble() {
         if (this.world.keyboard.A && !this.action && !this.coolDown) {
             if (this.world.poisonBar.percentage > 10) {
@@ -284,49 +287,49 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.addBubble();
                         this.action = false;
-                        
+
                     }, 800)
                 }
-            } 
-            setTimeout(()=>{
-            this.coolDown = false;
-            console.log('Bubble is Ready!')
+            }
+            setTimeout(() => {
+                this.coolDown = false;
+                console.log('Bubble is Ready!')
 
-        },2000)
+            }, 2000)
         }
 
-       
+
 
     }
 
-/**Melee attack */
+    /**Melee attack */
     melee() {
         if (this.world.keyboard.S) {
             this.action = true;
             this.state = 'finAttack';
             this.currentImage = 0;
-            if(this.world.sound.state == 'true'){
-                        this.sound.play();
-                    }
+            if (this.world.sound.state == 'true') {
+                this.sound.play();
+            }
             if (!this.animated) {
                 this.playAnimationOnce(this.stateImages.finAttack);
                 setTimeout(() => {
                     this.addMelee();
-                    
+
                     this.action = false;
                 }, 800)
             }
         }
     }
 
-/**function for going Right */
+    /**function for going Right */
     goRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.x < 2700) {
             this.x += this.speed;
             this.otherDirection = false;
         }
     }
-/**function for going Left */
+    /**function for going Left */
 
     goLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
@@ -334,14 +337,14 @@ class Character extends MovableObject {
             this.otherDirection = true;
         }
     }
-/**function for going Up */
+    /**function for going Up */
 
     goUp() {
         if (this.world.keyboard.UP && this.y > -70) {
             this.y -= this.speed;
         }
     }
-/**function for going Down */
+    /**function for going Down */
 
     goDown() {
         if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
@@ -354,11 +357,11 @@ class Character extends MovableObject {
         this.idleCounter = 0;
         this.idleTrigger = false;
     }
-/**add a Bubble to the Screen */
+    /**add a Bubble to the Screen */
     addBubble() {
         this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
     }
-/**add the Melee attack to the Screen */
+    /**add the Melee attack to the Screen */
     addMelee() {
         this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height, this.world));
         setTimeout(() => {
