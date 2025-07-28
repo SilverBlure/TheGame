@@ -74,8 +74,12 @@ class GameController {
 
   /**gets the device desktop or mobile */
   isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  }
+  return (
+    /Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document) ||
+    (navigator.maxTouchPoints > 0)
+  );
+}
 
 
   /**loading World */

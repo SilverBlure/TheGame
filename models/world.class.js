@@ -68,15 +68,19 @@ class World {
 
   /**set device state if is mobile*/
   checkDevice() {
-    if (this.isMobile()) {
+    if (this.isMobileDevice()) {
       this.device = 'mobile';
     }
   }
 
   /**check if is a mobile device */
-  isMobile() {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-  }
+    isMobileDevice() {
+  return (
+    /Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document) ||
+    (navigator.maxTouchPoints > 0)
+  );
+}
 
   /**check audio if play or not */
   checkAudio() {
