@@ -76,6 +76,7 @@ class SoundButton extends MovableObject {
         if (soundState == 'true') {
             localStorage.setItem('sound', 'false');
             this.state = 'false';
+            game.world.audioBGMusik.pause();
         } else if (soundState == 'false') {
             localStorage.setItem('sound', 'true');
             this.state = 'true';
@@ -85,15 +86,9 @@ class SoundButton extends MovableObject {
     }
 
     checkGameState() {
-        if (this.state == 'true') {
-            if (game.state == 'game') {
+        if (this.state == 'true' && game.state == 'game') {
                 game.world.audioBGMusik.play();
-            }
-        } else if (this.state = 'false'){
-            game.world.audioBGMusik.pause();
-        }
+         }
     }
-
-
 
 }

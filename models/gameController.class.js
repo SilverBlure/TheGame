@@ -23,24 +23,19 @@ class GameController {
     this.ctx = ctx;
     this.mouse = mouse;
     this.keyboard = keyboard;
-    this.block = document.getElementById('portraitBlock');
     this.dialogBG = document.getElementById('dialogBlock');
     this.device = this.getdevice();
     this.fullscreen = new Fullscreen(canvas);
     this.buttons = document.getElementById('buttons');
     this.activ = true;
-    this.checkLoop();
+  
     this.loop();
     this.loadMenue();
   }
 
 
 
-  checkLoop() {
-    setInterval(() => {
-      this.checkLandscape();
-    }, 1000)
-  }
+
 
   /**loading menue */
   loadMenue() {
@@ -49,6 +44,9 @@ class GameController {
     this.state = "menue";
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
     this.activ = true;
+    if(this.isMobileDevice() && this.isLandscapeMode()){
+      toggleFullscreen(this.canvas);
+    }
     this.resetCss();
   }
 
@@ -89,6 +87,9 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
+    if(this.isMobileDevice() && this.isLandscapeMode()){
+      toggleFullscreen(this.canvas);
+    }
   }
 
 
@@ -103,16 +104,6 @@ class GameController {
     requestAnimationFrame(() => this.loop());
   }
 
-
-
-  checkLandscape() {
-    if (this.isLandscapeMode()) {
-      this.block.innerHTML = this.changeFormatTemplate();
-      this.block.classList.add('d-none');
-    } else {
-      this.block.classList.remove('d-none');
-    }
-  }
 
 
 
@@ -164,10 +155,7 @@ class GameController {
     document.getElementById('body').classList.toggle('overflow');
   }
 
-  changeFormatTemplate() {
-    return `<img class="blockImg" src="./GUI/Please_Landscape.png">`
-  }
-
+  
 
   informationTemplate() {
     this.toggleOverflow();

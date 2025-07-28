@@ -81,7 +81,6 @@ class World {
   /**check audio if play or not */
   checkAudio() {
     if (this.sound.state == 'true') {
-      console.log('Play BgSound')
       this.audioBGMusik.play();
       this.audioBGMusik.addEventListener('timeupdate', function () {
         var buffer = .60
@@ -112,7 +111,7 @@ class World {
       setTimeout(() => {
         this.onExit();
         this.resetBoss();
-      }, 1500);
+      }, 1000);
     }
   }
 
@@ -244,6 +243,7 @@ class World {
     }
     if (this.endboss.isDead()) {
       this.roundCounter++;
+      this.audioBGMusik.pause();
       this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
     }
   }

@@ -18,6 +18,11 @@ function init() {
 
 
 
+  /**check if landscape mode */
+  function isLandscapeMode() {
+    return window.innerWidth > window.innerHeight
+  }
+
   /**
    * add canvas a touchstart event 
    */
@@ -107,11 +112,16 @@ function init() {
   });
 
   
+window.addEventListener("orientationchange", () => {
+  if(isLandscapeMode() ){ 
+    
+        document.getElementById("portraitBlock").classList.remove("d-none");
+} else if(!isLandscapeMode()){
+      document.getElementById("portraitBlock").classList.add("d-none");
+}
+})
 
-
-
-
-
+ 
 
   /**
    * set mouse positon in mouse object

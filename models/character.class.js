@@ -277,7 +277,7 @@ class Character extends MovableObject {
     bubble() {
         if (this.world.keyboard.A && !this.action && !this.coolDown) {
             if (this.world.poisonBar.percentage > 10) {
-                this.world.poisonBar.decreasePoisonBar(10)
+                this.world.poisonBar.decreasePoisonBar(20)
                 this.action = true;
                 this.coolDown = true;
                 this.state = 'bubble';
@@ -287,15 +287,13 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.addBubble();
                         this.action = false;
-
                     }, 800)
                 }
             }
             setTimeout(() => {
                 this.coolDown = false;
-                console.log('Bubble is Ready!')
 
-            }, 2000)
+            }, 3000)
         }
 
 
