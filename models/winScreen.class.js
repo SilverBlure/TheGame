@@ -17,10 +17,9 @@ constructor(canvas){
 }
 
 
-addTryAgainButton(callback){
+addTryAgainButton(){
 
         this.flag = true;
-        callback();
         this.doc.classList.remove('buttons');
         this.doc.classList.add("positionTryAgainBtn");
         this.doc.innerHTML = `<div class="tryAgain">

@@ -10,6 +10,7 @@ let mouse;
  * start funktion init after side onload
  */
 function init() {
+  checkOnloadPosition();
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
   mouse = new Mouse(canvas);
@@ -19,9 +20,6 @@ function init() {
 
 
   /**check if landscape mode */
-  function isLandscapeMode() {
-    return window.innerWidth > window.innerHeight
-  }
 
   /**
    * add canvas a touchstart event 
@@ -34,7 +32,7 @@ function init() {
     const touch = e.touches[0];
     const x = (touch.clientX - rect.left) * scaleX;
     const y = (touch.clientY - rect.top) * scaleY;
-    
+
     game?.world?.character?.onAnyInput?.();
     handleTouchDown(x, y);
   }
@@ -56,12 +54,12 @@ function init() {
   function handleTouchDown(x, y) {
     game.menue?.handleTouch(x, y);
     if (game.state === "game") {
-      
+
       const controller = game.world.mobileController;
       const kb = game.keyboard;
       if (controller) {
         if (controller.isTouching(controller.A_BUTTON, x, y)) kb.A = true;
-       
+
         if (controller.isTouching(controller.MELEE_BUTTON, x, y)) kb.S = true;
 
         if (controller.isTouching(controller.D_PAD, x, y)) {
@@ -76,7 +74,8 @@ function init() {
           }
         }
       }
-    }}
+    }
+  }
 
   /**
    * on keydown set key to true
@@ -111,17 +110,18 @@ function init() {
     if (e.keyCode === 80) k.P = false;
   });
 
-  
-window.addEventListener("orientationchange", () => {
-  if(isLandscapeMode() ){ 
-    
-        document.getElementById("portraitBlock").classList.remove("d-none");
-} else if(!isLandscapeMode()){
-      document.getElementById("portraitBlock").classList.add("d-none");
-}
-})
 
- 
+  window.addEventListener("resize", () => {
+    if (isLandscapeMode()) {
+      document.getElementById('portraitBlock').classList.add('d-none');
+    } else {
+      document.getElementById('portraitBlock').classList.remove('d-none');
+    }
+  }
+  )
+
+
+
 
   /**
    * set mouse positon in mouse object
@@ -151,12 +151,22 @@ window.addEventListener("orientationchange", () => {
 
 function toggleFullscreen(elem) {
   if (!document.fullscreenElement) {
-    elem.requestFullscreen(); 
+    elem.requestFullscreen();
   } else {
-    document.exitFullscreen(); 
+    document.exitFullscreen();
   }
 }
 
-function toggleInfo(){
+function toggleInfo() {
   document.getElementById('help').classList.toggle('d-none');
+}
+
+function checkOnloadPosition() {
+  if (!isLandscapeMode()) {
+    document.getElementById('portraitBlock').classList.remove('d-none');
+  }
+}
+
+function isLandscapeMode() {
+  return window.innerWidth > window.innerHeight
 }

@@ -32,13 +32,12 @@ class GameOverScreen extends DrawableObject {
             ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             this.title.draw(ctx);
-            if (!this.flag) {
-                this.flag = true;
-            this.try_again_button();
+            
         }
-    }
+    
 
-    try_again_button() {
+    addTryAgainButton() {
+        this.flag = true;
         this.doc.classList.remove('buttons');
         this.doc.classList.add("positionTryAgainBtn");
         this.doc.innerHTML = `<div class="tryAgain">
