@@ -47,16 +47,9 @@ class World {
     this.audioBGMusik = new Audio('assets/sounds/gameBGMusic.wav');
     this.audioBGMusik.loop = 'loop';
     this.audioBGMusik.volume = '0.1';
-    this.soundGlasBroke = new Audio("assets/sounds/glassCollection.wav");
-    this.soundCoinSound = new Audio("assets/sounds/coinCollection.wav");
-    this.pufferfishHurt = new Audio('assets/sounds/pufferfish_1.wav');
-    this.enemyEndbossDead = new Audio('assets/sounds/win.wav')
-    this.enemyEndbossHurt = new Audio('assets/sounds/bossHurtSound.mp3');
-    this.gameOverSound = new Audio('assets/sounds/GameOver.mp3');
-    this.gameOver = new GameOver(this.canvas, this);
-    this.win = new Image();
-    this.win.src = "assets/6.Botones/Tittles/You win/Mesa de trabajo 1.png";
+    this.gameOverScreen = new GameOverScreen(this.canvas, this);
     this.setWorld();
+    this.winScreen = new WinScreen(this.canvas)
     this.loop();
     this.state = "running";
     this.onExit = onExit;
@@ -110,14 +103,10 @@ class World {
   /**
    * calls exit function, change gamestate
    */
-  finished() {
+  win() {
     if (this.endboss.isDead()) {
-      setTimeout(() => {
-        this.onExit();
-        this.resetBoss();
-      }, 1000);
-    }
-  }
+      this.state = "win";
+  }}
 
   /**reseting endboss values */
   resetBoss() {
@@ -134,7 +123,6 @@ class World {
    */
   tryAgain() {
     if (this.character.isDead()) {
-      if (this.sound.state == 'true') this.gameOverSound.play();
       this.state = 'gameOver';
     }
   }
@@ -156,10 +144,10 @@ class World {
     this.collectable = this.collectable.filter((obj) => {
       if (this.character.isColliding(this.character, obj)) {
         if (obj instanceof PoisonBottle) {
-          if (this.sound.state == 'true') this.soundGlasBroke.play();
+          if (this.sound.state == 'true') obj.sound.play();
           this.poisonBar.addPoison(20);
         } else if (obj instanceof Coin) {
-          if (this.sound.state == 'true') this.soundCoinSound.play();
+          if (this.sound.state == 'true')  obj.sound.play();
           this.coinBar.addCoin(20);
         }
         return false;
@@ -179,13 +167,10 @@ class World {
           enemy.hit(40);
           hit = true;
           if (enemy instanceof Pufferfish) {
-            if (this.sound.state == 'true') this.pufferfishHurt.play();
+            if (this.sound.state == 'true') enemy.sound.play();
           }
           if (enemy instanceof Endboss) {
-            if (this.sound.state == 'true') this.enemyEndbossHurt.play();
-          }
-          if (this.endboss.isDead() && enemy instanceof Endboss) {
-            if (this.sound.state == 'true') this.enemyEndbossDead.play();
+            if (this.sound.state == 'true') enemy.sound.play();
           }
         }
       });
@@ -203,6 +188,7 @@ class World {
           this.meleeAtk.forEach((fin) => {
             if (fin.isColliding(fin, enemy)) {
               enemy.hit(80);
+              enemy.sound.play();
             }
           });
         }
@@ -243,12 +229,17 @@ class World {
     }
     if (this.state === "gameOver") {
       this.audioBGMusik.pause();
-      this.addToMap(this.gameOver);
+      this.gameOverScreen.sound.play();
+      this.addToMap(this.gameOverScreen);
     }
-    if (this.endboss.isDead()) {
-      this.roundCounter++;
+    if (this.state === "win") {
       this.audioBGMusik.pause();
-      this.ctx.drawImage(this.win, 0, 0, this.canvas.width, this.canvas.height);
+      
+      this.addToMap(this.winScreen);
+
+      if(!this.winScreen.flag){
+      this.winScreen.addTryAgainButton(this.winScreen.sound.play);
+      }
     }
   }
 
@@ -261,7 +252,7 @@ class World {
     this.checkProjectileEnemyCollision();
     this.checkCharacterCollectablesCollision();
     this.clearDeadEnemys();
-    this.finished();
+    this.win();
     if (this.state != "gameOver") this.tryAgain();
     this.checkIfEnemyRunOut();
     this.reSpawnEnemie();

@@ -1,3 +1,7 @@
+/**
+ * @class
+ * basic class for all drawable objects
+ */
 class DrawableObject {
 
     x = 120;
@@ -9,7 +13,10 @@ class DrawableObject {
     imageCache = {};
     mode = 'Game';
 
-    /**load images */
+    /**
+     * 
+     * @param {string} path - relative path to the IMAGES
+     */
     loadImage(path) {
         if (this.imageCache[path]) {
             this.img = this.imageCache[path]; 
@@ -19,12 +26,18 @@ class DrawableObject {
         }
     }
 
-    /**draw images on canvas */
+    /**
+     * draws a object, with image x, Y position, width and height
+     * @param {object} ctx - context object of the canvas
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    /**draw collider frame on canvas */
+    /**
+     * if the dev mode is active, the canvas is drawing arround the collider line of selectet objects 
+     * @param {object} ctx - context object of the canvas
+     */
     drawFrame(ctx) {
         if (this.mode === 'Dev') {
             if (this instanceof Character || this instanceof Pufferfish || this instanceof ThrowableObject || this instanceof FinAttack || this instanceof Endboss || this instanceof FinAttack || this instanceof Fullscreen || this instanceof Jellyfish
@@ -46,7 +59,10 @@ class DrawableObject {
         }
     }
 
-    /**loading images array */
+    /**
+     * is loading all images and set theem in an image cach
+     * @param {array} arr -with IMAGE Paths
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();

@@ -32,7 +32,7 @@ class Pufferfish extends MovableObject {
     this.loadImages(this.PUFFERFISH_STAY);
     this.loadImages(this.PUFFERFISH_DEAD);
     this.speed = 0.15 + Math.random() * 0.25;
-    
+    this.sound = new Audio('assets/sounds/pufferfish_1.wav');
   }
 
   getCollider(){

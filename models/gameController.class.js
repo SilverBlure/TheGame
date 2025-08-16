@@ -11,6 +11,7 @@ class GameController {
   device = null;
   sound = new SoundButton(this);
   switched = null;
+
 /**
  * @constructor
  * @param {object} canvas 

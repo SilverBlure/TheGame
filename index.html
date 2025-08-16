@@ -14,6 +14,7 @@
     <script src="./models/mouse.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
     <script src="./models/poisonBar.class.js"></script>
+    <script src="./models/winScreen.class.js"></script>
     <script src="./models/menueBackground.class.js"></script>
     <script src="./models/coinBar.class.js"></script>
     <script src="./models/button.class.js"></script>
@@ -33,20 +34,21 @@
     <script src="./models/character.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./models/sound.class.js"></script>
-    <script src="./models/gameOver.class.js"></script>
+    <script src="./models/gameOverScreen.class.js"></script>
     <script src="./models/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+
     <title>TheGame</title>
 </head>
 
 <body id="body" onload="init()">
     <portraitBlock class="blockPortrait d-none" id="portraitBlock">
-        <img class="blockImg"  src="./GUI/Please_Landscape.png">
+        <img class="blockImg" src="./GUI/Please_Landscape.png">
     </portraitBlock>
-    
-    <dialogBG  class="blockBg d-none" id="dialogBlock"></dialogBg>
-        
+
+    <dialogBG class="blockBg d-none" id="dialogBlock"></dialogBg>
+
     <div class="orga">
 
         <h1 class="headLine" id="headline">Sharky the Game</h1>
@@ -62,8 +64,8 @@
 
 
             <div class="column">
-                <button class="buttonInformation"   onclick="game.showinformation()">
-                    <img class="help center" src="./GUI/info.svg" >
+                <button class="buttonInformation" onclick="game.showinformation()">
+                    <img class="help center" src="./GUI/info.svg">
                 </button>
                 <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton center">
                     <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">

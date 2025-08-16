@@ -117,6 +117,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 146px;
     z-index: 100;
 }
 

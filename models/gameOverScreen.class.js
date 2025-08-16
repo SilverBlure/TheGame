@@ -1,4 +1,4 @@
-class GameOver extends DrawableObject {
+class GameOverScreen extends DrawableObject {
 
     title;
     canvas
@@ -20,6 +20,8 @@ class GameOver extends DrawableObject {
         this.flag = false;
         this.world = world;
         this.doc = document.getElementById('buttons');
+        this.sound = new Audio('assets/sounds/GameOver.mp3');
+
     }
 
     /**

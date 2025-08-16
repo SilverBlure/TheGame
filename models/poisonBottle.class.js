@@ -13,6 +13,8 @@ class PoisonBottle extends CollectableObject{
         super().loadImage(path)
         this.x = x;
         this.y = y;
+        this.sound = new Audio("assets/sounds/glassCollection.wav");
+
     }
 
 }

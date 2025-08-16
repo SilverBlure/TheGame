@@ -76,6 +76,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.ENDBOSS_HURT);
     this.loadImages(this.ENDBOSS_ATTACK);
     this.setStates();
+    this.sound = new Audio('assets/sounds/bossHurtSound.mp3');
     this.action = false;
     this.time = new Date().getTime();
     
