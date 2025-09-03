@@ -11,7 +11,8 @@ body {
     background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 100% 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 canvas {
@@ -319,7 +320,7 @@ td {
 h1,
 h2,
 h3 {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Arial', Courier, monospace;
     color: white;
     margin-left: 0px;
 }
@@ -330,7 +331,6 @@ h3 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 60vw;
     border-radius: 36px;
     border: 2px solid white;
 }
@@ -377,115 +377,280 @@ h3 {
 
 
 
-@media(max-width:850px) {
-    h1 {
-        text-align: center;
+@media(max-width:599px) {
+
+    .body{
+        overflow: hidden;
+        touch-action: manipulation;
     }
 
-    .canvas-container {
-        width: 560px;
+    .headLine{
+        font-size: 42px;
+        margin: 16px;    }
+
+    .canvas-container{
+        width: 360px;
+        height: 210px;
+    }
+
+    .impressum{
+        font-size: 24px;
+        margin: 16px;
+    }
+    
+    .orga{
+        height: 0
+        ;
+    }
+    .help{
+        width: 42px;
+        height: 42px;
+    }
+    .buttonInformation{
+        width: 42px;
+        height: 42px;
+    }
+
+    .soundButton{
+        width: 42px;
+        height: 42px;
+
+    }
+
+    .soundImg{
+        width: 42px;
+        height: 42px;
+    }
+
+    .divImpressum{
+        margin: 16px;
+        padding: 16px;
+        height: 312px;
+        overflow: auto;
+        justify-content: start;
+    }
+
+    .infoBlock{
+        margin: 16px;
+        padding: 8px;    
+    }
+
+    .tableImages{
+        height: 72px;
+        padding: 6px;
+    }
+   
+}
+
+@media(min-width:600px) {
+
+   .body{
+        overflow: hidden;
+        touch-action: manipulation;
+    }
+
+    .headLine{
+        font-size: 42px;
+        margin: 16px;    }
+
+    .canvas-container{
+        width: 520px;
         height: 380px;
     }
 
+    .impressum{
+        font-size: 48px;
+        margin: 16px;
+    }
+    
+    .orga{
+        height: 0
+        ;
+    }
+    .help{
+        width: 56px;
+        height: 56px;
+    }
+    .buttonInformation{
+        width: 56px;
+        height: 56px;
+    }
+
+    .soundButton{
+        width: 56px;
+        height: 56px;
+    }
+
+    .soundImg{
+        width: 56px;
+        height: 56px;
+    }
+
+    .divImpressum{
+        margin: 16px;
+        padding: 16px;
+        height: 542px;
+        overflow: auto;
+        justify-content: start;
+    }
+
+    .infoBlock{
+        margin: 16px;
+        padding: 8px;    
+    }
+
+    .tableImages{
+        height: 72px;
+        padding: 6px;
+    }
+
 }
 
-@media(max-width:700px) {
-    h1 {
-        text-align: center;
+@media(min-width:740px) {
+
+   .body{
+        overflow: hidden;
+        touch-action: manipulation;
     }
 
-    .canvas-container {
-        width: 450px;
-        height: 300px;
+    .headLine{
+        font-size: 42px;
+        margin: 16px;    }
+
+    .canvas-container{
+        width: 640px;
+        height: 420px;
+    }
+
+    .impressum{
+        font-size: 48px;
+        margin: 16px;
+    }
+    
+    .orga{
+        height: 0
+        ;
+    }
+    .help{
+        width: 56px;
+        height: 56px;
+    }
+    .buttonInformation{
+        width: 56px;
+        height: 56px;
+    }
+
+    .soundButton{
+        width: 56px;
+        height: 56px;
+    }
+
+    .soundImg{
+        width: 56px;
+        height: 56px;
+    }
+
+    .divImpressum{
+        margin: 16px;
+        padding: 16px;
+        height: 542px;
+        overflow: auto;
+        justify-content: start;
+    }
+
+    .infoBlock{
+        margin: 16px;
+        padding: 8px;    
+    }
+
+    .tableImages{
+        height: 72px;
+        padding: 6px;
+    }
+
+
+
+}
+
+@media(min-width:900px) {
+
+       .body{
+        overflow: hidden;
+        touch-action: manipulation;
+    }
+
+    .headLine{
+        font-size: 42px;
+        margin: 16px;    }
+
+    .canvas-container{
+        width: 800px;
+        height: 600px;
+    }
+
+    .impressum{
+        font-size: 56px;
+        margin: 16px;
+    }
+    
+    .orga{
+        height: 0;
+    }
+    .help{
+        width: 72px;
+        height: 72px;
+    }
+    .buttonInformation{
+        width: 72px;
+        height: 72px;
+    }
+
+    .soundButton{
+        width: 72px;
+        height: 72px;
+    }
+
+    .soundImg{
+        width: 72px;
+        height: 72px;
+    }
+
+    .divImpressum{
+        margin: 16px;
+        padding: 16px;
+        height: 542px;
+        overflow: auto;
+        justify-content: start;
+    }
+
+    .infoBlock{
+        margin: 16px;
+        padding: 8px;    
+    }
+
+    .tableImages{
+        height: 86px;
+        padding: 6px;
+    }
+    p{
+        font-size: 18px;
+        margin: 8px;
     }
 
 }
 
-@media(max-width:570px) {
-    h1 {
-        text-align: center;
-    }
+@media(min-width:1200px) {
 
-    .canvas-container {
-        width: 350px;
-        height: 200px;
+    .headLine{
+        font-size: 72px;
     }
 
 }
 
-@media(max-width:880px) {
-    .impressum {
-        font-size: 38px;
-    }
-}
+@media(min-width:1800px) {
 
-@media(max-width: 710px) {
-    .impressum {
+    .headLine{
         font-size: 24px;
     }
-}
 
-@media(max-width:770px) {
-    .tableImages {
-        height: 58px;
-        border-radius: 40px;
-    }
-
-    table {
-        background-color: #1b1464;
-        border-radius: 28px;
-        border: 2px solid white;
-    }
-
-    .close {
-        align-items: flex-start;
-
-        background-color: #1b1464;
-    }
-}
-
-@media(max-width:680px) {
-    .back {
-        font-size: 12mm;
-    }
-    p {
-        font-size: 12px;
-    }
-    .headLine {
-        font-size: 36px;
-    }
-    canvas{
-        width: 450px;
-        height: 250px;
-    }
-    .marTo24{
-        margin: 0;
-    }
-}
-
-
-@media(max-height:450px){
-     .back {
-        font-size: 12mm;
-    }
-    p {
-        font-size: 12px;
-    }
-    .headLine {
-        font-size: 36px;
-    }
-    canvas{
-        width: 450px;
-        height: 250px;
-    }
-    .marTo24{
-        margin: 0;
-    }
-    .canvas-container {
-    position: relative;
-    width: 580px;
-    height: 262px;
-    display: flex;
-    justify-content: center;
-}
 }

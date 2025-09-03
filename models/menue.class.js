@@ -47,7 +47,7 @@ class Menue {
   drawMenueButtons() {
     this.buttons.innerHTML = `
     <button class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
-    <button class="fullscreenButton" id="button" onclick="toggleFullscreen(content);">FullScreen</button>
+  
     `;
   }
 

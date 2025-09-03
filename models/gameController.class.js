@@ -12,13 +12,13 @@ class GameController {
   sound = new SoundButton(this);
   switched = null;
 
-/**
- * @constructor
- * @param {object} canvas 
- * @param {object} ctx 
- * @param {object} mouse 
- * @param {object} keyboard 
- */
+  /**
+   * @constructor
+   * @param {object} canvas 
+   * @param {object} ctx 
+   * @param {object} mouse 
+   * @param {object} keyboard 
+   */
   constructor(canvas, ctx, mouse, keyboard,) {
     this.canvas = canvas;
     this.ctx = ctx;
@@ -29,7 +29,7 @@ class GameController {
     this.fullscreen = new Fullscreen(canvas);
     this.buttons = document.getElementById('buttons');
     this.activ = true;
-  
+
     this.loop();
     this.loadMenue();
   }
@@ -45,7 +45,7 @@ class GameController {
     this.state = "menue";
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
     this.activ = true;
-    if(this.isMobileDevice() && this.isLandscapeMode()){
+    if (this.isMobileDevice() && this.isLandscapeMode()) {
       toggleFullscreen(this.canvas);
     }
     this.resetCss();
@@ -75,12 +75,12 @@ class GameController {
 
   /**gets the device desktop or mobile */
   isMobileDevice() {
-  return (
-    /Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-    (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document) ||
-    (navigator.maxTouchPoints > 0)
-  );
-}
+    return (
+      /Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      (navigator.userAgent.includes("Macintosh") && 'ontouchend' in document) ||
+      (navigator.maxTouchPoints > 0)
+    );
+  }
 
 
   /**loading World */
@@ -92,7 +92,7 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if(this.isMobileDevice() && this.isLandscapeMode()){
+    if (this.isMobileDevice() && this.isLandscapeMode()) {
       toggleFullscreen(this.canvas);
     }
   }
@@ -125,7 +125,7 @@ class GameController {
 
   /**world reset funtion */
   resetGame() {
-    
+
     if (this.world) {
       if (typeof this.world.cleanUp === "function") {
         this.world.cleanUp();
@@ -160,7 +160,7 @@ class GameController {
     document.getElementById('body').classList.toggle('overflow');
   }
 
-  
+
 
   informationTemplate() {
     this.toggleOverflow();
@@ -170,7 +170,7 @@ class GameController {
                 <tr>
                     <td><img class="tableImages" src="./images/keycap_arrowBotns.png"></td>
                     <td>
-                        <p>With the arrow keys u can steer Sharky</p>
+                        <p>With the arrow keys </p>\n<p>u can steer Sharky</p>
                     </td>
                     <td><img class="tableImages" src="./images/keycap_a.png"></td>
                     <td>
@@ -185,7 +185,7 @@ class GameController {
                     </td>
                      <td><img class="tableImages" src="./images/keycap_s.png"></td>
                     <td>
-                        <p>With the s sharky attacks with the tail whip!></p>
+                        <p>With the s sharky attacks</p>\n<p> with the tail whip!</p>
                     </td>
                 </tr>
             </table>
@@ -196,7 +196,8 @@ class GameController {
   impressumTemplate() {
     this.toggleDialogBg();
     document.getElementById('dialogBlock').innerHTML = `<div class="centerText" onclick="game.toggleDialogBg(), game.toggleOverflow()">
-        <div class="divImpressum">
+        
+          <div class="divImpressum">
             <h1 class="impressum" headline id="headline">Sharky the Game</h1>
 
             <h2>Impressum</h2><br>
@@ -223,6 +224,7 @@ class GameController {
                 Diese Seite wird auf freiwilliger Basis betrieben. <br>Zur Unterstützung meiner Arbeit nehme ich Spenden
                 entgegen. <br>Spenden stellen keine Gegenleistung dar und begründen kein Vertragsverhältnis.
             </p></span>
+        
         </div>
     </div>`
   }
