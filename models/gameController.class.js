@@ -46,9 +46,6 @@ class GameController {
     this.state = "menue";
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
     this.activ = true;
-    if (this.isMobileDevice() && this.isLandscapeMode()) {
-      toggleFullscreen(this.content);
-    }
     this.resetCss();
   }
 
@@ -95,7 +92,6 @@ class GameController {
     this.activ = true;
     if (this.isMobileDevice() && this.isLandscapeMode() ) {
       if(!document.fullscreen){
-         console.log("Wird groSS!")
       toggleFullscreen(this.content);
       } 
     }

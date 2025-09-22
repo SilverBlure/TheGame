@@ -154,7 +154,6 @@ function init() {
 }
 
 function toggleFullscreen(elem) {
-  console.log(elem, "Fullscreen Trigger")
   if (!document.fullscreenElement) {
     elem.requestFullscreen();
   } else {

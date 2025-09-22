@@ -457,13 +457,13 @@ h3 {
     }
 
     .canvas-container {
-        width: 520px;
-        height: 380px;
+        width: 380px;
+        height: 174px;
     }
 
     .impressum {
-        font-size: 48px;
-        margin: 16px;
+        font-size: 34px;
+        margin: 40px;
     }
 
     .orga {
