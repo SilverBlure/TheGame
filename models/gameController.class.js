@@ -93,9 +93,11 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if (this.isMobileDevice() && this.isLandscapeMode()) {
-                                                                                        /**<--- */
+    if (this.isMobileDevice() && this.isLandscapeMode() ) {
+      if(!document.fullscreen){
+         console.log("Wird groSS!")
       toggleFullscreen(this.content);
+      } 
     }
   }
 
@@ -147,7 +149,7 @@ class GameController {
     this.buttons.classList.add('positionBottomRight');
     this.buttons.innerHTML = ` 
         <div class="buttons index">
-        <button class="inGameFullscreenBtn" id="button" onclick="toggleFullscreen(content)">      
+        <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content)">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>
         </div>`;
