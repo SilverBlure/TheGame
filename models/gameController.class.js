@@ -19,9 +19,10 @@ class GameController {
    * @param {object} mouse 
    * @param {object} keyboard 
    */
-  constructor(canvas, ctx, mouse, keyboard,) {
+  constructor(canvas, ctx, mouse, keyboard, content) {
     this.canvas = canvas;
     this.ctx = ctx;
+    this.content  = content;
     this.mouse = mouse;
     this.keyboard = keyboard;
     this.dialogBG = document.getElementById('dialogBlock');
@@ -46,7 +47,7 @@ class GameController {
     this.menue = new Menue(this.canvas, this.mouse, () => this.loadWorld(), this.sound, this.fullscreen, this.state)
     this.activ = true;
     if (this.isMobileDevice() && this.isLandscapeMode()) {
-      toggleFullscreen(this.canvas);
+      toggleFullscreen(this.content);
     }
     this.resetCss();
   }
@@ -93,7 +94,8 @@ class GameController {
     this.addHideButton()
     this.activ = true;
     if (this.isMobileDevice() && this.isLandscapeMode()) {
-      toggleFullscreen(this.canvas);
+                                                                                        /**<--- */
+      toggleFullscreen(this.content);
     }
   }
 
@@ -140,12 +142,12 @@ class GameController {
   }
 
 
-  renderGameFullscreenBTN() {
+  renderGameFullscreenBTN() {     // zeile 148 muss der fehler sein
     this.buttons.classList.remove('buttons');
     this.buttons.classList.add('positionBottomRight');
     this.buttons.innerHTML = ` 
         <div class="buttons index">
-        <button class="inGameFullscreenBtn" id="button" onclick="toggleFullscreen(content)">
+        <button class="inGameFullscreenBtn" id="button" onclick="toggleFullscreen(content)">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>
         </div>`;

@@ -14,8 +14,9 @@ function init() {
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
   mouse = new Mouse(canvas);
-  game = new GameController(canvas, ctx, mouse, keyboard);
   content = document.getElementById('content');
+  game = new GameController(canvas, ctx, mouse, keyboard, content);
+  
 
 
 
@@ -111,6 +112,9 @@ function init() {
   });
 
 
+  /**
+   * if window switches the angel from Portrait to landscape
+   */
   window.addEventListener("resize", () => {
     if (isLandscapeMode()) {
       document.getElementById('portraitBlock').classList.add('d-none');
@@ -150,6 +154,7 @@ function init() {
 }
 
 function toggleFullscreen(elem) {
+  console.log(elem, "Fullscreen Trigger")
   if (!document.fullscreenElement) {
     elem.requestFullscreen();
   } else {
