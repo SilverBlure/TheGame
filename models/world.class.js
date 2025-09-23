@@ -189,7 +189,7 @@ class World {
           this.meleeAtk.forEach((fin) => {
             if (fin.isColliding(fin, enemy)) {
               enemy.hit(80);
-              enemy.sound.play();
+              if (this.sound.state == 'true') enemy.sound.play();
             }
           });
         }
@@ -232,7 +232,7 @@ class World {
       this.audioBGMusik.pause();
       this.addToMap(this.gameOverScreen);
       if(!this.gameOverScreen.flag){
-        this.gameOverScreen.sound.play();
+        if (this.sound.state == 'true') this.gameOverScreen.sound.play();
         this.gameOverScreen.addTryAgainButton();
       }
     }
@@ -242,7 +242,7 @@ class World {
       this.addToMap(this.winScreen);
 
       if (!this.winScreen.flag) {
-        this.winScreen.sound.play();
+        if (this.sound.state == 'true') this.winScreen.sound.play();
         this.winScreen.addTryAgainButton();
       }
     }
