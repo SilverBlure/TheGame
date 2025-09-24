@@ -115,9 +115,8 @@ function init() {
   /**
    * if window switches the angel from Portrait to landscape
    */
-  window.addEventListener("resize", () => {
-
-    if (isLandscapeMode()) {
+  window.addEventListener("orientationchange", () => {
+    if (!isLandscapeMode()) {
       document.getElementById('portraitBlock').classList.add('d-none');
     } else {
       document.getElementById('portraitBlock').classList.remove('d-none');

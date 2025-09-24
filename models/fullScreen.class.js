@@ -1,3 +1,7 @@
+/**
+ * @class
+ * fullscreen class
+ */
 class Fullscreen extends DrawableObject {
     height = 80;
     width = 200;
@@ -14,8 +18,11 @@ class Fullscreen extends DrawableObject {
 
 
     /**
-     * 
+     * @constructor
      * @param {object} canvas 
+     * extended from DrawableObjects
+     * load images
+     * set canvas
      */
     constructor(canvas) {
         super();
@@ -47,9 +54,4 @@ class Fullscreen extends DrawableObject {
             this.y = this.canvas.height - 100;
         }
     }
-
-
-
-
-
 }

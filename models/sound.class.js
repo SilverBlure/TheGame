@@ -3,7 +3,6 @@
  */
 class SoundButton extends MovableObject {
 
-
     state = 'false';
 
     SOUND_IMAGES = ['GUI/volumeOff.svg',
@@ -13,6 +12,9 @@ class SoundButton extends MovableObject {
 
     /**
      * @constuctor 
+     * extends from MovableObject
+     * load html element
+     * calls init func
      */
     constructor() {
         super();
@@ -41,10 +43,11 @@ class SoundButton extends MovableObject {
 
     }
 
+    /**
+     * read the localStorage 
+     */
     setState() {
         this.state = localStorage.getItem('sound');
-
-
     }
 
     /**
@@ -71,7 +74,6 @@ class SoundButton extends MovableObject {
      * Sound toggle method, calls checkstate method
      */
     clickToggle() {
-
         let soundState = localStorage.getItem('sound');
         if (soundState == 'true') {
             localStorage.setItem('sound', 'false');
@@ -85,6 +87,10 @@ class SoundButton extends MovableObject {
         this.checkImgState();
     }
 
+    /**
+     * checks the sound state and the game state 
+     * if anithing iss true sound plays
+     */
     checkGameState() {
         if (this.state == 'true' && game.state == 'game') {
                 game.world.audioBGMusik.play();

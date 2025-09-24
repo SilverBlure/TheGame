@@ -1,3 +1,7 @@
+/**
+ * @class
+ * extended class for all MovableObjects
+ */
 class MovableObject extends DrawableObject {
   speed = 1.5;
   energy = 100;

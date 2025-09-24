@@ -1,3 +1,7 @@
+/**
+ * @class
+ * an melee object that get added when sharky makes the tailwip
+ */
 class FinAttack extends MovableObject{
 
 x;
@@ -8,11 +12,14 @@ char_with;
 char_height;
 
 /**
- * 
+ * @constructor
  * @param {number} x 
  * @param {number} y 
  * @param {number} char_width 
  * @param {number} char_height 
+ * extended from MovableObjects
+ * set diameters
+ * set position
  */
 constructor(x, y, char_width, char_height, ) {
     super();
@@ -25,7 +32,10 @@ constructor(x, y, char_width, char_height, ) {
     this.height = char_height; // gleiche Höhe wie der Charakter
 }
 
-    /**collider of the fin attack */
+    /**
+     * 
+     * @returns colider from the tail attack
+     */
     getCollider() {
         return {
             x: this.x - 50,

@@ -1,3 +1,7 @@
+/**
+ * @class
+ * class repressent a jellyfish
+ */
 class Jellyfish extends MovableObject {
   energy = 20;
   base_y;
@@ -19,6 +23,16 @@ class Jellyfish extends MovableObject {
     "assets/2Enemy/2JellyFish/Dead/Lila/L4.png",
   ];
 
+  /**
+   * @constructor
+   * externds from MovableObjects
+   * load images
+   * set x and y to random
+   * set diameters
+   * set speed random
+   * call firstSetup() func
+   * 
+   */
   constructor() {
     super();
     this.loadImage(this.IDLE_JELLYFISH[0]);
@@ -33,6 +47,10 @@ class Jellyfish extends MovableObject {
     this.firstSetup();
   }
 
+  /**
+   * retunrs an object for collider
+   * @returns object
+   */
   getCollider(){
     return {
       x: this.x,

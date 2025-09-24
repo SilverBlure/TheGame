@@ -1,3 +1,7 @@
+/**
+ * @class
+ * class that draws a background image
+ */
 class MenueBackground extends DrawableObject {
     width = canvas.width;
     height = canvas.height;
@@ -10,9 +14,12 @@ class MenueBackground extends DrawableObject {
     ]
 
     /**
-     * 
+     * @constuctor
      * @param {number} width 
      * @param {number} height 
+     * extends from DrawableObject
+     * load images
+     * set diameters
      */
     constructor(width, height) {
         super();

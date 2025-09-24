@@ -1,6 +1,19 @@
+/**
+ * @class
+ * class for the winning screen 
+ */
 class WinScreen extends MovableObject {
 
-
+/**
+ * 
+ * @param {object} canvas 
+ * extends MovableObjects
+ * load diameters
+ * load images
+ * load html buttones
+ * set flag to false
+ * set new audio
+ */
 constructor(canvas){
     super();
     this.canvas = canvas;
@@ -16,9 +29,11 @@ constructor(canvas){
    
 }
 
-
+/**
+ * if the flag is false, the buttons get removed
+ * and new buttos get created and classes added
+ */
 addTryAgainButton(){
-
         this.flag = true;
         this.doc.classList.remove('buttons');
         this.doc.classList.add("positionTryAgainBtn");

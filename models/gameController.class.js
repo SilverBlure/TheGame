@@ -1,3 +1,8 @@
+/**
+ * @class
+ * this clas ist the game controler it sets the menue mode or the game mode
+
+ */
 class GameController {
 
   canvas;
@@ -18,11 +23,19 @@ class GameController {
    * @param {object} ctx 
    * @param {object} mouse 
    * @param {object} keyboard 
+   * set canvas
+   * set content
+   * set mause
+   * set keyboard
+   * set device witch getdevice func
+   * set dialog from html
+   * set buttons from html
+   * set active to true
    */
   constructor(canvas, ctx, mouse, keyboard, content) {
     this.canvas = canvas;
     this.ctx = ctx;
-    this.content  = content;
+    this.content = content;
     this.mouse = mouse;
     this.keyboard = keyboard;
     this.dialogBG = document.getElementById('dialogBlock');
@@ -30,14 +43,9 @@ class GameController {
     this.fullscreen = new Fullscreen(canvas);
     this.buttons = document.getElementById('buttons');
     this.activ = true;
-
     this.loop();
     this.loadMenue();
   }
-
-
-
-
 
   /**loading menue */
   loadMenue() {
@@ -49,10 +57,17 @@ class GameController {
     this.resetCss();
   }
 
+  /**
+   * replace buttons css with the buttons class
+   */
   resetCss() {
     this.buttons.classList.replace('?', 'buttons');
   }
 
+  /**
+   * removes the dnone css class from dialogBG
+   * and set a template
+   */
   showinformation() {
     this.dialogBG.classList.remove('d-none');
     this.dialogBG.innerHTML = this.informationTemplate();
@@ -90,10 +105,10 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if (this.isMobileDevice() && this.isLandscapeMode() ) {
-      if(!document.fullscreen){
-      toggleFullscreen(this.content);
-      } 
+    if (this.isMobileDevice() && this.isLandscapeMode()) {
+      if (!document.fullscreen) {
+        toggleFullscreen(this.content);
+      }
     }
   }
 
@@ -111,7 +126,9 @@ class GameController {
 
 
 
-
+  /**
+   * checkButtons for the first time 
+   */
   checkButtons() {
     if (this.state === 'menue' && this.activ) {
       this.activ = false;
@@ -125,7 +142,6 @@ class GameController {
 
   /**world reset funtion */
   resetGame() {
-
     if (this.world) {
       if (typeof this.world.cleanUp === "function") {
         this.world.cleanUp();
@@ -134,13 +150,16 @@ class GameController {
     this.loadWorld();
   }
 
-
+  /**toggles the hide class in the button html */
   addHideButton() {
     this.buttons.classList.toggle('hide');
   }
 
-
-  renderGameFullscreenBTN() {     // zeile 148 muss der fehler sein
+  /**
+   * remove buttons class on the button html add another class
+   * and load html template
+   */
+  renderGameFullscreenBTN() {
     this.buttons.classList.remove('buttons');
     this.buttons.classList.add('positionBottomRight');
     this.buttons.innerHTML = ` 
@@ -152,16 +171,23 @@ class GameController {
 
   }
 
+  /**toggles the d/none class on dialog bg */
   toggleDialogBg() {
     this.dialogBG.classList.toggle('d-none');
   }
 
+  /**
+   * toggles the overflow class in the html body
+   */
   toggleOverflow() {
     document.getElementById('body').classList.toggle('overflow');
   }
 
 
-
+  /**
+   * 
+   * @returns a html template 
+   */
   informationTemplate() {
     this.toggleOverflow();
     return ` <div id="help" class="infoBlock" onclick="game.toggleDialogBg(), game.toggleOverflow()">
@@ -193,6 +219,10 @@ class GameController {
         </div>`;
   }
 
+  /**
+   * calls dialog bg func
+   * and set an html template for the impressum
+   */
   impressumTemplate() {
     this.toggleDialogBg();
     document.getElementById('dialogBlock').innerHTML = `<div class="centerText" onclick="game.toggleDialogBg(), game.toggleOverflow()">

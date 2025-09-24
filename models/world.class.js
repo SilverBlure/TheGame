@@ -1,3 +1,7 @@
+/**
+ * @class
+ * class repressents the in game World
+ */
 class World {
   roundCounter = 0;
   ctx;
@@ -159,6 +163,7 @@ class World {
 
   /**
    * check if projectile collides with enemie
+   * @see docs/world.md#checkProjectileEnemyCollision
    */
   checkProjectileEnemyCollision() {
     this.throwableObjects = this.throwableObjects.filter((projectile) => {
@@ -208,6 +213,7 @@ class World {
 
   /**
    * draw function draws objects on canvas
+   * @see docs/world.md#draw
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -250,6 +256,7 @@ class World {
 
   /**
    * update function calls more checks
+   * @see docs/world.md#update
    */
   update() {
     this.frameCounter++
@@ -296,7 +303,7 @@ class World {
   }
 
   /**
-   * respawns enemies till enboss
+   * if an enemie is diying a new one spawned new
    */
   reSpawnEnemie() {
     if (this.enemies.length < 6) {
@@ -305,7 +312,7 @@ class World {
   }
 
   /**
-   * stops projectiles that geos out of range
+   * stops projectiles that runs out of the canvas
    */
   stopProjectile() {
     this.throwableObjects = this.throwableObjects.filter((obj) => {
@@ -337,7 +344,7 @@ class World {
 
   /**
    * renders object to map
-   * @param {objects} mo 
+   * @param {object} mo 
    */
   addToMap(mo) {
     if (mo.otherDirection) {
@@ -390,5 +397,4 @@ class World {
       this.bossStart = true;
     }
   }
-
 }

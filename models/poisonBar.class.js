@@ -1,3 +1,7 @@
+/**
+ * @class
+ * class of the poison bar
+ */
 class PoisonBar extends DrawableObject {
 
     percentage;
@@ -10,6 +14,14 @@ class PoisonBar extends DrawableObject {
         'assets/4.Marcadores/green/poisonedBubbles/100_.png',
     ];
 
+
+    /**
+     * @constructor
+     * extends from DrawableObject
+     * load images
+     * set diameters
+     * call setPercentage with 0
+     */
     constructor() {
         super();
         this.loadImages(this.poisonBar);
@@ -17,8 +29,8 @@ class PoisonBar extends DrawableObject {
         this.y = 30;
         this.width = 150;
         this.height = 40;
-        this.setPercentage();
-        this.percentage = 1;
+        this.setPercentage(0);
+        
         
     }
 
@@ -50,7 +62,9 @@ class PoisonBar extends DrawableObject {
         this.setPercentage(this.percentage);
     }
 
-    /**image controller */
+    /**image controller 
+     * returns number of the right image
+    */
     resolveImageIndex(){
         if(this.percentage == 100){
             return 5;

@@ -1,3 +1,7 @@
+/**
+ * @class
+ * the keyboard object 
+ */
 class Keyboard {
 
     LEFT = false;   //keycode 37

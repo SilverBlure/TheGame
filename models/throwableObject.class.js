@@ -1,5 +1,8 @@
+/**
+ * @class
+ * represents the class for all throwable Objects
+ */
 class ThrowableObject extends MovableObject {
-
     speedY;
     attackAnimation;
     direction;
@@ -10,11 +13,16 @@ class ThrowableObject extends MovableObject {
     frequency;
 
 /**
+ * @constructor 
  * 
  * @param {number} x 
  * @param {number} y 
  * @param {boolean} direction 
  * @param {object} world 
+ * 
+ * extends from MovableObjects
+ * load images
+ * load sound
  */
     constructor(x, y, direction, world) {
         super();
@@ -43,7 +51,8 @@ class ThrowableObject extends MovableObject {
     
     
 /**
- * 
+ * throws an object from the mouth position of sharky
+ * and flys from the looking direction
  * @param {number} x 
  * @param {number} y 
  */
@@ -68,6 +77,10 @@ class ThrowableObject extends MovableObject {
         }, 50);
     }
     
+/**
+ * returns the diameter of the bubble
+ * @returns object - with parameter
+ *  */
 getCollider() {
     return {
       x: this.x ,

@@ -1,3 +1,7 @@
+/**
+ * @class
+ * is the menue class
+ */
 class Menue {
   ctx;
   mouse;
@@ -13,13 +17,21 @@ class Menue {
 
 
 /**
- * 
+ * @constructor
  * @param {object} canvas 
  * @param {object} mouse 
  * @param {func} loadWorld 
  * @param {object} sound 
  * @param {object} fullscreen 
  * @param {object} state 
+ * set canvas
+ * set onstart
+ * set canvas
+ * set sound
+ * set fullScreen
+ * set state
+ * calls draw() func
+ * set active to false
  */
   constructor(canvas, mouse, loadWorld, sound, fullscreen, state) {
     this.ctx = canvas.getContext("2d");
@@ -47,25 +59,11 @@ class Menue {
   drawMenueButtons() {
     this.buttons.innerHTML = `
     <button class="startButton" id="button" onclick="game.loadWorld()">Start Game</button>
-  
     `;
   }
 
 /**
- * 
- * @param {number} x 
- * @param {number} y 
- */
-  handleTouch(x, y) {
-    this.mouse.pos_x = x;
-    this.mouse.pos_y = y;
-    if (this.collisionWithButton(this.startButton)) {
-      this.onStart();
-    }
-  }
-
-/**
- * 
+ * adds objects from array to map
  * @param {object} objects 
  */
   addObjectsToMap(objects) {
@@ -77,7 +75,7 @@ class Menue {
   }
 
   /**
-   * 
+   * set images to map 
    * @param {object} mo 
    */
   addToMap(mo) {
@@ -92,27 +90,6 @@ class Menue {
     }
   }
 
-/**
- * 
- * @param {object} button 
- * @param {number} x 
- * @param {number} y 
- * @returns 
- */
-  collisionWithButton(button, x, y) {
-    if (x !== undefined && y !== undefined) {
-      this.mouse.pos_x = x;
-      this.mouse.pos_y = y;
-    }
-    if (
-      this.mouse.pos_x > button.x &&
-      this.mouse.pos_x < button.x + button.width &&
-      this.mouse.pos_y > button.y &&
-      this.mouse.pos_y < button.y + button.height
-    ) {
-      return true;
-    }
-    return false;
-  }
+
 
 }

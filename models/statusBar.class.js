@@ -1,3 +1,7 @@
+/**
+ * @class
+ * represents the class of the statusbar
+ */
 class StatusBar extends DrawableObject {
 
     healthBar = [
@@ -11,6 +15,13 @@ class StatusBar extends DrawableObject {
 
     percentage = 100;
 
+    /**
+     * @constructor
+     * extends from DrawableObjects
+     * load images
+     * set diameters
+     * set start live to 100
+     */
     constructor() {
         super();
         this.loadImages(this.healthBar);
@@ -21,7 +32,7 @@ class StatusBar extends DrawableObject {
         this.setPercentage(100);
     }
     /**
-     * 
+     * set the persentage to the health bar
      * @param {number} percentage 
      */
     setPercentage(percentage){
@@ -30,7 +41,10 @@ class StatusBar extends DrawableObject {
         this.img = this.imageCache[path];
     }
 
-    /**image controller */
+    /**
+     * index for the rigth image, returns the number
+     * of the image
+     */
     resolveImageIndex(){
         if(this.percentage > 80){
             return 5;

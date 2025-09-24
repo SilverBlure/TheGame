@@ -1,3 +1,7 @@
+/**
+ * @class
+ * class of the Pufferfish 
+ */
 class Pufferfish extends MovableObject {
   width = 100;
   height = 100;
@@ -23,6 +27,14 @@ class Pufferfish extends MovableObject {
     "assets/2Enemy/1PufferFish/4DIE/Dead3.png",
   ];
 
+
+  /**
+   * @constructor
+   * load images
+   * set y and x pos random 
+   * set speed random
+   * load audio
+   */
   constructor() {
     super();
     this.loadImage(this.PUFFERFISH_STAY[0]);
@@ -35,6 +47,9 @@ class Pufferfish extends MovableObject {
     this.sound = new Audio('assets/sounds/pufferfish_1.wav');
   }
 
+  /**
+   * returns the colider parameter
+   */
   getCollider(){
     return {
       x: this.x +5,

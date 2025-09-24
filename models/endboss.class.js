@@ -1,4 +1,7 @@
-
+/**
+ * @class 
+ * the EndbossObject is the endbos of the game
+ */
 class Endboss extends MovableObject {
   height = 300;
   width = 300;
@@ -66,7 +69,15 @@ class Endboss extends MovableObject {
   ];
 
 
-
+/**
+ * @constructor
+ * exdended from MovableObject
+ * load images
+ * call setStates() func
+ * load sound
+ * set action to false
+ * set time
+ */
   constructor() {
     super();
     this.loadImage(this.ENDBOSS_STAY[0]);

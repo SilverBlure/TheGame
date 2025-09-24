@@ -1,14 +1,26 @@
+/**
+ * @class
+ * the gameOver Screen Object
+ */
 class GameOverScreen extends DrawableObject {
 
     title;
     canvas
 
     /**
-     * 
+     * @constructor
      * @param {object} canvas 
      * @param {object} world 
+     * extended from DawableObject
+     * set canvas
+     * set Title
+     * load images
+     * set diameters
+     * set flag to false
+     * set doc from html
+     * load sound
      */
-    constructor(canvas , world) {
+    constructor(canvas, world) {
         super();
         this.canvas = canvas;
         this.title = new DrawableObject();
@@ -29,13 +41,16 @@ class GameOverScreen extends DrawableObject {
      * @param {object} ctx 
      */
     draw(ctx) {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            this.title.draw(ctx);
-            
-        }
-    
+        ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        this.title.draw(ctx);
 
+    }
+
+    /**
+     * if the flag is false, the buttons get removed
+     * and new buttos get created and classes added
+     */
     addTryAgainButton() {
         this.flag = true;
         this.doc.classList.remove('buttons');

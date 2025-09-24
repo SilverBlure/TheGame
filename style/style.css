@@ -573,9 +573,6 @@ h3 {
         height: 72px;
         padding: 6px;
     }
-
-
-
 }
 
 @media(min-width:900px) {
@@ -646,7 +643,6 @@ h3 {
         font-size: 18px;
         margin: 8px;
     }
-
 }
 
 @media(min-width:1200px) {
@@ -659,7 +655,6 @@ h3 {
     .headLine {
         font-size: 72px;
     }
-
 }
 
 @media(min-width:1450px) {
@@ -667,17 +662,14 @@ h3 {
     .headLine {
         font-size: 72px;
     }
-
 }
 
 @media(min-width:1800px) {
-
 
     .canvas-container {
         height: 768px;
         width: 1024px;
     }
-
 
     .headLine {
         font-size: 24px;

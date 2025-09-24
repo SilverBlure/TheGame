@@ -124,7 +124,11 @@ class Character extends MovableObject {
         'assets/1.Sharkie/4.Attack/Fin slap/8.png',
     ]
 
-    /**constructor */
+    /**
+     * constructor 
+     * extends from movableObjects
+     * loading all images
+     * load character sounds*/
     constructor() {
         super();
         this.loadImage('assets/1.Sharkie/3.Swim/1.png');
@@ -159,7 +163,7 @@ class Character extends MovableObject {
         this.world = world;
     }
 
-    /**colider of character */
+    /**returns the collider of the character */
     getCollider() {
         return {
             x: this.otherDirection ? this.x - 0 + 50 : this.x + 50,
@@ -169,11 +173,11 @@ class Character extends MovableObject {
         };
     }
 
-    /**complete character animation  */
+    /**complete character animation 
+     * @see doc/character.md#animate()
+     */
     animate() {
-
         if (this.loopIntervalID) return;
-
         this.loopIntervalID = setInterval(() => {
             if (this.animation >= 3) {
                 this.dead();
@@ -184,17 +188,14 @@ class Character extends MovableObject {
                     this.bubble();
                     this.melee();
                     this.idle();
-
                     this.stateBahavor();
                     this.animation = 0;
                 }
             }
-
             if (this.idleCounter >= 2000) {
                 this.idleTrigger = true;
                 this.idleCounter = 0;
             }
-
             this.idleCounter++;
             if (this.x < 2200) {
                 this.world.camera_x = -this.x;
@@ -243,13 +244,12 @@ class Character extends MovableObject {
         if (this.isHurt()) {
             this.state = 'hurt';
         } else if (this.idleTrigger) {
-
             this.sleep();
-
         } else if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.DOWN && !this.world.keyboard.UP && !this.world.keyboard.A && !this.world.keyboard.S && !this.action) {
             this.state = 'idle';
         }
     }
+
     /**movement switch with keyboard inputs */
     move() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.DOWN || this.world.keyboard.UP) {
@@ -257,6 +257,7 @@ class Character extends MovableObject {
             this.handleMovementInputs();
         }
     }
+
     /**dead shifter */
     dead() {
         if (this.isDead()) {
@@ -267,13 +268,16 @@ class Character extends MovableObject {
             }
         }
     }
+
     /**sleep shifter */
     sleep() {
         this.state = 'sleep';
     }
 
 
-    /**Bubble attack */
+    /**Bubble attack 
+     * @see doc/caracter.md##bubble()
+    */
     bubble() {
         if (this.world.keyboard.A && !this.action && !this.coolDown) {
             if (this.world.poisonBar.percentage > 10) {
@@ -295,12 +299,11 @@ class Character extends MovableObject {
 
             }, 3000)
         }
-
-
-
     }
 
-    /**Melee attack */
+    /**Melee attack
+     * @see docs/Character.md#melee
+     */
     melee() {
         if (this.world.keyboard.S) {
             this.action = true;
@@ -327,23 +330,23 @@ class Character extends MovableObject {
             this.otherDirection = false;
         }
     }
-    /**function for going Left */
 
+    /**function for going Left */
     goLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.x -= this.speed;
             this.otherDirection = true;
         }
     }
-    /**function for going Up */
 
+    /**function for going Up */
     goUp() {
         if (this.world.keyboard.UP && this.y > -70) {
             this.y -= this.speed;
         }
     }
-    /**function for going Down */
 
+    /**function for going Down */
     goDown() {
         if (this.world.keyboard.DOWN && this.y < this.world.level.level_end_y) {
             this.y += this.speed;
@@ -355,10 +358,12 @@ class Character extends MovableObject {
         this.idleCounter = 0;
         this.idleTrigger = false;
     }
+
     /**add a Bubble to the Screen */
     addBubble() {
         this.world.throwableObjects.push(new ThrowableObject(this.x, this.y, this.otherDirection, this.world));
     }
+
     /**add the Melee attack to the Screen */
     addMelee() {
         this.world.meleeAtk.push(new FinAttack(this.x, this.y, this.width, this.height, this.world));

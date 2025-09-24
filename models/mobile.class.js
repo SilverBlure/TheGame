@@ -1,3 +1,7 @@
+/**
+ * @class 
+ * this class add an Mobile Controler to the Canvas
+ */
 class MobileController extends DrawableObject{
 
 D_PAD;
@@ -5,8 +9,11 @@ A_BUTTON;
 MELEE_BUTTON;
 
     /**
-     * 
+     * @constructor
      * @param {object} canvas 
+     * load images dpad, aButton, MeleeButton
+     * set diameters
+     * 
      */
     constructor(canvas){
         super();
@@ -46,7 +53,7 @@ MELEE_BUTTON;
         
     }
 
-/**collision detction */
+/**return a collision detection */
     isTouching(button, x, y) {
         return x > button.x && x < button.x + button.width &&
                y > button.y && y < button.y + button.height;
