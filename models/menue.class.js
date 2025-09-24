@@ -91,5 +91,41 @@ class Menue {
   }
 
 
+/**
+ * 
+ * @param {number} x 
+ * @param {number} y 
+ */
+  handleTouch(x, y) {
+    this.mouse.pos_x = x;
+    this.mouse.pos_y = y;
+    if (this.collisionWithButton(this.startButton)) {
+      this.onStart();
+    }
+  }
+
+
+  /**
+ * 
+ * @param {object} button 
+ * @param {number} x 
+ * @param {number} y 
+ * @returns 
+ */
+  collisionWithButton(button, x, y) {
+    if (x !== undefined && y !== undefined) {
+      this.mouse.pos_x = x;
+      this.mouse.pos_y = y;
+    }
+    if (
+      this.mouse.pos_x > button.x &&
+      this.mouse.pos_x < button.x + button.width &&
+      this.mouse.pos_y > button.y &&
+      this.mouse.pos_y < button.y + button.height
+    ) {
+      return true;
+    }
+    return false;
+  }
 
 }
