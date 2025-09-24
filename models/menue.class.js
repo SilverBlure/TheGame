@@ -92,7 +92,7 @@ class Menue {
 
 
 /**
- * 
+ * handles touch for the mobile device
  * @param {number} x 
  * @param {number} y 
  */
@@ -106,7 +106,7 @@ class Menue {
 
 
   /**
- * 
+ * returns wen the finger tuches a steering image
  * @param {object} button 
  * @param {number} x 
  * @param {number} y 
