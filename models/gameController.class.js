@@ -163,7 +163,7 @@ class GameController {
     this.buttons.classList.remove('buttons');
     this.buttons.classList.add('positionBottomRight');
     this.buttons.innerHTML = ` 
-        <div class="buttons index">
+        <div class="buttons">
         <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content)">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>

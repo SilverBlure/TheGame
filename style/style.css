@@ -80,7 +80,6 @@ canvas {
     justify-content: center;
     width: 100%;
     margin-top: 24px;
-
 }
 
 
@@ -128,10 +127,8 @@ canvas {
 
 
 .aside {
-
     justify-content: center;
     display: flex;
-
 }
 
 .startButton:focus-visible {
@@ -141,7 +138,6 @@ canvas {
 .soundImg:focus-visible {
     width: 68px;
     height: 68px;
-
 }
 
 .cleanButton {
