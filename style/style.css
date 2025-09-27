@@ -279,10 +279,16 @@ td {
 }
 
 
-.impressum {
+.impressumHeadline {
     color: white;
     font-family: 'luckiest guy';
     font-size: 50px;
+}
+
+.impressumButton {
+    color: white;
+    font-family: 'luckiest guy';
+    font-size: 32px;
 }
 
 .soundButton {
@@ -290,8 +296,6 @@ td {
     height: 78px;
     background-color: rgb(0 0 0 / 0%);
     border-style: none;
-
-
 }
 
 .soundImg {
@@ -322,7 +326,7 @@ h2,
 h3 {
     font-family: 'Arial', Courier, monospace;
     color: white;
-    margin-left: 0px;
+    margin: 0px;
 }
 
 .divImpressum {
@@ -390,13 +394,13 @@ h3 {
     }
 
     .canvas-container {
-        width: 360px;
-        height: 210px;
+        width: 380px;
+        height: 174px;
     }
 
     .impressum {
-        font-size: 24px;
-        margin: 16px;
+        font-size: 34px;
+        margin: 40px;
     }
 
     .orga {
@@ -404,24 +408,23 @@ h3 {
     }
 
     .help {
-        width: 42px;
-        height: 42px;
+        width: 56px;
+        height: 56px;
     }
 
     .buttonInformation {
-        width: 42px;
-        height: 42px;
+        width: 56px;
+        height: 56px;
     }
 
     .soundButton {
-        width: 42px;
-        height: 42px;
-
+        width: 56px;
+        height: 56px;
     }
 
     .soundImg {
-        width: 42px;
-        height: 42px;
+        width: 56px;
+        height: 56px;
     }
 
     .divImpressum {
@@ -493,7 +496,7 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 542px;
+        height: 312px;
         overflow: auto;
         justify-content: start;
     }
@@ -559,7 +562,7 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 542px;
+        height: 408px;
         overflow: auto;
         justify-content: start;
     }
@@ -584,17 +587,17 @@ h3 {
 
     .headLine {
         font-size: 42px;
-        margin: 16px;
+        margin:  8px;
     }
 
     .canvas-container {
-        width: 800px;
-        height: 600px;
+        width: 600px;
+        height: 268px;
     }
 
     .impressum {
-        font-size: 56px;
-        margin: 16px;
+        font-size: 38px;
+        margin: 8px;
     }
 
     .orga {
@@ -624,7 +627,7 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 542px;
+        height: 376px;
         overflow: auto;
         justify-content: start;
     }

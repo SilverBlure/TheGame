@@ -27,7 +27,7 @@ class Fullscreen extends DrawableObject {
     constructor(canvas) {
         super();
         this.loadImages(this.Menue_FULLSCREEN_IMG);
-        this.loadImage(this.Menue_FULLSCREEN_IMG[0]); // <- dieses Bild wird sichtbar verwendet
+        this.loadImage(this.Menue_FULLSCREEN_IMG[0]); 
         this.loadImages(this.World_FULLSCREEN_IMG);
         this.loadImage(this.World_FULLSCREEN_IMG[0]);
         this.canvas = canvas;

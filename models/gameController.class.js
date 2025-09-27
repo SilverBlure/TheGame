@@ -228,7 +228,7 @@ class GameController {
     document.getElementById('dialogBlock').innerHTML = `<div class="centerText" onclick="game.toggleDialogBg(), game.toggleOverflow()">
         
           <div class="divImpressum">
-            <h1 class="impressum" headline id="headline">Sharky the Game</h1>
+            <h1 class="impressumHeadline" headline id="headline">Sharky the Game</h1>
 
             <h2>Impressum</h2><br>
 
