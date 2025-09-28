@@ -384,14 +384,20 @@ h3 {
         touch-action: manipulation;
     }
 
+    p{
+        font-size: 8px;
+    }
+
+    
+
     .headLine {
-        font-size: 42px;
-        margin: 16px;
+        font-size: 24px;
+        margin: 8px;
     }
 
     .canvas-container {
-        width: 380px;
-        height: 174px;
+        width: 148px;
+        height: 90px;
     }
 
     .impressum {
@@ -404,43 +410,59 @@ h3 {
     }
 
     .help {
-        width: 56px;
-        height: 56px;
+        width: 24px;
+        height: 24px;
     }
 
     .buttonInformation {
-        width: 56px;
-        height: 56px;
+        width: 24px;
+        height: 24px;
     }
 
     .soundButton {
-        width: 56px;
-        height: 56px;
+        width: 24px;
+        height: 24px;
     }
 
     .soundImg {
-        width: 56px;
-        height: 56px;
+        width: 24px;
+        height: 24px;
     }
 
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 312px;
+        height: 126px;
         overflow: auto;
         justify-content: start;
+        border-radius: 10px;
+    }
+
+    .startButton {
+        border-width: 2mm;
+        border-radius: 48px;
+        height: 39px;
+        width: 88px;
+        font-size: 2mm;
     }
 
     .infoBlock {
-        margin: 16px;
+        margin: 6px;
         padding: 8px;
     }
 
     .tableImages {
-        height: 72px;
+        height: 32px;
         padding: 6px;
     }
 
+    .impressumHeadline {
+        font-size: 24px;
+    }
+
+    .impressumButton{
+        font-size: 16px;
+    }
 }
 
 @media(min-width:600px) {
@@ -583,7 +605,7 @@ h3 {
 
     .headLine {
         font-size: 42px;
-        margin:  8px;
+        margin: 8px;
     }
 
     .canvas-container {
