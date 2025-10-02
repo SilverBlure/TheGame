@@ -105,11 +105,11 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if (this.isMobileDevice() && this.isLandscapeMode()) {
-      if (!document.fullscreen) {
-        toggleFullscreen(this.content);
-      }
-    }
+    // if (this.isMobileDevice() && this.isLandscapeMode()) {
+    //   if (!document.fullscreen) {
+    //     toggleFullscreen(this.content);
+    //   }
+    // }
   }
 
 
@@ -160,15 +160,22 @@ class GameController {
    * and load html template
    */
   renderGameFullscreenBTN() {
-    this.buttons.classList.remove('buttons');
+    console.log("logged")
+    if(document.fullscreen){
+    this.buttons.innerHTML='';
+    console.log("keine buttons")
+      }else{
+        this.buttons.classList.remove('buttons');
     this.buttons.classList.add('positionBottomRight');
     this.buttons.innerHTML = ` 
-        <div class="buttons">
-        <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content)">      
+        <div id="buttons" class="buttons">
+        <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>
         </div>`;
+            console.log(" buttons")
 
+      }
   }
 
   /**toggles the d/none class on dialog bg */

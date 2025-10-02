@@ -22,7 +22,6 @@ canvas {
     height: 100%;
     display: block;
     object-fit: fill;
-    z-index: -10;
 
 }
 
@@ -372,6 +371,7 @@ h3 {
     top: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.2);
+    pointer-events: none
 }
 
 

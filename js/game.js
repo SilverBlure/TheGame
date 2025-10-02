@@ -18,15 +18,12 @@ function init() {
   game = new GameController(canvas, ctx, mouse, keyboard, content);
   
 
-
-
-  /**check if landscape mode */
-
   /**
    * add canvas a touchstart event 
    */
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
+    
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -37,8 +34,7 @@ function init() {
     game?.world?.character?.onAnyInput?.();
     handleTouchDown(x, y);
   }
-  ), { passive: false };
-
+  , { passive: false });
 
   /**
    * canvas add touchend event 
@@ -55,7 +51,6 @@ function init() {
   function handleTouchDown(x, y) {
     game.menue?.handleTouch(x, y);
     if (game.state === "game") {
-
       const controller = game.world.mobileController;
       const kb = game.keyboard;
       if (controller) {
@@ -124,9 +119,6 @@ function init() {
   }
   )
 
-
-
-
   /**
    * set mouse positon in mouse object
    */
@@ -159,6 +151,7 @@ function toggleFullscreen(elem) {
   } else {
     document.exitFullscreen();
   }
+  game.renderGameFullscreenBTN();
 }
 
 function toggleInfo() {

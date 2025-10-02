@@ -52,12 +52,12 @@
 
         <div class="aside">
 
-            <div onclick="">
+            <div>
                 <div id="content" class="canvas-container">
                     <portraitBlock class="blockPortrait d-none" id="portraitBlock">
                         <img class="blockImg" src="./GUI/Please_Landscape.png">
                     </portraitBlock>
-                    <canvas id="canvas" width="720px" height="480px"></canvas>
+                    <canvas id="canvas" width="720" height="480"></canvas>
                     <div id="buttons" class="buttons "></div>
                 </div>
             </div>
@@ -69,6 +69,9 @@
                 </button>
                 <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton center">
                     <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">
+                </button>
+                <button onclick="toggleFullscreen(content)" class="soundButton center">
+                    <img class="help center" src="GUI\fullscreenInGame.svg">
                 </button>
             </div>
 
