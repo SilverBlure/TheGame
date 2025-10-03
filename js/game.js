@@ -146,12 +146,18 @@ function init() {
 }
 
 function toggleFullscreen(elem) {
-  if (!document.fullscreenElement) {
+  if (!document.fullscreenElement) { 
     elem.requestFullscreen();
   } else {
     document.exitFullscreen();
   }
-  game.renderGameFullscreenBTN();
+  setTimeout(
+    game.renderGameFullscreenBTN(),
+    console.log('render Button')
+    , 200
+
+  )
+  
 }
 
 function toggleInfo() {

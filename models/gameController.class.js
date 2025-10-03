@@ -105,11 +105,13 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    // if (this.isMobileDevice() && this.isLandscapeMode()) {
-    //   if (!document.fullscreen) {
-    //     toggleFullscreen(this.content);
-    //   }
-    // }
+    if (document.fullscreen) {
+      console.log(("das spiel wurde im full geöffnet"))
+    } else {
+      console.log(("das spiel wurde im small geöffnet"))
+
+    }
+
   }
 
 
@@ -160,22 +162,40 @@ class GameController {
    * and load html template
    */
   renderGameFullscreenBTN() {
-    console.log("logged")
-    if(document.fullscreen){
-    this.buttons.innerHTML='';
-    console.log("keine buttons")
-      }else{
-        this.buttons.classList.remove('buttons');
-    this.buttons.classList.add('positionBottomRight');
-    this.buttons.innerHTML = ` 
+
+    if (game.state == "menue") {
+      if (document.fullscreen) {
+        this.buttons.classList.add('positionBottomRight');
+        this.returnFullscreenButton();
+        console.log(" buttons")
+      }
+    }
+    if (game.state == "game") {
+      if (!document.fullscreen) {
+        this.buttons.innerHTML = '';
+        console.log("keine buttons")
+      } else {
+        //this.buttons.classList.remove('buttons');
+        this.buttons.classList.add('positionBottomRight');
+        this.returnFullscreenButton();
+        console.log(" buttons")
+      }
+    }
+  }
+
+
+  /**
+   * 
+   * @returns a Button with a Fullscreen Icon
+   */
+  returnFullscreenButton() {
+    return this.buttons.innerHTML = ` 
         <div id="buttons" class="buttons">
         <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>
         </div>`;
-            console.log(" buttons")
 
-      }
   }
 
   /**toggles the d/none class on dialog bg */
