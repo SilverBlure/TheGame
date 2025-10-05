@@ -145,6 +145,7 @@ function init() {
   }
 }
 
+/**set canvas in fullscreen, if it is close fullscreen */
 function toggleFullscreen(elem) {
   if (!document.fullscreenElement) {
     elem.requestFullscreen();
@@ -154,20 +155,35 @@ function toggleFullscreen(elem) {
   game.renderGameFullscreenBTN();
 }
 
+/**\
+ * toggels a css class named d-none
+ */
 function toggleInfo() {
   document.getElementById('help').classList.toggle('d-none');
 }
 
+
+/**
+ * checks the onload position of the screen
+ */
 function checkOnloadPosition() {
   if (!isLandscapeMode()) {
     document.getElementById('portraitBlock').classList.remove('d-none');
   }
 }
 
+/**
+ * 
+ * @returns true - when is in landscape
+ */
 function isLandscapeMode() {
   return window.innerWidth > window.innerHeight
 }
 
+/**
+ * 
+ * @returns true - when is on Fullscreen
+ */
 function returnFullscreen() {
   return document.fullscreen;
 }

@@ -40,10 +40,8 @@ class GameController {
     this.keyboard = keyboard;
     this.dialogBG = document.getElementById('dialogBlock');
     this.device = this.getdevice();
-
     this.full = document.getElementById('full');
     this.buttons = document.getElementById('buttons');
-    
     this.activ = true;
     this.loop();
     this.loadMenue();
@@ -107,10 +105,7 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if (returnFullscreen()) {
-      console.log(("das spiel wurde im full geöffnet"))
-    } else {
-      console.log(("das spiel wurde im small geöffnet"))
+    if (!returnFullscreen()) {
       this.buttons.innerHTML = '';
     }
   }
@@ -163,12 +158,10 @@ class GameController {
    * and load html template
    */
   renderGameFullscreenBTN() {
-    console.log("renderGameFullscreenBTN trigger")
     if (game.state == "menue") {
       if (!returnFullscreen()) {
         this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
-        console.log(" buttons")
       }
     }
     if (game.state == "game") {
@@ -176,10 +169,8 @@ class GameController {
         this.buttons.classList.remove('buttons');
         this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
-        console.log(" buttons")
       } else if(returnFullscreen()){
         this.buttons.innerHTML = '';
-        console.log("keine buttons")
       }
     }
   }
@@ -192,8 +183,8 @@ class GameController {
   returnFullscreenButton() {
     return this.full.innerHTML = ` 
         <div id="full" class="buttons">
-        <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
-        <img class="help" src="GUI/fullscreenInGame.svg">
+        <button class="inGameFullscreenBtn"  onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
+        <img class="onCanvasFull" src="GUI/fullscreenInGame.svg">
         </button>
         </div>`;
 

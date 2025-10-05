@@ -27,11 +27,11 @@ class GameOverScreen extends DrawableObject {
         this.title.loadImage('assets/6.Botones/Tittles/Game Over/Recurso 11.png');
         this.title.y = 50;
         this.title.width = 360;
-        this.title.height = 180;
+        this.title.height = 120;
         this.title.x = (this.canvas.width / 2) - (this.title.width / 2);
         this.flag = false;
         this.world = world;
-        this.doc = document.getElementById('buttons');
+        this.buttons = document.getElementById('buttons');
         this.sound = new Audio('assets/sounds/GameOver.mp3');
 
     }
@@ -53,11 +53,10 @@ class GameOverScreen extends DrawableObject {
      */
     addTryAgainButton() {
         this.flag = true;
-        this.doc.classList.remove('buttons');
-        this.doc.classList.add("positionTryAgainBtn");
-        this.doc.innerHTML = `<div class="tryAgain">
+        this.buttons.classList.remove('buttons');
+        this.buttons.innerHTML = `
                                 <button  class="startButton" id="button" onclick="game.resetGame()">Try Again</button>
-                            </div>`;
+                            `;
     }
 
 

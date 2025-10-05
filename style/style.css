@@ -388,7 +388,14 @@ h3 {
         font-size: 8px;
     }
 
-    
+    .onCanvasFull{
+        height: 16px;
+        width: 16px;
+    }
+
+    .marTo24{
+        margin: 0;
+    }
 
     .headLine {
         font-size: 24px;
@@ -438,12 +445,22 @@ h3 {
         border-radius: 10px;
     }
 
+    .inGameFullscreenBtn {
+    right: 2px;
+    position: absolute;
+    bottom: 2px;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none;
+    cursor: pointer;
+}
+
     .startButton {
         border-width: 2mm;
         border-radius: 48px;
         height: 39px;
         width: 88px;
         font-size: 2mm;
+        z-index: 10;
     }
 
     .infoBlock {
