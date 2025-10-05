@@ -230,7 +230,7 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.meleeAtk);
     this.ctx.translate(-this.camera_x, 0);
-    this.fullScreen.checkMode('game');
+    //this.fullScreen.checkMode('game');
     if (this.device === "mobile") {
       this.addToMap(this.mobileController);
     }

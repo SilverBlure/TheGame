@@ -40,8 +40,10 @@ class GameController {
     this.keyboard = keyboard;
     this.dialogBG = document.getElementById('dialogBlock');
     this.device = this.getdevice();
-    this.fullscreen = new Fullscreen(canvas);
+
+    this.full = document.getElementById('full');
     this.buttons = document.getElementById('buttons');
+    
     this.activ = true;
     this.loop();
     this.loadMenue();
@@ -105,13 +107,12 @@ class GameController {
     this.state = "game";
     this.addHideButton()
     this.activ = true;
-    if (document.fullscreen) {
+    if (returnFullscreen()) {
       console.log(("das spiel wurde im full geöffnet"))
     } else {
       console.log(("das spiel wurde im small geöffnet"))
-
+      this.buttons.innerHTML = '';
     }
-
   }
 
 
@@ -162,23 +163,23 @@ class GameController {
    * and load html template
    */
   renderGameFullscreenBTN() {
-
+    console.log("renderGameFullscreenBTN trigger")
     if (game.state == "menue") {
-      if (document.fullscreen) {
+      if (!returnFullscreen()) {
         this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
         console.log(" buttons")
       }
     }
     if (game.state == "game") {
-      if (!document.fullscreen) {
-        this.buttons.innerHTML = '';
-        console.log("keine buttons")
-      } else {
-        //this.buttons.classList.remove('buttons');
+      if (!returnFullscreen()) {
+        this.buttons.classList.remove('buttons');
         this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
         console.log(" buttons")
+      } else if(returnFullscreen()){
+        this.buttons.innerHTML = '';
+        console.log("keine buttons")
       }
     }
   }
@@ -189,8 +190,8 @@ class GameController {
    * @returns a Button with a Fullscreen Icon
    */
   returnFullscreenButton() {
-    return this.buttons.innerHTML = ` 
-        <div id="buttons" class="buttons">
+    return this.full.innerHTML = ` 
+        <div id="full" class="buttons">
         <button class="inGameFullscreenBtn" id="button" onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
         <img class="help" src="GUI/fullscreenInGame.svg">
         </button>

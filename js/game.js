@@ -16,14 +16,14 @@ function init() {
   mouse = new Mouse(canvas);
   content = document.getElementById('content');
   game = new GameController(canvas, ctx, mouse, keyboard, content);
-  
+
 
   /**
    * add canvas a touchstart event 
    */
   canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    
+
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
@@ -34,7 +34,7 @@ function init() {
     game?.world?.character?.onAnyInput?.();
     handleTouchDown(x, y);
   }
-  , { passive: false });
+    , { passive: false });
 
   /**
    * canvas add touchend event 
@@ -146,18 +146,12 @@ function init() {
 }
 
 function toggleFullscreen(elem) {
-  if (!document.fullscreenElement) { 
+  if (!document.fullscreenElement) {
     elem.requestFullscreen();
   } else {
     document.exitFullscreen();
   }
-  setTimeout(
-    game.renderGameFullscreenBTN(),
-    console.log('render Button')
-    , 200
-
-  )
-  
+  game.renderGameFullscreenBTN();
 }
 
 function toggleInfo() {
@@ -172,4 +166,8 @@ function checkOnloadPosition() {
 
 function isLandscapeMode() {
   return window.innerWidth > window.innerHeight
+}
+
+function returnFullscreen() {
+  return document.fullscreen;
 }
