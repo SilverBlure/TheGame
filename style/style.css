@@ -126,7 +126,7 @@ canvas {
 
 
 .aside {
-    justify-content: center;
+flex-direction: column;
     display: flex;
 }
 
@@ -268,8 +268,6 @@ td {
 }
 
 .column {
-
-    flex-direction: column;
     display: flex;
 }
 
@@ -601,7 +599,7 @@ h3 {
 
     .canvas-container {
         width: 540px;
-        height: 225px;
+        height: 204px;
     }
 
     .impressumButton {
@@ -611,7 +609,7 @@ h3 {
     }
 
     .marTo24 {
-        margin-top: 12px;
+        margin-top: 0;
     }
 
     .orga {
@@ -619,23 +617,23 @@ h3 {
     }
 
     .help {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .buttonInformation {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .soundButton {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height:32px;
     }
 
     .soundImg {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .divImpressum {
@@ -672,8 +670,8 @@ h3 {
     }
 
     .canvas-container {
-        width: 640px;
-        height: 276px;
+                width: 632px;
+        height: 234px
     }
 
     .impressum {
@@ -686,23 +684,23 @@ h3 {
     }
 
     .help {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .buttonInformation {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .soundButton {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .soundImg {
-        width: 56px;
-        height: 56px;
+        width: 32px;
+        height: 32px;
     }
 
     .divImpressum {
@@ -748,8 +746,8 @@ h3 {
     }
 
     .canvas-container {
-        width: 808px;
-        height: 312px;
+        width: 780px;
+        height: 263px;
     }
 
     .impressum {
@@ -762,23 +760,23 @@ h3 {
     }
 
     .help {
-        width: 72px;
-        height: 72px;
+        width: 36px;
+        height: 36px;;
     }
 
     .buttonInformation {
-        width: 72px;
-        height: 72px;
+        width: 36px;
+        height: 36px;;
     }
 
     .soundButton {
-        width: 72px;
-        height: 72px;
+        width: 36px;
+        height: 36px;
     }
 
     .soundImg {
-        width: 72px;
-        height: 72px;
+        width: 36px;
+        height: 36px;
     }
 
     .divImpressum {
@@ -808,7 +806,7 @@ h3 {
 @media(min-width:1000px) {
 
     .canvas-container {
-        height: 648px;
+        height: 618px;
         width: 919px;
     }
 
@@ -826,7 +824,7 @@ h3 {
 @media(min-width:1200px) {
 
     .canvas-container {
-        height: 764px;
+        height: 730px;
         width: 1200px;
     }
 
