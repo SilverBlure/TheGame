@@ -374,26 +374,24 @@ h3 {
     pointer-events: none
 }
 
+.onCanvasFull {
+        height: 40px;
+        width: 40px;
+    }
 
-
-
-@media(max-width:599px) {
-
+@media(max-width:440px) {
     .body {
         overflow: hidden;
         touch-action: manipulation;
     }
 
-    p{
+    p {
         font-size: 8px;
     }
 
-    .onCanvasFull{
-        height: 16px;
-        width: 16px;
-    }
+    
 
-    .marTo24{
+    .marTo24 {
         margin: 0;
     }
 
@@ -446,13 +444,13 @@ h3 {
     }
 
     .inGameFullscreenBtn {
-    right: 2px;
-    position: absolute;
-    bottom: 2px;
-    background-color: rgba(0, 0, 0, 0.0);
-    border: none;
-    cursor: pointer;
-}
+        right: 2px;
+        position: absolute;
+        bottom: 2px;
+        background-color: rgba(0, 0, 0, 0.0);
+        border: none;
+        cursor: pointer;
+    }
 
     .startButton {
         border-width: 2mm;
@@ -473,12 +471,119 @@ h3 {
         padding: 6px;
     }
 
+    table{
+        width: 544px;
+    height: 292px;
+    }
+
     .impressumHeadline {
         font-size: 24px;
     }
 
-    .impressumButton{
+    .impressumButton {
         font-size: 16px;
+    }
+}
+
+@media(min-width:441px) {
+
+    .body {
+        overflow: hidden;
+        touch-action: manipulation;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    
+
+    .marTo24 {
+        margin: 0;
+    }
+
+    .headLine {
+        font-size: 24px;
+        margin: 8px;
+    }
+
+    .canvas-container {
+        width: 444px;
+        height: 230px;
+    }
+
+    .impressum {
+        font-size: 34px;
+        margin: 40px;
+    }
+
+    .orga {
+        height: 0;
+    }
+
+    .help {
+        width: 24px;
+        height: 24px;
+    }
+
+    .buttonInformation {
+        width: 24px;
+        height: 24px;
+    }
+
+    .soundButton {
+        width: 24px;
+        height: 24px;
+    }
+
+    .soundImg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .divImpressum {
+        margin: 16px;
+        padding: 16px;
+                height: 236px;
+        overflow: auto;
+        justify-content: start;
+        border-radius: 10px;
+    }
+
+    .inGameFullscreenBtn {
+        right: 2px;
+        position: absolute;
+        bottom: 2px;
+        background-color: rgba(0, 0, 0, 0.0);
+        border: none;
+        cursor: pointer;
+    }
+
+    .startButton {
+        height: 78px;
+        width: 194px;
+        font-size: 4mm;
+    }
+
+    .infoBlock {
+        margin: 0px;
+        padding: 8px;
+    }
+
+    .tableImages {
+        height: 58px;
+        padding: 2px;
+    }
+
+    .impressumHeadline {
+        font-size: 24px;
+    }
+
+    .impressumButton {
+        font-size: 16px;
+    }
+    table{
+            height: 264px;
     }
 }
 
@@ -490,18 +595,23 @@ h3 {
     }
 
     .headLine {
-        font-size: 42px;
-        margin: 16px;
+        font-size: 36px;
+        margin: 8px;
     }
 
     .canvas-container {
-        width: 380px;
-        height: 174px;
+        width: 540px;
+        height: 225px;
     }
 
-    .impressum {
-        font-size: 34px;
-        margin: 40px;
+    .impressumButton {
+        color: white;
+        font-family: 'luckiest guy';
+        font-size: 16px;
+    }
+
+    .marTo24 {
+        margin-top: 12px;
     }
 
     .orga {
@@ -531,7 +641,7 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 312px;
+                height: 268px;
         overflow: auto;
         justify-content: start;
     }
@@ -556,13 +666,14 @@ h3 {
     }
 
     .headLine {
-        font-size: 42px;
-        margin: 16px;
+        font-size: 29px;
+        margin: 8px;
+
     }
 
     .canvas-container {
         width: 640px;
-        height: 420px;
+        height: 276px;
     }
 
     .impressum {
@@ -597,7 +708,8 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 408px;
+        
+        height: 300px;
         overflow: auto;
         justify-content: start;
     }
@@ -610,6 +722,16 @@ h3 {
     .tableImages {
         height: 72px;
         padding: 6px;
+    }
+
+    .marTo24 {
+        margin-top: 8px;
+    }
+
+    .impressumButton {
+        color: white;
+        font-family: 'luckiest guy';
+        font-size: 20px;
     }
 }
 
@@ -626,8 +748,8 @@ h3 {
     }
 
     .canvas-container {
-        width: 600px;
-        height: 268px;
+        width: 808px;
+        height: 312px;
     }
 
     .impressum {
@@ -662,7 +784,7 @@ h3 {
     .divImpressum {
         margin: 16px;
         padding: 16px;
-        height: 376px;
+        height: 354px;
         overflow: auto;
         justify-content: start;
     }
@@ -683,34 +805,32 @@ h3 {
     }
 }
 
+@media(min-width:1000px) {
+
+    .canvas-container {
+        height: 648px;
+        width: 919px;
+    }
+
+    .headLine {
+        font-size: 48px;
+    }
+
+    .startButton {
+        height: 78px;
+        width: 194px;
+        font-size: 4mm;
+    }
+}
+
 @media(min-width:1200px) {
 
     .canvas-container {
-        height: 600px;
-        width: 800px;
+        height: 764px;
+        width: 1200px;
     }
 
     .headLine {
         font-size: 72px;
     }
-}
-
-@media(min-width:1450px) {
-
-    .headLine {
-        font-size: 72px;
-    }
-}
-
-@media(min-width:1800px) {
-
-    .canvas-container {
-        height: 768px;
-        width: 1024px;
-    }
-
-    .headLine {
-        font-size: 72px;
-    }
-
 }
