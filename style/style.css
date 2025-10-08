@@ -7,7 +7,7 @@
 body {
     margin: 0;
     padding: 0;
-    
+
     background-image: url('./../assets/3.Background/Legacy/Dark/2.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -15,21 +15,31 @@ body {
     background-size: cover;
 }
 
+.canvas-wrap {
+    
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
 canvas {
-    position: absolute;
+    /* position: relative; */
     background-color: black;
-    /* width: 100%;
-    height: 100%; */
     display: block;
     
-
 }
+
+.bottomContainer{
+    width: 720px;
+}
+
 
 .buttons {
     z-index: 100;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    position: absolute;
+    top: 50%;
+
 }
 
 .overflow {
@@ -124,9 +134,21 @@ canvas {
     visibility: hidden;
 }
 
+.bottomContainer{
+    display: flex;
+    width: 720px;
+    justify-content: space-between;
+    align-items: center;
+}
+.bottom{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
 
 .aside {
-flex-direction: column;
+    flex-direction: column;
     display: flex;
 }
 
@@ -173,9 +195,6 @@ flex-direction: column;
     font-family: 'luckiest guy';
 }
 
-.index {
-    z-index: 150;
-}
 
 h1 {
     font-family: 'luckiest guy';
@@ -210,13 +229,7 @@ table {
     cursor: pointer;
 }
 
-.canvas-container {
-    position: relative;
-    /* width: 720px;
-    height: 480px; */
-    display: flex;
-    justify-content: center;
-}
+
 
 .help {
     width: 64px;
@@ -248,6 +261,8 @@ td {
     color: white;
     font-family: 'luckiest guy';
     font-size: 76px;
+    display: flex;
+    justify-content: center;
 }
 
 .buttonInformation:hover {
@@ -297,13 +312,7 @@ td {
 
 }
 
-.orga {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    /* height: 100vh; */
-}
+
 
 .pointer {
     cursor: pointer;
@@ -373,476 +382,21 @@ h3 {
 }
 
 .onCanvasFull {
-        height: 40px;
-        width: 40px;
-    }
-/* 
-@media(max-width:440px) {
-    .body {
-        overflow: hidden;
-        touch-action: manipulation;
-    }
+    height: 40px;
+    width: 40px;
+}
 
-    p {
-        font-size: 8px;
-    }
 
-    
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100vw;
 
-    .marTo24 {
-        margin: 0;
-    }
-
-    .headLine {
-        font-size: 24px;
-        margin: 8px;
-    }
-
-    .canvas-container {
-        width: 148px;
-        height: 90px;
-    }
-
-    .impressum {
-        font-size: 34px;
-        margin: 40px;
-    }
-
-    .orga {
-        height: 0;
-    }
-
-    .help {
-        width: 24px;
-        height: 24px;
-    }
-
-    .buttonInformation {
-        width: 24px;
-        height: 24px;
-    }
-
-    .soundButton {
-        width: 24px;
-        height: 24px;
-    }
-
-    .soundImg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .divImpressum {
-        margin: 16px;
-        padding: 16px;
-        height: 126px;
-        overflow: auto;
-        justify-content: start;
-        border-radius: 10px;
-    }
-
-    .inGameFullscreenBtn {
-        right: 2px;
-        position: absolute;
-        bottom: 2px;
-        background-color: rgba(0, 0, 0, 0.0);
-        border: none;
-        cursor: pointer;
-    }
-
-    .startButton {
-        border-width: 2mm;
-        border-radius: 48px;
-        height: 39px;
-        width: 88px;
-        font-size: 2mm;
-        z-index: 10;
-    }
-
-    .infoBlock {
-        margin: 6px;
-        padding: 8px;
-    }
-
-    .tableImages {
-        height: 32px;
-        padding: 6px;
-    }
-
-    table{
-        width: 544px;
-    height: 292px;
-    }
-
-    .impressumHeadline {
-        font-size: 24px;
-    }
-
-    .impressumButton {
-        font-size: 16px;
     }
 }
 
-@media(min-width:441px) {
-
-    .body {
-        overflow: hidden;
-        touch-action: manipulation;
-    }
-
-    p {
-        font-size: 14px;
-    }
-
-    
-
-    .marTo24 {
-        margin: 0;
-    }
-
-    .headLine {
-        font-size: 24px;
-        margin: 8px;
-    }
-
-    .canvas-container {
-        width: 444px;
-        height: 230px;
-    }
-
-    .impressum {
-        font-size: 34px;
-        margin: 40px;
-    }
-
-    .orga {
-        height: 0;
-    }
-
-    .help {
-        width: 24px;
-        height: 24px;
-    }
-
-    .buttonInformation {
-        width: 24px;
-        height: 24px;
-    }
-
-    .soundButton {
-        width: 24px;
-        height: 24px;
-    }
-
-    .soundImg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .divImpressum {
-        margin: 16px;
-        padding: 16px;
-                height: 236px;
-        overflow: auto;
-        justify-content: start;
-        border-radius: 10px;
-    }
-
-    .inGameFullscreenBtn {
-        right: 2px;
-        position: absolute;
-        bottom: 2px;
-        background-color: rgba(0, 0, 0, 0.0);
-        border: none;
-        cursor: pointer;
-    }
-
-    .startButton {
-        height: 78px;
-        width: 194px;
-        font-size: 4mm;
-    }
-
-    .infoBlock {
-        margin: 0px;
-        padding: 8px;
-    }
-
-    .tableImages {
-        height: 58px;
-        padding: 2px;
-    }
-
-    .impressumHeadline {
-        font-size: 24px;
-    }
-
-    .impressumButton {
-        font-size: 16px;
-    }
-    table{
-            height: 264px;
-    }
-}
-
-@media(min-width:600px) {
-
-    .body {
-        overflow: hidden;
-        touch-action: manipulation;
-    }
-
-    .headLine {
-        font-size: 36px;
-        margin: 8px;
-    }
-
-    .canvas-container {
-        width: 540px;
-        height: 204px;
-    }
-
-    .impressumButton {
-        color: white;
-        font-family: 'luckiest guy';
-        font-size: 16px;
-    }
-
-    .marTo24 {
-        margin-top: 0;
-    }
-
-    .orga {
-        height: 0;
-    }
-
-    .help {
-        width: 32px;
-        height: 32px;
-    }
-
-    .buttonInformation {
-        width: 32px;
-        height: 32px;
-    }
-
-    .soundButton {
-        width: 32px;
-        height:32px;
-    }
-
-    .soundImg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .divImpressum {
-        margin: 16px;
-        padding: 16px;
-                height: 268px;
-        overflow: auto;
-        justify-content: start;
-    }
-
-    .infoBlock {
-        margin: 16px;
-        padding: 8px;
-    }
-
-    .tableImages {
-        height: 72px;
-        padding: 6px;
-    }
-
-}
-
-@media(min-width:740px) {
-
-    .body {
-        overflow: hidden;
-        touch-action: manipulation;
-    }
-
-    .headLine {
-        font-size: 29px;
-        margin: 8px;
-
-    }
-
-    .canvas-container {
-                width: 632px;
-        height: 234px
-    }
-
-    .impressum {
-        font-size: 48px;
-        margin: 16px;
-    }
-
-    .orga {
-        height: 0;
-    }
-
-    .help {
-        width: 32px;
-        height: 32px;
-    }
-
-    .buttonInformation {
-        width: 32px;
-        height: 32px;
-    }
-
-    .soundButton {
-        width: 32px;
-        height: 32px;
-    }
-
-    .soundImg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .divImpressum {
-        margin: 16px;
-        padding: 16px;
-        
-        height: 300px;
-        overflow: auto;
-        justify-content: start;
-    }
-
-    .infoBlock {
-        margin: 16px;
-        padding: 8px;
-    }
-
-    .tableImages {
-        height: 72px;
-        padding: 6px;
-    }
-
-    .marTo24 {
-        margin-top: 8px;
-    }
-
-    .impressumButton {
-        color: white;
-        font-family: 'luckiest guy';
-        font-size: 20px;
-    }
-}
-
-@media(min-width:900px) {
-
-    .body {
-        overflow: hidden;
-        touch-action: manipulation;
-    }
-
-    .headLine {
-        font-size: 42px;
-        margin: 8px;
-    }
-
-    .canvas-container {
-        width: 780px;
-        height: 263px;
-    }
-
-    .impressum {
-        font-size: 38px;
-        margin: 8px;
-    }
-
-    .orga {
-        height: 0;
-    }
-
-    .help {
-        width: 36px;
-        height: 36px;;
-    }
-
-    .buttonInformation {
-        width: 36px;
-        height: 36px;;
-    }
-
-    .soundButton {
-        width: 36px;
-        height: 36px;
-    }
-
-    .soundImg {
-        width: 36px;
-        height: 36px;
-    }
-
-    .divImpressum {
-        margin: 16px;
-        padding: 16px;
-        height: 354px;
-        overflow: auto;
-        justify-content: start;
-    }
-
-    .infoBlock {
-        margin: 16px;
-        padding: 8px;
-    }
-
-    .tableImages {
-        height: 86px;
-        padding: 6px;
-    }
-
-    p {
-        font-size: 18px;
-        margin: 8px;
-    }
-}
-
-@media(min-width:1000px) {
-
-    .canvas-container {
-        height: 618px;
-        width: 919px;
-    }
-
-    .headLine {
-        font-size: 48px;
-    }
-
-    .startButton {
-        height: 78px;
-        width: 194px;
-        font-size: 4mm;
-    }
-}
-
-@media(min-width:1200px) {
-
-    .canvas-container {
-        height: 730px;
-        width: 1200px;
-    }
-
-    .headLine {
-        font-size: 72px;
-    }
-} */
-
-@media only screen and (max-width: 720px){
-    .aside{
-        width: 80vh;
-        
-    }
-}
-
-@media only screen and (max-height: 480px){
-    .aside{
+@media only screen and (max-height: 480px) {
+    canvas {
         height: 100vh;
-        
+
     }
 }

@@ -42,28 +42,26 @@
 
 <body id="body" onload="init()">
 
+    <portraitBlock class="blockPortrait d-none" id="portraitBlock">
+        <img class="blockImg" src="./GUI/Please_Landscape.png">
+    </portraitBlock>
 
     <dialogBG class="blockBg d-none" id="dialogBlock"></dialogBg>
 
     <div class="orga">
-
-        
         <h1 class="headLine" id="headline">Sharky the Game</h1>
+    </div>
 
-        
-<div class="aside">
-            <div>
-                <div id="content" class="canvas-container">
-                    <portraitBlock class="blockPortrait d-none" id="portraitBlock">
-                        <img class="blockImg" src="./GUI/Please_Landscape.png">
-                    </portraitBlock>
-                    <canvas id="canvas" width="720" height="480"></canvas>
-                    <div id="full"></div>
-                    <div id="buttons" class="buttons "></div>
-                </div>
-            </div>
+    <main class="">
+        <div id="content" class="canvas-wrap">
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <div id="full"></div>
+            <div id="buttons" class="buttons "></div>
+        </div>
+    </main>
 
-
+    <bottom class="bottom">
+        <div class="bottomContainer">
             <div class="column">
                 <button class="buttonInformation center" onclick="game.showinformation()">
                     <img class="help center" src="./GUI/info.svg">
@@ -71,17 +69,14 @@
                 <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton center">
                     <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">
                 </button>
-                
             </div>
 
+            <footer class="impressumButton marTo24">
+                <a class="pointer cleanLink" onclick="game.impressumTemplate()">Impressum</a>
+
+            </footer>
         </div>
-
-        <footer class="impressumButton marTo24">
-            <a class="pointer cleanLink" onclick="game.impressumTemplate()">Impressum</a>
-
-        </footer>
-    </div>
-
+    </bottom>
 </body>
 
 </html>
