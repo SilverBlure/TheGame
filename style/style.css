@@ -18,17 +18,12 @@ body {
     position: relative;
     justify-content: center;
     display: flex;
-    display: inline-block;
-    width: 80vw;
-    height: 80vh;
+    display: inline-block;    
 }
 
 canvas {
     background-color: black;
     display: block;
-    width: 80vw;
-    height: 80vh;
-    
 }
 
 .bottomContainer{
