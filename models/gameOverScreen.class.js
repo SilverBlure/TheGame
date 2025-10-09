@@ -53,7 +53,7 @@ class GameOverScreen extends DrawableObject {
      */
     addTryAgainButton() {
         this.flag = true;
-        this.buttons.classList.remove('buttons');
+        //this.buttons.classList.remove('buttons');
         this.buttons.innerHTML = `
                                 <button  class="startButton" id="button" onclick="game.resetGame()">Try Again</button>
                             `;

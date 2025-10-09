@@ -160,14 +160,11 @@ class GameController {
   renderGameFullscreenBTN() {
     if (game.state == "menue") {
       if (!returnFullscreen()) {
-        this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
       }
     }
     if (game.state == "game") {
       if (!returnFullscreen()) {
-        this.buttons.classList.remove('buttons');
-        this.buttons.classList.add('positionBottomRight');
         this.returnFullscreenButton();
       } else if(returnFullscreen()){
         this.buttons.innerHTML = '';
@@ -182,11 +179,11 @@ class GameController {
    */
   returnFullscreenButton() {
     return this.full.innerHTML = ` 
-        <div id="full" class="buttons">
+        
         <button class="inGameFullscreenBtn"  onclick="event.stopPropagation(), toggleFullscreen(content), game.renderGameFullscreenBTN">      
         <img class="onCanvasFull" src="GUI/fullscreenInGame.svg">
         </button>
-        </div>`;
+        `;
 
   }
 

@@ -52,9 +52,9 @@
         <h1 class="headLine" id="headline">Sharky the Game</h1>
     </div>
 
-    <main class="">
-        <div id="content" class="canvas-wrap">
-            <canvas id="canvas" width="720" height="480"></canvas>
+    <main class="center">
+        <div id="content" class="canvas-wrap center">
+            <canvas  id="canvas" width="720" height="480"></canvas>
             <div id="full"></div>
             <div id="buttons" class="buttons "></div>
         </div>
@@ -63,15 +63,15 @@
     <bottom class="bottom">
         <div class="bottomContainer">
             <div class="column">
-                <button class="buttonInformation center" onclick="game.showinformation()">
-                    <img class="help center" src="./GUI/info.svg">
+                <button class="buttonInformation" onclick="game.showinformation()">
+                    <img class="help" src="./GUI/info.svg">
                 </button>
-                <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton center">
-                    <img id="soundImg" class="soundImg" src="GUI\volumeOn.svg">
+                <button onclick="game.menue.sound.clickToggle()" id="sound" class="soundButton">
+                    <img id="soundImg" class="help" src="GUI\volumeOn.svg">
                 </button>
             </div>
 
-            <footer class="impressumButton marTo24">
+            <footer class="impressumButton">
                 <a class="pointer cleanLink" onclick="game.impressumTemplate()">Impressum</a>
 
             </footer>

@@ -37,7 +37,7 @@ addTryAgainButton(){
         this.flag = true;
         this.doc.classList.remove('buttons');
         this.doc.innerHTML += `
-                                <button  class="startButton" id="button" onclick="game.resetGame()">Try Again</button>
+                                <button  class="buttons" id="button" onclick="game.resetGame()">Try Again</button>
                             `;
     }
 
